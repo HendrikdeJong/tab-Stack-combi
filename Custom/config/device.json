@@ -1,0 +1,127 @@
+{
+    "devices": [
+      {
+        "id": "device_1",
+        "name": "DC Powercube 1",
+        "deviceClass": "battery",
+        "overviewConfig": {
+            "layout": {
+            "left": [
+                { "type": "text", "label": "State", "dataType": "generalDeviceState" },
+                { "type": "icon", "name": "battery" }
+            ],
+            "center": [
+                { "type": "text", "label": "AC Input Voltage", "dataType": "acInputVoltage" },
+                { "type": "text", "label": "DC Voltage", "dataType": "dcVoltage" }
+            ],
+            "right": [
+                { "type": "text", "label": "Battery Current", "dataType": "batteryCurrent" }
+            ]
+            },
+            "buttons": [
+            { "label": "Lim -", "action": "alert", "message": "setting limit DC Powercube..." },
+            { "label": "Info", "action": "navigate", "url": "ComponentOverviewScreen" },
+            { "label": "Lim +", "action": "alert", "message": "setting limit DC Powercube..." }
+            ]
+        },
+        "infoConfig": {
+            "tabs": [
+            {
+                "name": "Summary",
+                "dataConfig": [
+                { "label": "General Device State", "dataType": "generalDeviceState" },
+                { "label": "AC Input Voltage", "dataType": "acInputVoltage" },
+                { "label": "AC Input Current", "dataType": "acInputCurrent" },
+                { "label": "DC Voltage", "dataType": "dcVoltage" },
+                { "label": "Battery Current", "dataType": "batteryCurrent" }]
+            },
+            {
+                "name": "DC Connections",
+                "dataConfig": [
+                { "label": "DC Voltage", "dataType": "dcVoltage" },
+                { "label": "Battery Current", "dataType": "batteryCurrent" },
+                { "label": "Battery Current Limit", "dataType": "batteryCurrentLimit" },
+                { "label": "DC Output Load", "dataType": "dcOutputLoad" }]
+            },
+            {
+                "name": "AC Input",
+                "dataConfig": [
+                { "label": "AC Input Voltage", "dataType": "acInputVoltage" },
+                { "label": "AC Input Current", "dataType": "acInputCurrent" },
+                { "label": "AC Input Power", "dataType": "acInputPower" },
+                { "label": "AC Input Load", "dataType": "acInputLoad" }]
+            },
+            {
+                "name": "Temperature",
+                "dataConfig": [
+                { "label": "Battery Temperature Sensor", "dataType": "batteryTemperatureSensor" },
+                { "label": "Internal 1 Temperature Sensor", "dataType": "internal1TemperatureSensor" },
+                { "label": "Internal 2 Temperature Sensor", "dataType": "internal2TemperatureSensor" },
+                { "label": "Internal 3 Temperature Sensor", "dataType": "internal3TemperatureSensor" }]
+            }]
+        }
+      },
+      {
+        "id": "device_2",
+        "name": "Genverter",
+        "deviceClass": "home",
+        "overviewConfig": {
+            "layout": {
+            "left": [
+                { "type": "text", "label": "State", "dataType": "generalDeviceState" },
+                { "type": "icon", "name": "battery" }
+            ],
+            "center": [
+                { "type": "text", "label": "AC Input Voltage", "dataType": "acInputVoltage" },
+                { "type": "text", "label": "DC Voltage", "dataType": "dcVoltage" }
+            ],
+            "right": [
+                { "type": "text", "label": "Battery Current", "dataType": "batteryCurrent" }
+            ]
+            },
+            "buttons": [
+            { "label": "Start", "action": "alert", "message": "setting limit DC Powercube..." },
+            { "label": "Info", "action": "navigate", "url": "ComponentOverviewScreen" },
+            { "label": "Stop", "action": "alert", "message": "setting limit DC Powercube..." }
+            ]
+        },
+        "infoConfig": {
+            "tabs": [
+            {
+                "name": "Summary",
+                "dataConfig": [
+                { "label": "General Device State", "dataType": "generalDeviceState" },
+                { "label": "AC Input Voltage", "dataType": "acInputVoltage" },
+                { "label": "AC Input Current", "dataType": "acInputCurrent" },
+                { "label": "DC Voltage", "dataType": "dcVoltage" },
+                { "label": "Battery Current", "dataType": "batteryCurrent" }]
+            },
+            {
+                "name": "DC Connections",
+                "dataConfig": [
+                { "label": "DC Voltage", "dataType": "dcVoltage" },
+                { "label": "Battery Current", "dataType": "batteryCurrent" },
+                { "label": "Battery Current Limit", "dataType": "batteryCurrentLimit" },
+                { "label": "DC Output Load", "dataType": "dcOutputLoad" }]
+            },
+            {
+                "name": "AC Input",
+                "dataConfig": [
+                { "label": "AC Input Voltage", "dataType": "acInputVoltage" },
+                { "label": "AC Input Current", "dataType": "acInputCurrent" },
+                { "label": "AC Input Power", "dataType": "acInputPower" },
+                { "label": "AC Input Load", "dataType": "acInputLoad" }]
+            },
+            {
+                "name": "Temperature",
+                "dataConfig": [
+                { "label": "Battery Temperature Sensor", "dataType": "batteryTemperatureSensor" },
+                { "label": "Internal 1 Temperature Sensor", "dataType": "internal1TemperatureSensor" },
+                { "label": "Internal 2 Temperature Sensor", "dataType": "internal2TemperatureSensor" },
+                { "label": "Internal 3 Temperature Sensor", "dataType": "internal3TemperatureSensor" }]
+            }]
+        }
+      }
+    ]
+  }
+  
