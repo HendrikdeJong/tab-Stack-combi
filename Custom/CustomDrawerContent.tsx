@@ -4,7 +4,11 @@ import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawe
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from './Theme';
 
-const drawerCustomHeader = (props) => {
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
+
+interface CustomDrawerContentProps extends DrawerContentComponentProps {}
+
+const drawerCustomHeader = (props: CustomDrawerContentProps) => {
   const theme = useTheme();
   return (
     <DrawerContentScrollView {...props}>

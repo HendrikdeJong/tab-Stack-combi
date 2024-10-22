@@ -1,0 +1,278 @@
+{
+  "system": {
+    "name": "Gateway",
+    "devices": [
+      {
+        "ID": "DCPowercube1",
+        "title": "DC Powercube",
+        "class": "Battery Charger",
+        "status": "Bulk Charging",
+        "classIcon": "battery-charging",
+        "options": {
+          "label": "AC Input Limit",
+          "settingtype": "Limit",
+          "value": "230",
+          "maxvalue": "300",
+          "minvalue": "0",
+          "unit": "V"
+        },
+        "details": {
+          "summary": {
+            "table1": [
+              { "label": "AC Input Voltage", "value": "230", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ],
+            "table2": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]
+          },
+          "dcConnections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "acInput": [
+            { "label": "AC Input Voltage", "value": "230", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "temperature": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          ]
+        }
+      },
+      {
+        "ID": "DCPowercube2",
+        "title": "DC Powercube",
+        "class": "Battery Charger",
+        "status": "Bulk Charging",
+        "classIcon": "battery-charging",
+        "options": {
+          "label": "AC Input Limit",
+          "settingtype": "Limit",
+          "value": "230",
+          "maxvalue": "300",
+          "minvalue": "0",
+          "unit": "V"
+        },
+        "details": {
+          "summary": {
+            "table1": [
+              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ],
+            "table2": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]
+          },
+          "dcConnections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "acInput": [
+            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "temperature": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          ]
+        }
+      },
+      {
+        "ID": "DCPowercube4",
+        "title": "DC Powercube",
+        "class": "Battery Charger",
+        "status": "Bulk Charging",
+        "classIcon": "battery-charging",
+        "options": {
+          "label": "AC Input Limit",
+          "settingtype": "Limit",
+          "value": "120",
+          "maxvalue": "300",
+          "minvalue": "0",
+          "unit": "V"
+        },
+        "details": {
+          "summary": {
+            "table1": [
+              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ],
+            "table2": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]
+          },
+          "dcConnections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "acInput": [
+            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "temperature": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          ]
+        }
+      },
+      {
+        "ID": "DCPowercube5",
+        "title": "DC Powercube",
+        "class": "Battery Charger",
+        "status": "Bulk Charging",
+        "classIcon": "battery-charging",
+        "options": {
+          "label": "AC Input Limit",
+          "settingtype": "Limit",
+          "value": "120",
+          "maxvalue": "300",
+          "minvalue": "0",
+          "unit": "V"
+        },
+        "details": {
+          "summary": {
+            "table1": [
+              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ],
+            "table2": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]
+          },
+          "dcConnections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "acInput": [
+            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "temperature": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          ]
+        }
+      },
+      {
+        "ID": "DCPowercube6",
+        "title": "DC Powercube",
+        "class": "Battery Charger",
+        "status": "Bulk Charging",
+        "classIcon": "battery-charging",
+        "options": {
+          "label": "AC Input Limit",
+          "settingtype": "Limit",
+          "value": "120",
+          "maxvalue": "300",
+          "minvalue": "0",
+          "unit": "V"
+        },
+        "details": {
+          "summary": {
+            "table1": [
+              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ],
+            "table2": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]
+          },
+          "dcConnections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "acInput": [
+            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "temperature": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          ]
+        }
+      },
+      {
+        "ID": "DCPowercube7",
+        "title": "DC Powercube",
+        "class": "Battery Charger",
+        "status": "Bulk Charging",
+        "classIcon": "battery-charging",
+        "options": {
+          "label": "AC Input Limit",
+          "settingtype": "Limit",
+          "value": "120",
+          "maxvalue": "300",
+          "minvalue": "0",
+          "unit": "V"
+        },
+        "details": {
+          "summary": {
+            "table1": [
+              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ],
+            "table2": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]
+          },
+          "dcConnections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "acInput": [
+            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "temperature": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          ]
+        }
+      }
+    ]
+  }
+}
+  
