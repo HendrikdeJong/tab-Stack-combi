@@ -9,7 +9,7 @@ export default function DrawerLayout() {
   return (
     <GestureHandlerRootView style={{flex: 1,}}>
       <ThemeProvider>
-        <Drawer initialRouteName="(tabs)"
+        <Drawer initialRouteName="HomePage"
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
               headerStyle: { backgroundColor: theme.whisperGreen, },
@@ -23,10 +23,10 @@ export default function DrawerLayout() {
               drawerInactiveTintColor: theme.text ,
             }}>
               
-          <Drawer.Screen name="(tabs)" options={{ title: 'Home', drawerIcon: () => (<Ionicons name='home' size={30} color={theme.text}></Ionicons>)}} />
-          <Drawer.Screen name="demolib" options={{ title: 'Demo Library', drawerIcon: () => (<Ionicons name='library' size={30} color={theme.text} />) }} />
-          <Drawer.Screen name="settings" options={{ title: 'Settings', drawerIcon: () => (<Ionicons name='settings' size={30} color={theme.text} />) }} />
-          <Drawer.Screen name="alerts" options={{ title: 'Alerts', drawerIcon: () => (<Ionicons name='notifications' size={30} color={theme.text} />) }} />
+          <Drawer.Screen name="HomePage" options={{ title: 'Home', drawerIcon: () => (<Ionicons name='home' size={30} color={theme.text}/>)}}/>
+          <Drawer.Screen name="DemoLib" options={{ title: 'Demo Library', drawerIcon: () => (<Ionicons name='library' size={30} color={theme.text}/>)}}/>
+          <Drawer.Screen name="Settings" options={{ title: 'Settings', drawerIcon: () => (<Ionicons name='settings' size={30} color={theme.text}/>)}}/>
+          <Drawer.Screen name="Alerts" options={{ title: 'Alerts', drawerIcon: () => (<Ionicons name='notifications' size={30} color={theme.text}/>)}}/>
         </Drawer>
       </ThemeProvider>
     </GestureHandlerRootView>

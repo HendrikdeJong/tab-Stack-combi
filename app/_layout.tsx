@@ -22,10 +22,6 @@ export default function Layout() {
         }}
       >
         <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="ComponentOverviewScreen" options={{ title: 'Component Overview' }}/> */}
-        {/* <Stack.Screen name="Demo Library" options={{ title: 'Info Screen' }} /> */}
-        {/* <Stack.Screen name="settings" options={{ title: 'Setting Screen' }} />
-        <Stack.Screen name="alerts" options={{ title: 'Alert Screen' }} /> */}
       </Stack>
     </ThemeProvider>
   );

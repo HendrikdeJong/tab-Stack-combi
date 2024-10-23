@@ -1,32 +1,26 @@
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useTheme } from '../Custom/Theme';
 import { useNavigation } from '@react-navigation/native';
-import systemconfig from '../Custom/config/GatewayConfig.json';
+import systemconfig from '../Custom/GatewayConfig.json';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-export default function Overview () {
+const Tab = createMaterialTopTabNavigator();
+
+// Overview Content Component
+function OverviewContent() {
   const theme = useTheme();
   const { ID } = useLocalSearchParams<{ ID: string }>();
-  const navigation = useNavigation();
-  const [headerName, setHeaderName] = useState<string | null>(null);
   const [details, setDetails] = useState<any>({});
 
   useEffect(() => {
     const section = systemconfig.system.devices.find((item: any) => item.ID === ID);
     if (section) {
-      setHeaderName(section.title);
       setDetails(section.details);
     }
   }, [ID]);
-
-  useEffect(() => {
-    if (headerName) {
-      navigation.setOptions({
-        headerTitle: headerName,
-      });
-    }
-  }, [headerName, navigation]);
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
@@ -50,7 +44,8 @@ export default function Overview () {
                   <View key={subIdx} style={styles.itemContainer}>
                     <Text style={[styles.label, { color: theme.text }]}>{item.label}</Text>
                     <View style={styles.valueContainer}>
-                      <Text style={[styles.value, { color: theme.text }]}>{item.value}</Text><Text style={[styles.unit, { color: theme.text }]}>{item.unit}</Text>
+                      <Text style={[styles.value, { color: theme.text }]}>{item.value}</Text>
+                      <Text style={[styles.unit, { color: theme.text }]}>{item.unit}</Text>
                     </View>
                   </View>
                 ))}
@@ -60,6 +55,67 @@ export default function Overview () {
         </View>
       ))}
     </ScrollView>
+  );
+}
+
+// Settings Screen Component
+function SettingsScreen() {
+  const theme = useTheme();
+
+  return (
+    <View style={[styles.screenContainer,{backgroundColor: theme.background}]}>
+      <Text style={[styles.screenText,{color: theme.text}]}>Settings Screen</Text>
+    </View>
+  );
+}
+
+// Alerts Screen Component
+function AlertsScreen() {
+  const theme = useTheme();
+
+  return (
+    <View style={[styles.screenContainer,{backgroundColor: theme.background}]}>
+      <Text style={[styles.screenText,{color: theme.text}]}>Alarms/Alerts Screen</Text>
+    </View>
+  );
+}
+
+// Main Component with Top Tab Navigator
+export default function DevicesOverview() {
+  const theme = useTheme();
+  const { ID } = useLocalSearchParams<{ ID: string }>();
+  const navigation = useNavigation();
+  const [headerName, setHeaderName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const section = systemconfig.system.devices.find((item: any) => item.ID === ID);
+    if (section) {
+      setHeaderName(section.title);
+    }
+  }, [ID]);
+
+  useEffect(() => {
+    if (headerName) {
+      navigation.setOptions({
+        headerTitle: headerName,
+      });
+    }
+  }, [headerName, navigation]);
+
+  return (
+    <Tab.Navigator
+      initialRouteName="OverviewContent"
+      screenOptions={{
+        tabBarStyle: { backgroundColor: theme.whisperGreen },
+        tabBarActiveTintColor: theme.whiteText,
+        tabBarInactiveTintColor: theme.whiteText,
+        tabBarLabelStyle: { fontWeight: 'bold' },
+        tabBarIndicatorStyle: { backgroundColor: theme.text, height: 3 },
+      }}>
+      <Tab.Screen name="OverviewContent" component={OverviewContent} options={{ title: 'Overview' }}/>
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
+      <Tab.Screen name="Alerts" component={AlertsScreen} options={{ title: 'Alerts' }} />
+    </Tab.Navigator>
   );
 }
 
@@ -92,14 +148,20 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 20,
     fontWeight: 'bold',
-
   },
   unit: {
     fontSize: 16,
     alignSelf: 'flex-end',
     marginLeft: 2,
     fontWeight: 'bold',
-
+  },
+  screenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  screenText: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
-

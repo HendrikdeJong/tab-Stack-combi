@@ -1,11 +1,14 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { useTheme } from '../../../Custom/Theme';
+import { View, Text, ScrollView, StyleSheet} from 'react-native';
+import { Link } from 'expo-router';
+import { useTheme } from '../../Custom/Theme';
+import { useEffect, useState } from 'react';
 
-export default function GatewayCloud() {
+export default function GatewayLocal() {
   const theme = useTheme();
+  
   return (
     <ScrollView contentContainerStyle={[styles.scrollView, { backgroundColor: theme.background }]}>
-        <Text style={[styles.title, { color: theme.text }]}>Cloud view for octo control pro?</Text>
+        <Text style={[styles.title, { color: theme.text }]}>card view for gateway</Text>
     </ScrollView>
   );
 }

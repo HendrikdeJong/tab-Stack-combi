@@ -49,7 +49,7 @@
       },
       {
         "ID": "DCPowercube2",
-        "title": "DC Powercube",
+        "title": "DC Powercube variant 2",
         "class": "Battery Charger",
         "status": "Bulk Charging",
         "classIcon": "battery-charging",

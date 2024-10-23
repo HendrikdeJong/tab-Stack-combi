@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from './Theme';
 import { router } from 'expo-router';
-import systemconfig from '../Custom/config/GatewayConfig.json';
+import systemconfig from '../Custom/GatewayConfig.json';
 
 interface DynamicCardProps {
   ID: string;
