@@ -14,7 +14,7 @@ const drawerCustomHeader = (props: CustomDrawerContentProps) => {
     <DrawerContentScrollView {...props}>
       <View style={[styles.drawerHeader, { backgroundColor: theme.whisperGreen }]}>
         <Image
-          source={require('../assets/WpLogo2.png')}
+          source={require('../../assets/WpLogo2.png')}
           style={[styles.headerImage, { tintColor: theme.whiteText }]}
         />
 

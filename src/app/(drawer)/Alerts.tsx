@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '../../Custom/Theme';
+import { useTheme } from '../../Components/Theme';
 
 type Priority = 'critical' | 'warning' | 'information';
 const priorityOrder = { 'critical': 1, 'warning': 2, 'information': 3 };
@@ -52,7 +52,7 @@ export default function Alerts(){
   });
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={styles.container}>
       {/* HEADER */}
       <View style={[styles.headerContainer, { backgroundColor: theme.card }]}>      
         <Text style={[styles.headerText, { color: theme.text }]}>Gateway alert list</Text> 

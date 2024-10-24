@@ -11,10 +11,10 @@
         "options": {
           "label": "AC Input Limit",
           "settingtype": "Limit",
-          "value": "230",
-          "maxvalue": "300",
-          "minvalue": "0",
-          "unit": "V"
+          "value": "8",
+          "maxvalue": "16",
+          "minvalue": "2",
+          "unit": "A"
         },
         "details": {
           "summary": {

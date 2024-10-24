@@ -1,14 +1,19 @@
 import { View, Text, ScrollView, StyleSheet} from 'react-native';
 import { Link } from 'expo-router';
-import { useTheme } from '../../Custom/Theme';
+import { useTheme } from '../../Components/Theme';
 import { useEffect, useState } from 'react';
+import systemconfig from '../../../DummyData/GatewayConfig.json';
+import ComponentCard from '../../Components/ComponentCard';
+
 
 export default function GatewayLocal() {
   const theme = useTheme();
-  
+  const devices = systemconfig.system.devices;
   return (
-    <ScrollView contentContainerStyle={[styles.scrollView, { backgroundColor: theme.background }]}>
-        <Text style={[styles.title, { color: theme.text }]}>card view for gateway</Text>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      {devices.map((device) => (
+          <ComponentCard key={device.ID} ID={device.ID} />
+        ))}
     </ScrollView>
   );
 }

@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { useTheme } from '../Custom/Theme';
+import { useTheme } from '../Components/Theme';
 import { useNavigation } from '@react-navigation/native';
-import systemconfig from '../Custom/GatewayConfig.json';
+import systemconfig from '../../DummyData/GatewayConfig.json';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();

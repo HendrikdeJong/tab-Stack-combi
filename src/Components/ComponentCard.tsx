@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from './Theme';
+import { useTheme } from '../Components/Theme';
 import { router } from 'expo-router';
-import systemconfig from '../Custom/GatewayConfig.json';
+import systemconfig from '../../DummyData/GatewayConfig.json';
 
 interface DynamicCardProps {
   ID: string;
@@ -31,23 +31,25 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
   const hasSettings = cardData.options && Object.keys(cardData.options).length > 0;
 
   return (
-    <View style={[styles.card, { backgroundColor: theme.card }]}>
+    <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
+
+      
       {/* Header segment */}
-      <View style={[styles.header, { backgroundColor: theme.whisperGreen }]}>
-        <Ionicons name={cardData.classIcon as any} style={styles.headericons} color={theme.whiteText} />
-        <View>
-          <Text style={[styles.type, { color: theme.whiteText, borderColor: theme.selected }]}>
+      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
+        <Ionicons name={cardData.classIcon as any} style={styles.headerIconStyle} color={theme.whiteText} />
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.deviceType, { color: theme.whiteText, borderColor: theme.selected }]}>
             {cardData.class}
           </Text>
-          <Text style={[styles.Title, { color: theme.selected }]}>
+          <Text style={[styles.deviceTitle, { color: theme.selected }]}>
             {cardData.title}
           </Text>
         </View>
-        <Ionicons name='warning' style={styles.headericons} color={theme.whiteText} />
+        <Ionicons name='warning' style={styles.headerIconStyle} color={theme.whiteText} />
       </View>
 
       {/* Enclosed Main Content */}
-      <View style={styles.contentContainer}>
+      <View style={{paddingBottom: 10,}}>
         {/* Status Segment */}
         <View style={styles.status}>
           <Text style={[styles.buttonText, { color: theme.text }]}>{cardData.status}</Text>
@@ -55,19 +57,19 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
 
        {/* Main segment */}
         <View style={styles.layout}>
-          <View style={styles.layoutChild}>
-            <Text style={[styles.type, { color: theme.border }]}>AC Input</Text>
+          <View style={styles.layoutItem}>
+            <Text style={[styles.deviceType, { color: theme.border }]}>AC Input</Text>
             {cardData.details.summary.table1.map((value, idx) => (
               <Text key={idx} style={[styles.text, { color: theme.text }]}>
                 {value.value}<Text style={styles.unit}>{value.unit}</Text>
               </Text>
             ))}
           </View>
-          <View style={styles.layoutChild}>
+          <View style={styles.layoutItem}>
             <Ionicons name={cardData.classIcon as any} size={100} color={theme.invertbackground} />
           </View>
-          <View style={styles.layoutChild}>
-            <Text style={[styles.type, { color: theme.border }]}>DC Output</Text>
+          <View style={styles.layoutItem}>
+            <Text style={[styles.deviceType, { color: theme.border }]}>DC Output</Text>
             {cardData.details.summary.table2.map((value, idx) => (
               <Text key={idx} style={[styles.text, { color: theme.text }]}>
                 {value.value}<Text style={styles.unit}>{value.unit}</Text>
@@ -120,23 +122,29 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
 };
 
 const styles = StyleSheet.create({
-  card: {
+  cardContainer: {
     margin: 15,
     borderRadius: 8,
     minWidth: 300,
     maxWidth: 500,
   },
-  header: {
-    width: '100%',
+  headerWrapper: {
+    flex: 1,
     paddingVertical: 10,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
-  headericons: {
-    fontSize: 50,
+  headerIconStyle: {
     marginHorizontal: 10,
+    fontSize: 50,
+  },
+  deviceType: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  deviceTitle: {
+    fontSize: 24,
   },
   unit: {
     fontSize: 14,
@@ -157,26 +165,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '100%',
   },
-  layoutChild: {
+  layoutItem: {
     width: '33%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  Title: {
-    fontSize: 24,
-  },
-  type: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+ 
   text: {
     fontSize: 24,
     fontWeight: 'bold',
   },
-  contentContainer: {
-    flex: 1,
-    paddingBottom: 10,
-  },
+  
   buttonContainer: {
     flexDirection: 'row',
     marginTop: 15,

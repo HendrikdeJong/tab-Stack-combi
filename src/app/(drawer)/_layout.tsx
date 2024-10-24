@@ -1,6 +1,6 @@
 import { Drawer } from 'expo-router/drawer';
-import { ThemeProvider, useTheme } from '../../Custom/Theme';
-import CustomDrawerContent from '../../Custom/CustomDrawerContent';
+import { ThemeProvider, useTheme } from '../../Components/Theme';
+import CustomDrawerContent from '../../Components/CustomDrawerContent';
 import { Ionicons } from '@expo/vector-icons';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -9,7 +9,7 @@ export default function DrawerLayout() {
   return (
     <GestureHandlerRootView style={{flex: 1,}}>
       <ThemeProvider>
-        <Drawer initialRouteName="HomePage"
+        <Drawer initialRouteName="index"
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
               headerStyle: { backgroundColor: theme.whisperGreen, },
@@ -23,8 +23,8 @@ export default function DrawerLayout() {
               drawerInactiveTintColor: theme.text ,
             }}>
               
-          <Drawer.Screen name="HomePage" options={{ title: 'Home', drawerIcon: () => (<Ionicons name='home' size={30} color={theme.text}/>)}}/>
-          <Drawer.Screen name="DemoLib" options={{ title: 'Demo Library', drawerIcon: () => (<Ionicons name='library' size={30} color={theme.text}/>)}}/>
+          <Drawer.Screen name="index" options={{ title: 'Home', drawerIcon: () => (<Ionicons name='home' size={30} color={theme.text}/>)}}/>
+          {/* <Drawer.Screen name="DemoLib" options={{ title: 'Demo Library', drawerIcon: () => (<Ionicons name='library' size={30} color={theme.text}/>)}}/> */}
           <Drawer.Screen name="Settings" options={{ title: 'Settings', drawerIcon: () => (<Ionicons name='settings' size={30} color={theme.text}/>)}}/>
           <Drawer.Screen name="Alerts" options={{ title: 'Alerts', drawerIcon: () => (<Ionicons name='notifications' size={30} color={theme.text}/>)}}/>
         </Drawer>

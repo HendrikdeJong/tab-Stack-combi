@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "tab-Stack-combi",
-    "slug": "tab-Stack-combi",
+    "name": "Whisperlink",
+    "slug": "Whisperpower-link-app",
     "version": "1.0.0",
     "scheme": "your-app-scheme",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-1024x1024.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
@@ -23,7 +23,7 @@
       "package": "com.hendrikdejong.tabStackcombi"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon-1024x1024.png"
     },
     "plugins": [
       "expo-router"

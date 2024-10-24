@@ -1,10 +1,10 @@
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { useTheme } from '../../Custom/Theme';
+import { useTheme } from '../../Components/Theme';
 
 export default function settings() {
   const theme = useTheme();
   return (
-    <ScrollView contentContainerStyle={[styles.scrollView, { backgroundColor: theme.background }]}>
+    <ScrollView contentContainerStyle={styles.scrollView}>
       <Text style={[styles.title, { color: theme.text }]}>settings screen</Text>
     </ScrollView>
   );
