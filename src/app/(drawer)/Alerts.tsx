@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '../../Components/Theme';
+import { useTheme } from '../../Styling/Theme';
+import gatewayConfig from '../../../DummyData/GatewayConfig.json';
 
-type Priority = 'critical' | 'warning' | 'information';
-const priorityOrder = { 'critical': 1, 'warning': 2, 'information': 3 };
+type Alarm = {
+  priority: 'critical' | 'warning' | 'information';
+  description: string;
+  deviceTitle: string;
+};
 
-const Alertsjson: { instance: string; priority: Priority; device: string; description: string; }[] = [
-  { instance: '512', priority: 'critical' ,  device: 'Battery Monitor',description: 'Low voltage'},
-  { instance: '515', priority: 'warning',    device: 'Battery Monitor',description: 'High voltage'},
-  { instance: '513', priority: 'warning',    device: 'Solar Panel',    description: 'Overheating'},
-  { instance: '514', priority: 'critical',   device: 'Inverter',       description: 'Short Circuit'},
-  { instance: '516', priority: 'information',device: 'Generator',      description: 'Fuel Low'},
-];
+const alarms: Alarm[] = gatewayConfig.system.devices.flatMap(device => 
+  device.Alarms.map(alarm => ({
+    ...alarm,
+    priority: alarm.priority as 'critical' | 'warning' | 'information',
+    deviceTitle: device.title
+  }))
+);
 
-export default function Alerts(){
+const priorityOrder = { critical: 1, warning: 2, information: 3 };
+
+export default function Alerts() {
   const theme = useTheme();
-  const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
-  const [sortCriteria, setSortCriteria] = useState('priority');
+  const [sortCriteria, setSortCriteria] = useState<'deviceTitle' | 'priority'>('priority');
+  const [sortedData, setSortedData] = useState<Alarm[]>([]);
 
+  useEffect(() => {
+    const sorted = [...alarms].sort((a, b) => {
+      switch (sortCriteria) {
+        case 'deviceTitle':
+          return a.deviceTitle.localeCompare(b.deviceTitle);
+        case 'priority':
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+        default:
+          return 0;
+      }
+    });
+    setSortedData(sorted);
+  }, [sortCriteria]);
 
-  const toggleExpand = (instance: string) => {
-    setExpanded((prev) => ({ ...prev, [instance]: !prev[instance] }));
-  };
-
-  const mapPriorityToIcon = (priority: Priority) => {
+  const mapPriorityToIcon = (priority: string) => {
     switch (priority) {
       case 'critical':
         return { name: 'warning', color: 'red' };
@@ -38,54 +53,42 @@ export default function Alerts(){
     }
   };
 
-
-
-  const sortedData = Alertsjson.sort((a, b) => {
-    switch (sortCriteria) {
-      case 'Device':
-        return a.device.localeCompare(b.device);
-      case 'priority':
-        return priorityOrder[a.priority as Priority] - priorityOrder[b.priority as Priority];
-      default:
-        return 0;
-    }
-  });
-
   return (
     <View style={styles.container}>
       {/* HEADER */}
       <View style={[styles.headerContainer, { backgroundColor: theme.card }]}>      
-        <Text style={[styles.headerText, { color: theme.text }]}>Gateway alert list</Text> 
-        <Text style={[styles.headerText, { color: theme.text,}]}>Sort by: {['Device', 'priority'].map((criteria) => ( 
-          <TouchableOpacity key={criteria} style={[styles.sortOption, { backgroundColor: sortCriteria === criteria ? theme.whisperGreen : theme.border }]} 
-            onPress={() => { setSortCriteria(criteria)}}>
-            <Text style={[styles.headerText, { color: theme.text }]}>{criteria}</Text>
-          </TouchableOpacity>
+        {/* <Text style={[styles.headerText, { color: theme.text }]}></Text> */}
+        <View style={styles.sortSelector}>
+          <Text style={[styles.headerText, { color: theme.text }]}>Sort by: </Text>
+          {['device', 'priority'].map((criteria) => (
+            <TouchableOpacity 
+              key={criteria} 
+              style={[styles.sortOption, { backgroundColor: sortCriteria === criteria ? theme.whisperGreen : theme.border }]} 
+              onPress={() => setSortCriteria(criteria as 'deviceTitle' | 'priority')}
+            >
+              <Text style={[styles.headerText, { color: theme.text }]}>{criteria}</Text>
+            </TouchableOpacity>
           ))}
-        </Text>
+        </View>
       </View>
       {/* LIST */}
-      <FlatList data={sortedData} keyExtractor={(item) => item.instance} renderItem={({ item }) => (
+      <FlatList 
+        data={sortedData} 
+        keyExtractor={(item) => `${item.deviceTitle}-${item.description}`} 
+        renderItem={({ item }) => (
           <View style={[styles.listitemContainer, { backgroundColor: theme.border }]}>
-            {/* <TouchableOpacity onPress={() => toggleExpand(item.instance)} style={styles.listitemContainer}>               */}
-                <View style={styles.alertItem}>
-                  <Ionicons style={styles.alertIcon} name={mapPriorityToIcon(item.priority).name as any} color={mapPriorityToIcon(item.priority).color} />
-                  <Text style={[styles.alertText, { color: theme.text }]}>{item.device}</Text>
-                  <Text style={[styles.alertText, { color: theme.text }]}>{item.description}</Text>
-                  {/* <TouchableOpacity onPress={() => toggleExpand(item.instance)} style={{}}><Ionicons style={styles.alertIcon} name={"menu"}/></TouchableOpacity> */}
-                </View>
-            {/* </TouchableOpacity> */}
-            {/* <Collapsible collapsed={!expanded[item.instance]} style={{ backgroundColor: theme.border }}>
-              <View style={styles.expandedItem}>                
-                <Text style={[styles.expandedText, { color: theme.text }]}>Started at:</Text>
-              </View>
-            </Collapsible> */}
+            <View style={styles.ItemContainer}>
+              
+              <Text style={[styles.alertText, { color: theme.text }]}><Ionicons style={styles.alertIcon} name={mapPriorityToIcon(item.priority).name as any} color={mapPriorityToIcon(item.priority).color}/>{item.deviceTitle}: {item.description}</Text>
+              {/* <Text style={[styles.alertText, { color: theme.text }]}>{item.deviceTitle}</Text>
+              <Text style={[styles.alertText, { color: theme.text }]}>{item.description}</Text> */}
+            </View>
           </View>
         )}
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     overflow: 'hidden',
   },
-  alertItem: {
+  ItemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
@@ -140,6 +143,7 @@ const styles = StyleSheet.create({
   alertIcon: {
     fontSize: 20,
     marginRight: 5,
+    textAlignVertical: 'center',
   },
   expandedItem: {
     padding: 10,

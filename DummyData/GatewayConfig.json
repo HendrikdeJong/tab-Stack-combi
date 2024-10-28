@@ -3,272 +3,224 @@
     "name": "Gateway",
     "devices": [
       {
-        "ID": "DCPowercube1",
+        "ID": "DCPC1",
         "title": "DC Powercube",
-        "class": "Battery Charger",
+        "class": "battery-charger",
+        "classIcon": "home-lightning-bolt",
         "status": "Bulk Charging",
-        "classIcon": "battery-charging",
-        "options": {
-          "label": "AC Input Limit",
-          "settingtype": "Limit",
-          "value": "8",
-          "maxvalue": "16",
-          "minvalue": "2",
-          "unit": "A"
-        },
-        "details": {
-          "summary": {
-            "table1": [
-              { "label": "AC Input Voltage", "value": "230", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
-            ],
-            "table2": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
+        "Alarms":[
+          {
+            "priority": "critical",
+            "description": "Low voltage"
+          },
+          {
+            "priority": "warning",
+            "description": "High temperature"
+          },
+          {
+            "priority": "information",
+            "description": "test alarm 1"
+          },
+          {
+            "priority": "warning",
+            "description": "test alarm 2"
+          },
+          {
+            "priority": "critical",
+            "description": "test alarm 3"
+          },
+          {
+            "priority": "critical",
+            "description": "test alarm 4"
+          }
+        ],
+        "Settings": [
+          {
+            "label": "AC Current input Limit",
+            "settingtype": "Limit",
+            "value": "8",
+            "maxvalue": "16",
+            "minvalue": "2",
+            "unit": "A",
+            "buttons": [
+              { "name": "Increase", "value": "+" },
+              { "name": "Decrease", "value": "-" }
             ]
           },
-          "dcConnections": [
+          {
+            "label": "Generator input Limit",
+            "settingtype": "Limit",
+            "value": "2",
+            "maxvalue": "150",
+            "minvalue": "2",
+            "unit": "A",
+            "buttons": [
+              { "name": "Increase", "value": "+" },
+              { "name": "Decrease", "value": "-" }
+            ]
+          },
+          {
+            "label": "DC Output Limit",
+            "settingtype": "Limit",
+            "value": "2",
+            "maxvalue": "16",
+            "minvalue": "2",
+            "unit": "A",
+            "buttons": [
+              { "name": "Increase", "value": "+" },
+              { "name": "Decrease", "value": "-" }
+            ]
+          },
+          {
+            "label": "Generator state",
+            "settingtype": "Button",
+            "value": "Start",
+            "minvalue": "",
+            "maxvalue": "",
+            "unit": "",
+            "buttons": [
+              { "name": "Start", "value": "Start Generator" },
+              { "name": "Stop", "value": "Stop Generator" }
+            ]
+          }
+        ],
+        "Specifications": {
+          "summary": [
+            {"AC input": [
+              { "label": "AC Input Voltage", "value": "230", "unit": "V" },
+              { "label": "AC Input Current", "value": "4", "unit": "A" }
+            ]},
+            {
+              "classicon": ""
+            },
+            {"Dc Input": [
+              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+              { "label": "Battery Current", "value": "70", "unit": "A" }
+            ]}
+          ],
+          "Dc Connections": [
             { "label": "DC Voltage", "value": "24.4", "unit": "V" },
             { "label": "Battery Current", "value": "70", "unit": "A" },
             { "label": "Battery Current Limit", "value": "10", "unit": "A" },
             { "label": "DC Output Load", "value": "20", "unit": "%" }
           ],
-          "acInput": [
+          "AC Input": [
             { "label": "AC Input Voltage", "value": "230", "unit": "V" },
             { "label": "AC Input Current", "value": "4", "unit": "A" },
             { "label": "AC Input Power", "value": "20", "unit": "W" },
             { "label": "AC Input Load", "value": "12", "unit": "%" }
           ],
-          "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          "Temperatures": [
+            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "°C" },
+            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "°C" },
+            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "°C" },
+            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "°C" }
           ]
         }
       },
       {
-        "ID": "DCPowercube2",
-        "title": "DC Powercube variant 2",
-        "class": "Battery Charger",
-        "status": "Bulk Charging",
-        "classIcon": "battery-charging",
-        "options": {
-          "label": "AC Input Limit",
-          "settingtype": "Limit",
-          "value": "230",
-          "maxvalue": "300",
-          "minvalue": "0",
-          "unit": "V"
-        },
-        "details": {
-          "summary": {
-            "table1": [
-              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
-            ],
-            "table2": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
-            ]
-          },
-          "dcConnections": [
-            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-            { "label": "Battery Current", "value": "70", "unit": "A" },
-            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
-            { "label": "DC Output Load", "value": "20", "unit": "%" }
+        "ID": "BM1",
+        "title": "Battery Monitor 1",
+        "class": "battery-medium",
+        "classIcon": "battery",
+        "status": "Operational",
+        "Alarms":[],
+        "Settings": [],
+        "Specifications": {
+          "summary": [
+            {"State of Charge": [
+              { "label": "Battery SOC", "value": "86", "unit": "%" },
+              { "label": "Time remaining", "value": "37", "unit": "minutes" }
+            ]},
+            {
+              "classicon": ""
+            },
+            {"Battery": [
+              { "label": "DC Battery Voltage", "value": "12.7", "unit": "VDC" },
+              { "label": "Battery current", "value": "-12.0", "unit": "A" }
+            ]}
           ],
-          "acInput": [
-            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-            { "label": "AC Input Current", "value": "4", "unit": "A" },
-            { "label": "AC Input Power", "value": "20", "unit": "W" },
-            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          "Functional State": [
+            { "label": "Battery charging state", "value": "discharging"}
+          ],
+          "Extended State": [
+            { "label": "Generator request", "value": "No Request"}
+          ],
+          "Digital IO": [
+            { "label": "Digital output 1 state", "value": "Inactive"},
+            { "label": "Digital output 2 state", "value": "Active"}
+          ],
+          "Battery": [
+            { "label": "Battery SOC", "value": "86", "unit": "%" },
+            { "label": "DC Battery Voltage", "value": "12.7", "unit": "VDC" },
+            { "label": "Battery current", "value": "-12.0", "unit": "A" },
+            { "label": "Time remaining", "value": "37", "unit": "minutes" },
+            { "label": "Battery capacity drawn", "value": "54", "unit": "Ah" },
+            { "label": "Peukert capacity remaining", "value": "17", "unit": "Ah" }
           ],
           "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+            { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
           ]
         }
       },
       {
-        "ID": "DCPowercube4",
-        "title": "DC Powercube",
-        "class": "Battery Charger",
-        "status": "Bulk Charging",
-        "classIcon": "battery-charging",
-        "options": {
-          "label": "AC Input Limit",
-          "settingtype": "Limit",
-          "value": "120",
-          "maxvalue": "300",
-          "minvalue": "0",
-          "unit": "V"
-        },
-        "details": {
-          "summary": {
-            "table1": [
-              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
-            ],
-            "table2": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
+        "ID": "DDC-GV1",
+        "title": "Generator 1",
+        "class": "generator",
+        "classIcon": "engine",
+        "status": "Running",
+        "Alarms":[
+          {
+            "priority": "warning",
+            "description": "Generator fuel low"
+          }
+        ],
+        "Settings": [
+          {
+            "label": "Generator state",
+            "settingtype": "Button",
+            "value": "Start",
+            "minvalue": "",
+            "maxvalue": "",
+            "unit": "",
+            "buttons": [
+              { "name": "Start", "value": "Start Generator" },
+              { "name": "Stop", "value": "Stop Generator" }
             ]
-          },
-          "dcConnections": [
-            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-            { "label": "Battery Current", "value": "70", "unit": "A" },
-            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
-            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          }
+        ],
+        "Specifications": {
+          "summary": [
+            {"Generator": [
+              { "label": "Rpm", "value": "2300", "unit": "RPM" },
+              { "label": "starterBatteryVoltage", "value": "13", "unit": "VDC" }
+            ]},
+            {
+              "classicon": ""
+            },
+            {"AC Output": [
+              { "label": "DC Battery Voltage", "value": "12.7", "unit": "VDC" },
+              { "label": "Battery current", "value": "-12.0", "unit": "A" }
+            ]}
           ],
-          "acInput": [
-            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-            { "label": "AC Input Current", "value": "4", "unit": "A" },
-            { "label": "AC Input Power", "value": "20", "unit": "W" },
-            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          "Functional State": [
+            { "label": "DDC state", "value": "running"},
+            { "label": "Engine started by", "value": "remote"}
           ],
-          "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
-          ]
-        }
-      },
-      {
-        "ID": "DCPowercube5",
-        "title": "DC Powercube",
-        "class": "Battery Charger",
-        "status": "Bulk Charging",
-        "classIcon": "battery-charging",
-        "options": {
-          "label": "AC Input Limit",
-          "settingtype": "Limit",
-          "value": "120",
-          "maxvalue": "300",
-          "minvalue": "0",
-          "unit": "V"
-        },
-        "details": {
-          "summary": {
-            "table1": [
-              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
-            ],
-            "table2": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
-            ]
-          },
-          "dcConnections": [
-            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-            { "label": "Battery Current", "value": "70", "unit": "A" },
-            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
-            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          "Engine": [
+            { "label": "Rpm", "value": "2300", "unit": "RPM" },
+            { "label": "starterBatteryVoltage", "value": "13", "unit": "VDC" },
+            { "label": "startsSuccesfull", "value": "13"},
+            { "label": "startsFailed", "value": "0"}
           ],
-          "acInput": [
-            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-            { "label": "AC Input Current", "value": "4", "unit": "A" },
-            { "label": "AC Input Power", "value": "20", "unit": "W" },
-            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          "Temperature": [
+            { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
           ],
-          "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
-          ]
-        }
-      },
-      {
-        "ID": "DCPowercube6",
-        "title": "DC Powercube",
-        "class": "Battery Charger",
-        "status": "Bulk Charging",
-        "classIcon": "battery-charging",
-        "options": {
-          "label": "AC Input Limit",
-          "settingtype": "Limit",
-          "value": "120",
-          "maxvalue": "300",
-          "minvalue": "0",
-          "unit": "V"
-        },
-        "details": {
-          "summary": {
-            "table1": [
-              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
-            ],
-            "table2": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
-            ]
-          },
-          "dcConnections": [
-            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-            { "label": "Battery Current", "value": "70", "unit": "A" },
-            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
-            { "label": "DC Output Load", "value": "20", "unit": "%" }
-          ],
-          "acInput": [
-            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-            { "label": "AC Input Current", "value": "4", "unit": "A" },
-            { "label": "AC Input Power", "value": "20", "unit": "W" },
-            { "label": "AC Input Load", "value": "12", "unit": "%" }
-          ],
-          "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
-          ]
-        }
-      },
-      {
-        "ID": "DCPowercube7",
-        "title": "DC Powercube",
-        "class": "Battery Charger",
-        "status": "Bulk Charging",
-        "classIcon": "battery-charging",
-        "options": {
-          "label": "AC Input Limit",
-          "settingtype": "Limit",
-          "value": "120",
-          "maxvalue": "300",
-          "minvalue": "0",
-          "unit": "V"
-        },
-        "details": {
-          "summary": {
-            "table1": [
-              { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
-            ],
-            "table2": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
-            ]
-          },
-          "dcConnections": [
-            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-            { "label": "Battery Current", "value": "70", "unit": "A" },
-            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
-            { "label": "DC Output Load", "value": "20", "unit": "%" }
-          ],
-          "acInput": [
-            { "label": "AC Input Voltage", "value": "120", "unit": "V" },
-            { "label": "AC Input Current", "value": "4", "unit": "A" },
-            { "label": "AC Input Power", "value": "20", "unit": "W" },
-            { "label": "AC Input Load", "value": "12", "unit": "%" }
-          ],
-          "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "C" }
+          "Historic": [
+            { "label": "Total Generator Run Time Hours", "value": "6"},
+            { "label": "Total Generator Run Time Minutes", "value": "12"},
+            { "label": "Last Maintenance hours", "value": "1"},
+            { "label": "Last Maintenance Minutes", "value": "4"}
           ]
         }
       }

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Button, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTheme } from './Theme';
+import { useTheme } from '../Styling/Theme';
 
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 

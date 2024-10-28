@@ -6,6 +6,7 @@ const common = {
   whisperGreen: '#006561',
   whiteText: '#FFFFFF',
   selected: '#D1D1D1',
+  notification: '#FFA500',
 };
 
 const themes = {
@@ -17,8 +18,7 @@ const themes = {
     text: '#000000',
     card: '#F5F5F5',
     border: '#D1D1D1',
-    primary: '#6200EE',
-    notification: '#FF0266',
+    primary: '#007BFF',
   },
   dark: {
     ...common,
@@ -28,8 +28,7 @@ const themes = {
     text: '#FFFFFF',
     card: '#1F1F1F',
     border: '#4d4d4d',
-    primary: '#BB86FC',
-    notification: '#CF6679',
+    primary: '#1E90FF',
   },
 };
 
