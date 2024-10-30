@@ -31,7 +31,7 @@ export default function DrawerLayout() {
 
         <TouchableOpacity
           style={[styles.button]}
-          onPress={() => router.push({ pathname: '/Alerts' })}>
+          onPress={() => router.push({ pathname: '/Alarms' })}>
           <Text style={[styles.buttontext, { color: theme.text }]}>
             Alarms <Ionicons name="warning" style={[styles.buttontext, {}]} />
           </Text>
@@ -68,9 +68,9 @@ export default function DrawerLayout() {
             }}
           />
           <Stack.Screen
-            name="Alerts"
+            name="Alarms"
             options={{
-              title: 'Alerts',
+              title: 'Alarms',
               contentStyle: { backgroundColor: theme.background },
             }}
           />

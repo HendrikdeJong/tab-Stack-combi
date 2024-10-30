@@ -3,99 +3,118 @@
     "name": "Gateway",
     "devices": [
       {
-        "ID": "DCPC1",
-        "title": "DC Powercube",
-        "class": "battery-charger",
-        "classIcon": "home-lightning-bolt",
-        "status": "Bulk Charging",
+        "ID": "piccollo",
+        "title": "Piccolo 6",
+        "class": "generator",
+        "classIcon": "engine",
+        "status": "Running",
         "Alarms":[
           {
-            "priority": "critical",
-            "description": "Low voltage"
-          },
-          {
             "priority": "warning",
-            "description": "High temperature"
-          },
-          {
-            "priority": "information",
-            "description": "test alarm 1"
-          },
-          {
-            "priority": "warning",
-            "description": "test alarm 2"
+            "description": "Maintenance required"
           },
           {
             "priority": "critical",
-            "description": "test alarm 3"
-          },
-          {
-            "priority": "critical",
-            "description": "test alarm 4"
+            "description": "high exhaust temperature"
           }
         ],
         "Settings": [
           {
-            "label": "AC Current input Limit",
-            "settingtype": "Limit",
-            "value": "8",
-            "maxvalue": "16",
-            "minvalue": "2",
-            "unit": "A",
-            "buttons": [
-              { "name": "Increase", "value": "+" },
-              { "name": "Decrease", "value": "-" }
-            ]
-          },
-          {
-            "label": "Generator input Limit",
-            "settingtype": "Limit",
-            "value": "2",
-            "maxvalue": "150",
-            "minvalue": "2",
-            "unit": "A",
-            "buttons": [
-              { "name": "Increase", "value": "+" },
-              { "name": "Decrease", "value": "-" }
-            ]
-          },
-          {
-            "label": "DC Output Limit",
-            "settingtype": "Limit",
-            "value": "2",
-            "maxvalue": "16",
-            "minvalue": "2",
-            "unit": "A",
-            "buttons": [
-              { "name": "Increase", "value": "+" },
-              { "name": "Decrease", "value": "-" }
-            ]
-          },
-          {
             "label": "Generator state",
             "settingtype": "Button",
-            "value": "Start",
+            "value": "running",
             "minvalue": "",
             "maxvalue": "",
             "unit": "",
             "buttons": [
-              { "name": "Start", "value": "Start Generator" },
-              { "name": "Stop", "value": "Stop Generator" }
+              { "name": "Start", "value": "Start_Generator" },
+              { "name": "Stop", "value": "Stop_Generator" }
+            ]
+          }
+        ],
+        "Specifications": {
+          "summary": [
+            {
+              "classicon": [
+                { "label": "DC starter battery voltage", "value": "13.9", "unit": "Vdc" }
+              ]
+            },
+            {"AC Output": [
+              { "label": "AC output voltage", "value": "231", "unit": "Vac" },
+              { "label": "AC output current", "value": "12", "unit": "A" },
+              { "label": "output load percentage", "value": "46", "unit": "%" }
+            ]}
+          ],
+          "Functional State": [
+            { "label": "DDC state", "value": "running"},
+            { "label": "Engine started by", "value": "remote"}
+          ],
+          "Engine": [
+            { "label": "Rpm", "value": "2300", "unit": "RPM" },
+            { "label": "starterBatteryVoltage", "value": "13", "unit": "VDC" },
+            { "label": "startsSuccesfull", "value": "13"},
+            { "label": "startsFailed", "value": "0"}
+          ],
+          "Temperature": [
+            { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
+          ],
+          "Historic": [
+            { "label": "Total Generator Run Time Hours", "value": "6"},
+            { "label": "Total Generator Run Time Minutes", "value": "12"},
+            { "label": "Last Maintenance hours", "value": "1"},
+            { "label": "Last Maintenance Minutes", "value": "4"}
+          ]
+        }
+      },
+
+
+
+
+
+
+
+
+      {
+        "ID": "SupremeCombi",
+        "title": "Supreme Combi",
+        "class": "inverter-charger",
+        "classIcon": "current-ac",
+        "status": "Charging",
+        "Alarms":[
+          {
+            "priority": "information",
+            "description": "test alarm 1"
+          }
+        ],
+        "Settings": [
+          {
+            "label": "AC input Current Limit",
+            "settingtype": "Modal",
+            "value": "12",
+            "maxvalue": "16",
+            "minvalue": "2",
+            "unit": "A",
+            "buttons": [
+              { "name": "+", "value": "Increase" },
+              { "name": "-", "value": "Decrease" }
             ]
           }
         ],
         "Specifications": {
           "summary": [
             {"AC input": [
-              { "label": "AC Input Voltage", "value": "230", "unit": "V" },
-              { "label": "AC Input Current", "value": "4", "unit": "A" }
+              { "label": "AC Input Voltage", "value": "229", "unit": "Vac" },
+              { "label": "AC Input Current", "value": "12", "unit": "A" }
             ]},
             {
-              "classicon": ""
+              "classicon": [
+                { "label": "DC battery voltage", "value": "13.4", "unit": "Vdc" },
+                { "label": "DC battery current", "value": "78", "unit": "Vdc" }
+              ]
             },
-            {"Dc Input": [
-              { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-              { "label": "Battery Current", "value": "70", "unit": "A" }
+            {"AC Output": [
+              { "label": "AC Output Voltage", "value": "229", "unit": "Vac" },
+              { "label": "AC Output Current", "value": "7.2", "unit": "A" }
             ]}
           ],
           "Dc Connections": [
@@ -118,110 +137,62 @@
           ]
         }
       },
+
+
+
+
+
+
+
+
       {
-        "ID": "BM1",
-        "title": "Battery Monitor 1",
-        "class": "battery-medium",
-        "classIcon": "battery",
+        "ID": "LBPA",
+        "title": "Lithium battery Power Advanced",
+        "class": "battery",
+        "classIcon": "battery-medium",
         "status": "Operational",
-        "Alarms":[],
+        "Alarms":[
+        ],
         "Settings": [],
         "Specifications": {
           "summary": [
-            {"State of Charge": [
-              { "label": "Battery SOC", "value": "86", "unit": "%" },
-              { "label": "Time remaining", "value": "37", "unit": "minutes" }
-            ]},
             {
-              "classicon": ""
+              "classicon": [
+                { "label": "Battery SOC", "value": "44", "unit": "%" }
+              ]
             },
             {"Battery": [
-              { "label": "DC Battery Voltage", "value": "12.7", "unit": "VDC" },
-              { "label": "Battery current", "value": "-12.0", "unit": "A" }
+              { "label": "Battery current", "value": "48.0", "unit": "A" },
+              { "label": "DC Battery Voltage", "value": "13.2", "unit": "Vdc" }
             ]}
           ],
+          "General": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
           "Functional State": [
-            { "label": "Battery charging state", "value": "discharging"}
+            { "label": "Battery charging state", "value": "Charging", "unit": "" }
           ],
           "Extended State": [
-            { "label": "Generator request", "value": "No Request"}
+            { "label": "Generator request", "value": "No Request", "unit": "" }
           ],
           "Digital IO": [
-            { "label": "Digital output 1 state", "value": "Inactive"},
-            { "label": "Digital output 2 state", "value": "Active"}
+            { "label": "Digital output 1 state", "value": "Inactive", "unit": "" },
+            { "label": "Digital output 2 state", "value": "Active", "unit": "" }
           ],
           "Battery": [
-            { "label": "Battery SOC", "value": "86", "unit": "%" },
-            { "label": "DC Battery Voltage", "value": "12.7", "unit": "VDC" },
-            { "label": "Battery current", "value": "-12.0", "unit": "A" },
-            { "label": "Time remaining", "value": "37", "unit": "minutes" },
-            { "label": "Battery capacity drawn", "value": "54", "unit": "Ah" },
-            { "label": "Peukert capacity remaining", "value": "17", "unit": "Ah" }
+            { "label": "Battery SOC", "value": "44", "unit": "%" },
+            { "label": "DC Battery Voltage", "value": "13.2", "unit": "VDC" },
+            { "label": "Battery Current", "value": "48.0", "unit": "A" },
+            { "label": "Time remaining", "value": "135", "unit": "Min" },
+            { "label": "Battery capacity drawn", "value": "68", "unit": "Ah" },
+            { "label": "Peukert capacity remaining", "value": "51", "unit": "Ah" }
           ],
-          "temperature": [
-            { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
-          ]
-        }
-      },
-      {
-        "ID": "DDC-GV1",
-        "title": "Generator 1",
-        "class": "generator",
-        "classIcon": "engine",
-        "status": "Running",
-        "Alarms":[
-          {
-            "priority": "warning",
-            "description": "Generator fuel low"
-          }
-        ],
-        "Settings": [
-          {
-            "label": "Generator state",
-            "settingtype": "Button",
-            "value": "Start",
-            "minvalue": "",
-            "maxvalue": "",
-            "unit": "",
-            "buttons": [
-              { "name": "Start", "value": "Start Generator" },
-              { "name": "Stop", "value": "Stop Generator" }
-            ]
-          }
-        ],
-        "Specifications": {
-          "summary": [
-            {"Generator": [
-              { "label": "Rpm", "value": "2300", "unit": "RPM" },
-              { "label": "starterBatteryVoltage", "value": "13", "unit": "VDC" }
-            ]},
-            {
-              "classicon": ""
-            },
-            {"AC Output": [
-              { "label": "DC Battery Voltage", "value": "12.7", "unit": "VDC" },
-              { "label": "Battery current", "value": "-12.0", "unit": "A" }
-            ]}
-          ],
-          "Functional State": [
-            { "label": "DDC state", "value": "running"},
-            { "label": "Engine started by", "value": "remote"}
-          ],
-          "Engine": [
-            { "label": "Rpm", "value": "2300", "unit": "RPM" },
-            { "label": "starterBatteryVoltage", "value": "13", "unit": "VDC" },
-            { "label": "startsSuccesfull", "value": "13"},
-            { "label": "startsFailed", "value": "0"}
-          ],
-          "Temperature": [
-            { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
-          ],
-          "Historic": [
-            { "label": "Total Generator Run Time Hours", "value": "6"},
-            { "label": "Total Generator Run Time Minutes", "value": "12"},
-            { "label": "Last Maintenance hours", "value": "1"},
-            { "label": "Last Maintenance Minutes", "value": "4"}
-          ]
+          "Temperatures": [
+            { "label": "Battery Temperature Sensor", "value": "25.0", "unit": "°C" }
+          ]         
         }
       }
     ]

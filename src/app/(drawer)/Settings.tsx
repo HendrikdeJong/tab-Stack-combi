@@ -4,13 +4,33 @@ import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
 import { router, useNavigation } from 'expo-router';
 
+var activeAlarms = 0;
+
+function renderNotificationContent() {
+  activeAlarms += 1;
+  if(activeAlarms > 3){
+    activeAlarms = 0;
+  }
+  if (activeAlarms === 1) {
+    return {
+      title: "Device: XYZ needs attention!",
+      body: "Device: XYZ, Problem: ABC",
+      data: { screen: "Alerts" },
+    };
+  } else {
+    return {
+      title: "Multiple devices needs attention!",
+      body: `Device: XYZ, Alarms: ${activeAlarms}`,
+      data: { screen: "Alerts" },
+    };
+  }
+}
+
 async function schedulePushNotification() {
+  await Notifications.dismissAllNotificationsAsync();
+
   await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "An Alarm has gone off!",
-      body: 'Click here to see more details',
-      data: { screen: 'Alerts'},
-    },
+    content: renderNotificationContent(),
     trigger: null,
   });
 }

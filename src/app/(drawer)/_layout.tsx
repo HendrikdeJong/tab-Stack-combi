@@ -24,7 +24,7 @@ export default function DrawerLayout() {
             }}>
           <Drawer.Screen name="index" options={{ title: 'Home', drawerIcon: () => (<Ionicons name='home' size={30} color={theme.text}/>)}}/>
           <Drawer.Screen name="Settings" options={{ title: 'Settings', drawerIcon: () => (<Ionicons name='settings' size={30} color={theme.text}/>)}}/>
-          <Drawer.Screen name="Alerts" options={{ title: 'Alerts', drawerIcon: () => (<Ionicons name='notifications' size={30} color={theme.text}/>)}}/>
+          <Drawer.Screen name="Alarms" options={{ title: 'Alarms', drawerIcon: () => (<Ionicons name='notifications' size={30} color={theme.text}/>)}}/>
         </Drawer>
       </ThemeProvider>
     </GestureHandlerRootView>

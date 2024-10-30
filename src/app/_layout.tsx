@@ -7,6 +7,8 @@ import * as Notifications from 'expo-notifications';
 import Constants from "expo-constants"; // Optional
 import { Platform } from 'react-native';
 import { useEffect } from 'react';
+import * as NavigationBar from 'expo-navigation-bar';
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,6 +64,9 @@ export default function Layout() {
   if (Platform.OS !== 'web') {
     useEffect(() => {
       registerForPushNotificationsAsync();
+      NavigationBar.setPositionAsync("relative");
+      NavigationBar.setBackgroundColorAsync(theme.background);
+      NavigationBar.setButtonStyleAsync('light');
     }, []);
   }
   
@@ -69,7 +74,7 @@ export default function Layout() {
   return (
     <GestureHandlerRootView style={{flex: 1,}}>
       <ThemeProvider>
-        <StatusBar style='light'/>
+        <StatusBar style='light' translucent={true}/>
         <Stack screenOptions={{
             headerTintColor: theme.whiteText,
             headerStyle: {

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useGlobalSearchParams, useLocalSearchParams, router } from 'expo-router';
-import { useTheme } from '../../../Styling/Theme';
+import { ThemeProvider, useTheme } from '../../../Styling/Theme';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialCommunityIcons,  } from '@expo/vector-icons';
 import systemconfig from '../../../../DummyData/GatewayConfig.json';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import {EmptyState} from './CustomFunctions';
+import {EmptyState} from '../../../Components/CustomFunctions';
+
 
 import styles from '../../../Styling/StyleSheet';
 import Device_Alarm_Page from './DeviceAlarms';
 import Device_Information_Page from './DeviceMonitor';
 import Device_Control_Page from './DeviceSettings';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const Tab = createMaterialTopTabNavigator();
 
 
@@ -73,7 +75,7 @@ export default function DevicesOverview() {
         />
         <Tab.Screen
             name="Alarm"
-            children={() => <Device_Alarm_Page Alarms={MatchingDevice.Alarms} />}
+            children={() => <Device_Alarm_Page Devicejson={MatchingDevice} />}
             options={{ 
             title: 'Alarm',
             tabBarLabel: ({ color }) => (
