@@ -27,10 +27,8 @@ export default function Device_Control_Page({ Settings }: { Settings: any }) {
           {setting.settingtype === 'Button' ? (
             setting.buttons.map((button: any, idx: number) => (
               <View key={idx} style={styles.SettingsItem}>
-                <Ionicons name='help-circle' color={theme.text} size={32} />
                 <TouchableOpacity
-                  style={[styles.SettingsModalButton, { backgroundColor: theme.border, flex: 1 }]}
-                >
+                  style={[styles.SettingsModalButton, { backgroundColor: theme.border, flex: 1 }]}>
                   <Text style={[styles.value, { color: theme.text }]}>{button.value}</Text>
                 </TouchableOpacity>
               </View>

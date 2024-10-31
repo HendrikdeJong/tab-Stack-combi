@@ -1,41 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useGlobalSearchParams, useLocalSearchParams, router } from 'expo-router';
 import { ThemeProvider, useTheme } from '../../../Styling/Theme';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialCommunityIcons,  } from '@expo/vector-icons';
-import systemconfig from '../../../../DummyData/GatewayConfig.json';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import {EmptyState} from '../../../Components/CustomFunctions';
+import {EmptyState, useFetchConfig, LoadingState} from '../../../Components/CustomFunctions';
 
 
 import styles from '../../../Styling/StyleSheet';
 import Device_Alarm_Page from './DeviceAlarms';
 import Device_Information_Page from './DeviceMonitor';
 import Device_Control_Page from './DeviceSettings';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const Tab = createMaterialTopTabNavigator();
 
 
 export default function DevicesOverview() {
     const theme = useTheme();
+    const { loading, config, error } = useFetchConfig();
     const { ID } = useGlobalSearchParams<{ ID: string }>();
-    const MatchingDevice = systemconfig.system.devices.find((device) => device.ID === ID);
     const navigation = useNavigation();
+    
+    let MatchingDevice = config?.system?.devices?.find((device) => device.ID === ID);
 
-    useEffect(() => {
-        navigation.setOptions(
-            { title: MatchingDevice ? MatchingDevice.title : 'Device Overview' }
+     useEffect(() => {
+        if (MatchingDevice) {
+            navigation.setOptions({ title: MatchingDevice.title });
+        } else {
+            navigation.setOptions({ title: 'Device Overview' });
+        }
+    }, [MatchingDevice, navigation]);
+
+    if (loading) {
+        return (
+            <LoadingState message="device configuration" />
         );
-    });
+    }
+
+    if (error) {
+        return (
+            <View style={[styles.screenContainer, { backgroundColor: theme.background }]}>
+                <Text style={[styles.value,{ color: theme.text }]}>Failed to load configuration. Please try again later.</Text>
+            </View>
+        );
+    }
 
     if (!MatchingDevice) {
         return (
-        <View style={[styles.CenterAlignmentContainer, { backgroundColor: useTheme().background }]}>
-            <EmptyState message="No device found" BackButton={true} />
-        </View>
+            <View style={[styles.screenContainer, { backgroundColor: theme.background }]}>
+                <EmptyState message="No device found" BackButton={true} />
+            </View>
         );
     }
+
 
     return (
         <Tab.Navigator

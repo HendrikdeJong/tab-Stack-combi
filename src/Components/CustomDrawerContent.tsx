@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../Styling/Theme';
 
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { router } from 'expo-router';
 
 interface CustomDrawerContentProps extends DrawerContentComponentProps {}
 
@@ -24,27 +25,59 @@ const drawerCustomHeader = (props: CustomDrawerContentProps) => {
       </View>
 
       <DrawerItemList {...props} />
+
     </DrawerContentScrollView>
   );
 };
 
+const drawerCustomFooter = (props: CustomDrawerContentProps) => {
+  const theme = useTheme();
+  return (
+    <View style={[styles.drawerFooter, { backgroundColor: theme.whisperGreen }]}>
+      <TouchableOpacity onPress={() => router.replace("../../../systemSelect")} style={styles.closeButton}>
+        <Text style={[styles.button, {color: theme.whiteText}]}>choose system<MaterialCommunityIcons name={"logout"} size={24}/></Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const CustomDrawerContent = (props: CustomDrawerContentProps) => {
+  return (
+    <>
+      {drawerCustomHeader(props)}
+      {drawerCustomFooter(props)}
+    </>
+  );
+};
+
+export default CustomDrawerContent;
+
 const styles = StyleSheet.create({
   drawerHeader: {
-    margin: 0,
-    marginTop: -30,
-    paddingTop: 50,
     flexDirection: 'row',
-    display: 'flex',
-    justifyContent:'space-around',
+    flex: 1,
+    justifyContent: 'space-around',
+    paddingTop: 35,
+    marginTop: -40,
+    borderBottomEndRadius: 10,
+    borderBottomStartRadius: 10,
+    paddingBottom: 10,
   },
+  button: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    },
   headerImage: {
     height: 70,
     resizeMode: 'contain',
-    marginBottom: 10,
   },
   closeButton: {
     padding: 10,
   },
+  drawerFooter: {
+    padding: 20,
+    borderTopEndRadius: 10,
+    borderTopStartRadius: 10,
+  },
 });
 
-export default drawerCustomHeader;

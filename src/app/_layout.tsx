@@ -4,7 +4,7 @@ import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import Constants from "expo-constants"; // Optional
+import Constants from "expo-constants";
 import { Platform } from 'react-native';
 import { useEffect } from 'react';
 import * as NavigationBar from 'expo-navigation-bar';

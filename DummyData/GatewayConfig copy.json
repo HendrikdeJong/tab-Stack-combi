@@ -1,0 +1,77 @@
+{
+  "system": {
+    "name": "Gateway Example",
+    "devices": [
+      {
+        "ID": "piccollo",
+        "title": "Piccolo 6",
+        "class": "generator",
+        "classIcon": "engine",
+        "status": "Running",
+        "Alarms":[
+          {
+            "priority": "warning",
+            "description": "Maintenance required"
+          },
+          {
+            "priority": "critical",
+            "description": "high exhaust temperature"
+          }
+        ],
+        "Settings": [
+          {
+            "label": "Generator state",
+            "settingtype": "Button",
+            "value": "running",
+            "minvalue": "",
+            "maxvalue": "",
+            "unit": "",
+            "buttons": [
+              { "name": "Start", "value": "Start_Generator" },
+              { "name": "Stop", "value": "Stop_Generator" }
+            ]
+          }
+        ],
+        "Specifications": {
+          "summary": [
+            {
+              "classicon": [
+                { "label": "DC starter battery voltage", "value": "13.9", "unit": "Vdc" }
+              ]
+            },
+            {"AC Output": [
+              { "label": "AC output voltage", "value": "231", "unit": "Vac" },
+              { "label": "AC output current", "value": "12", "unit": "A" },
+              { "label": "output load percentage", "value": "46", "unit": "%" }
+            ]}
+          ],
+          "Functional State": [
+            { "label": "DDC state", "value": "running"},
+            { "label": "Engine started by", "value": "remote"}
+          ],
+          "Engine": [
+            { "label": "Rpm", "value": "2300", "unit": "RPM" },
+            { "label": "starterBatteryVoltage", "value": "13", "unit": "VDC" },
+            { "label": "startsSuccesfull", "value": "13"},
+            { "label": "startsFailed", "value": "0"}
+          ],
+          "Temperature": [
+            { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
+          ],
+          "Historic": [
+            { "label": "Total Generator Run Time Hours", "value": "6"},
+            { "label": "Total Generator Run Time Minutes", "value": "12"},
+            { "label": "Last Maintenance hours", "value": "1"},
+            { "label": "Last Maintenance Minutes", "value": "4"}
+          ]
+        }
+      }
+
+
+
+
+
+    ]
+  }
+}
+  

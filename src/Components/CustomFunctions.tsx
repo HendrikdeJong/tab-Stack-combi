@@ -1,24 +1,129 @@
 import { router } from "expo-router";
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, ActivityIndicator } from "react-native";
 import { useTheme } from "../Styling/Theme";
 import { Ionicons } from '@expo/vector-icons';
-import gatewayConfig from "../../DummyData/GatewayConfig.json";
+import * as SecureStore from 'expo-secure-store';
+
+// type Device = {
+//   ID: string;
+//   title: string;
+//   class: string;
+//   classicon: string;
+//   status: string;
+//   Alarms: [];
+//   Settings: [];
+//   Specifications: [];
+// };
+
+// type SystemConfig = {
+//   system: {
+//     devices: Device[];
+//     name: string;
+//   };
+// };
+
+type Alarm = {
+  priority: 'critical' | 'warning' | 'information';
+  description: string;
+};
+
+type ButtonOption = {
+  name: string;
+  value: string;
+};
+
+type Setting = {
+  label: string;
+  settingtype: string;
+  value: string;
+  minvalue?: string;
+  maxvalue?: string;
+  unit?: string;
+  buttons?: ButtonOption[];
+};
+
+type SpecificationDetail = {
+  label: string;
+  value: string;
+  unit?: string;
+};
+
+type Specifications = {
+  summary: Record<string, SpecificationDetail[]>[];
+};
+
+type Device = {
+  ID: string;
+  title: string;
+  class: string;
+  classIcon: string; // This should match the JSON property (`classIcon` in JSON becomes `classicon`)
+  status: string;
+  Alarms: Alarm[];
+  Settings: Setting[];
+  Specifications: Specifications;
+};
+
+type SystemConfig = {
+  system: {
+    devices: Device[];
+    name: string;
+  };
+};
+
+
+export function useFetchConfig() {
+  const [loading, setLoading] = useState(true);
+  const [config, setConfig] = useState<SystemConfig | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        
+
+        const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
+
+        console.log('Fetched configuration:', systemconfig);
+        setConfig(systemconfig);
+      } catch (error) {
+        console.error('Failed to fetch configuration:', error);
+        setError('Failed to load configuration. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchConfig();
+  }, []);
+
+  return { loading, config, error };
+}
+
+export function LoadingState({ message } : { message: string }) {
+  const theme = useTheme();
+  return (
+    <View style={[styles.screenContainer, { backgroundColor: theme.background }]}>
+      <Text style={[styles.screenText, { color: theme.text }]}>Loading {message}</Text>
+      <ActivityIndicator size="large" color={theme.text} />
+    </View>
+  );
+}
 
 export function EmptyState({ message, BackButton }: { message: string, BackButton: boolean }) {
   const theme = useTheme();
   return (
-    <View style={[styles.CenterAlignmentContainer, { backgroundColor: theme.background }]}>
-      <View style={styles.screenContainer}>
-        <Text style={[styles.screenText, { color: theme.text }]}>{message}</Text>
+    <View style={[styles.screenContainer, { backgroundColor: theme.background }]}>
+        <Text style={[styles.value, { color: theme.text }]}>{message}</Text>
         {BackButton && (
           <TouchableOpacity onPress={() => router.navigate('./')} style={styles.SettingButton}>
-            <Text style={[styles.screenText, { color: theme.text }]}>
+            <Text style={[styles.value, { color: theme.text }]}>
               <Ionicons name='arrow-back' style={{ fontSize: 24 }} />Go back
             </Text>
           </TouchableOpacity>
         )}
-      </View>
     </View>
   );
 }
@@ -52,22 +157,32 @@ const mapPriorityToIcon = (priority: string) => {
 
 export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterDeviceId?: string }) {
   const theme = useTheme();
+  const { loading, config, error } = useFetchConfig(); // Use the custom hook to get loading, config, and error state
   const [sortCriteria, setSortCriteria] = useState<{ key: 'deviceId' | 'priority'; order: 'asc' | 'desc' }>({ key: 'priority', order: 'asc' });
   const [modalVisible, setModalVisible] = useState(false);
 
   const priorityOrder: { [key: string]: number } = { critical: 1, warning: 2, information: 3 };
 
   // Use alarms from the configuration JSON if no alarms are passed
-  const allAlarms = alarms || useMemo(() => {
-    return gatewayConfig.system.devices.flatMap(device =>
-      device.Alarms.map(alarm => ({
+  const allAlarms = useMemo(() => {
+    if (alarms) {
+      return alarms;
+    }
+
+    if (loading || error || !config) {
+      return []; // Return empty array if loading, error, or no config
+    }
+
+    // If no alarms are passed, use alarms from the fetched config
+    return config.system.devices.flatMap((device) =>
+      device.Alarms.map((alarm: any) => ({
         ...alarm,
         priority: alarm.priority as 'critical' | 'warning' | 'information',
         deviceId: device.ID,
-        deviceName: device.title
+        deviceName: device.title,
       }))
     );
-  }, [alarms]);
+  }, [alarms, loading, error, config]);
 
   // Filtered alarms based on the device ID
   const filteredData = useMemo(() => {
@@ -110,44 +225,54 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
 
     
 
-      {/* Alarms List */}
+      {/* Alarms List with Loading Footer */}
       <FlatList
         data={sortedData}
         keyExtractor={(item, index) => `${index}-${item.deviceId}-${item.description}`}
         renderItem={({ item }) => <AlarmItem alarm={item} />}
-        initialNumToRender={10} // Optimize by rendering a limited number of items initially
-        maxToRenderPerBatch={10}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
         windowSize={5}
-        // ItemSeparatorComponent={() => <View style={{ borderWidth: 1, width: "80%", alignSelf:"center"}} />}
-        ListFooterComponent={() => <View style={{ height: 10, backgroundColor: theme.border, borderBottomStartRadius: 8, borderBottomEndRadius: 8 }} />}
+        ListFooterComponent={() => (
+          loading ? (
+            <View style={{padding: 10,flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: theme.border}}>
+              <Text style={[styles.screenText, { color: theme.text }]}>Loading alarms</Text>
+              <ActivityIndicator size="large" color={theme.text} />
+            </View>
+          ) : (
+            <View style={{ height: 10, borderBottomStartRadius: 8, borderBottomEndRadius: 8, backgroundColor: theme.border}} />
+          )
+        )}
       />
+    
+      
         {/* Modal for Sort Options */}
         {modalVisible && (
         <Modal
-          transparent
+          transparent={true}
           visible={modalVisible}
           animationType="fade"
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.modalOverlay}>
-            <View style={[styles.modalContainer, { backgroundColor: theme.card }]}>
+            <View style={[styles.modalContainer, { backgroundColor: theme.card, }]}>
               <Text style={[styles.modalTitle, { color: theme.text }]}>Sort Options</Text>
-              <Text style={[styles.label, { color: theme.text }]}>Device ID</Text>
               <View style={{flexDirection: "row", gap: 5}}>
-                <TouchableOpacity style={[styles.sortButton, { backgroundColor: theme.whisperGreen }]} onPress={() => handleSortChange('deviceId', 'asc')}>
+                <Text style={[styles.label, { color: theme.text }]}>Device ID</Text>
+                <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='deviceId' && sortCriteria.order === 'asc' ? theme.whisperGreen : theme.border}]} onPress={() => handleSortChange('deviceId', 'asc')}>
                   <Text style={{ color: theme.text }}>Ascending</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.sortButton, { backgroundColor: theme.whisperGreen }]} onPress={() => handleSortChange('deviceId', 'desc')}>
+                <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='deviceId' && sortCriteria.order === 'desc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('deviceId', 'desc')}>
                   <Text style={{ color: theme.text }}>Descending</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={[styles.label, { color: theme.text }]}>Priority</Text>
               <View style={{flexDirection: "row", gap: 5}}>
-                <TouchableOpacity style={[styles.sortButton, { backgroundColor: theme.whisperGreen }]} onPress={() => handleSortChange('priority', 'asc')}>
+                <Text style={[styles.label, { color: theme.text }]}>Priority</Text>
+                <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='priority' && sortCriteria.order === 'asc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('priority', 'asc')}>
                   <Text style={{ color: theme.text }}>Ascending</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.sortButton, { backgroundColor: theme.whisperGreen }]} onPress={() => handleSortChange('priority', 'desc')}>
+                <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='priority' && sortCriteria.order === 'desc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('priority', 'desc')}>
                   <Text style={{ color: theme.text }}>Descending</Text>
                 </TouchableOpacity>
               </View>
@@ -167,9 +292,9 @@ export function AlarmItem({ alarm }: { alarm: any }) {
   const theme = useTheme();
   return (
     <View style={{padding: 10, backgroundColor: theme.border }}>
-      <View style={{ flexDirection: "row" }}>
-        <Ionicons style={styles.alertIcon} name={mapPriorityToIcon(alarm.priority).name as any} color={mapPriorityToIcon(alarm.priority).color} />
-        <Text style={{ color: theme.text }}>
+      <View style={{ flexDirection: "row", alignItems: 'center'}}>
+        <Ionicons style={[styles.alertIcon, {fontSize: 30,}]} name={mapPriorityToIcon(alarm.priority).name as any} color={mapPriorityToIcon(alarm.priority).color} />
+        <Text style={{fontSize: 15, color: theme.text }}>
           {alarm.deviceId ? `${alarm.deviceName}: ` : ''}
           {alarm.description}
         </Text>
@@ -222,12 +347,6 @@ const styles = StyleSheet.create({
     screenText: {
       fontSize: 24,
       fontWeight: 'bold',
-    },
-  
-    CenterAlignmentContainer:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex: 1,
     },
     ContentWrapper: {
       height: '90%',
@@ -310,9 +429,9 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalContainer: {
-      width: '80%',
       padding: 20,
       borderRadius: 10,
+      gap: 10,
     },
     modalTitle: {
       fontSize: 20,

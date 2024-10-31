@@ -1,12 +1,12 @@
 {
   "system": {
-    "name": "Gateway",
+    "name": "Gateway Mets",
     "devices": [
       {
         "ID": "piccollo",
         "title": "Piccolo 6",
         "class": "generator",
-        "classIcon": "engine",
+        "classIcon": "piccolo",
         "status": "Running",
         "Alarms":[
           {
@@ -27,8 +27,8 @@
             "maxvalue": "",
             "unit": "",
             "buttons": [
-              { "name": "Start", "value": "Start_Generator" },
-              { "name": "Stop", "value": "Stop_Generator" }
+              { "name": "Start", "value": "Start Generator" },
+              { "name": "Stop", "value": "Stop Generator" }
             ]
           }
         ],
@@ -78,7 +78,7 @@
         "ID": "SupremeCombi",
         "title": "Supreme Combi",
         "class": "inverter-charger",
-        "classIcon": "current-ac",
+        "classIcon": "inverter",
         "status": "Charging",
         "Alarms":[
           {
@@ -109,7 +109,7 @@
             {
               "classicon": [
                 { "label": "DC battery voltage", "value": "13.4", "unit": "Vdc" },
-                { "label": "DC battery current", "value": "78", "unit": "Vdc" }
+                { "label": "DC battery current", "value": "78", "unit": "A" }
               ]
             },
             {"AC Output": [
@@ -149,21 +149,24 @@
         "ID": "LBPA",
         "title": "Lithium battery Power Advanced",
         "class": "battery",
-        "classIcon": "battery-medium",
+        "classIcon": "battery",
         "status": "Operational",
         "Alarms":[
         ],
         "Settings": [],
         "Specifications": {
           "summary": [
+            {"Battery": [
+              { "label": "DC Battery Voltage", "value": "13.2", "unit": "Vdc" },
+              { "label": "Battery current", "value": "48.0", "unit": "A" }
+            ]},
             {
               "classicon": [
-                { "label": "Battery SOC", "value": "44", "unit": "%" }
+                
               ]
             },
-            {"Battery": [
-              { "label": "Battery current", "value": "48.0", "unit": "A" },
-              { "label": "DC Battery Voltage", "value": "13.2", "unit": "Vdc" }
+            {"State of charge": [
+              { "label": "Battery SOC", "value": "44", "unit": "%" }
             ]}
           ],
           "General": [
