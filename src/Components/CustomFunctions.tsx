@@ -40,7 +40,7 @@ type Device = {
   ID: string;
   title: string;
   class: string;
-  classIcon: string; // This should match the JSON property (`classIcon` in JSON becomes `classicon`)
+  classIcon: string;
   iconlib: string;
   status: string;
   Alarms: Alarm[];
@@ -74,14 +74,22 @@ export function useFetchConfig() {
   useEffect(() => {
     const fetchConfig = async () => {
       if (isweb) {
-        const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
-        setConfig(systemconfig);
-        setLoading(false);
-        return;
+        try {
+          await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000));
+            const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
+            setConfig(systemconfig);
+          // console.log('Fetched configuration:', systemconfig);
+        } catch (error) {
+          console.error('Failed to fetch configuration:', error);
+          setError('Failed to load configuration. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
+
       } else {
         try {
           let systemidvalue= getValueFor('systemID');
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000));
           if (await systemidvalue === "1") {
             const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
             setConfig(systemconfig);
@@ -91,7 +99,6 @@ export function useFetchConfig() {
           }
   
           // console.log('Fetched configuration:', systemconfig);
-  
         } catch (error) {
           console.error('Failed to fetch configuration:', error);
           setError('Failed to load configuration. Please try again later.');

@@ -15,7 +15,6 @@ export default function GatewayLocal() {
     return 1;                   
   };
   const numColumns = getNumColumns();
-
   
   if (loading) {
     return (
