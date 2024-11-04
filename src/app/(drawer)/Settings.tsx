@@ -11,17 +11,17 @@ function renderNotificationContent() {
   if(activeAlarms > 3){
     activeAlarms = 0;
   }
-  if (activeAlarms === 1) {
+  if (activeAlarms <= 1) {
     return {
-      title: "Device: XYZ needs attention!",
-      body: "Device: XYZ, Problem: ABC",
-      data: { screen: "Alerts" },
+      title: "Device: piccolo 6 needs attention!",
+      body: "alarm: high exhaust temperature",
+      data: { screen: "Alarms" },
     };
   } else {
     return {
       title: "Multiple devices needs attention!",
-      body: `Device: XYZ, Alarms: ${activeAlarms}`,
-      data: { screen: "Alerts" },
+      body: `Device: piccolo 6, Alarms: ${activeAlarms}`,
+      data: { screen: "Alarms" },
     };
   }
 }
@@ -43,8 +43,8 @@ export default function Settings() {
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(response => {
       const screen = response.notification.request.content.data.screen;
-      if (screen) {
-        router.navigate(screen);
+      if (screen != null) {
+        router.replace(screen);
       }
     });
 
@@ -54,8 +54,7 @@ export default function Settings() {
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <Text style={[styles.title, { color: theme.text }]}>settings screen</Text>
-      <Button
-        title={GetOSPlatform ? "sorry, this function is still under development!" : "Test Push notifications (Android only)"}
+      <Button title={GetOSPlatform ? "sorry, this function is still under development!" : "Test Push notifications (Android only)"}
         onPress={schedulePushNotification}
         disabled={GetOSPlatform}
       />

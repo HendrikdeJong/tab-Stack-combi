@@ -11,12 +11,12 @@ import { ThemeProvider, useTheme } from '../Styling/Theme';
 const DummyData = {
     "systems": [
         {
+            "ID": "1",
             "systemName": "Gateway: Mets",
-            "url": "/GatewayConfig.json"
         },
         {
-            "systemName": "Gateway: Example",
-            "url": "/GatewayConfig copy.json"
+            "ID": "2",
+            "systemName": "DEMO Lib",
         }
     ]
 };
@@ -26,9 +26,9 @@ const saveToSecureStore = async (key: string, value: string) => {
 };
 
 const SystemSelect = () => {
-    const handlePress = (systemName: string, url: string) => {
+    const handlePress = (systemName: string, ID: string) => {
         // console.log(`Selected system: ${systemName}, URL: ${url}`);
-        saveToSecureStore('selectedSystem', url);
+        saveToSecureStore('systemID', ID);
         router.replace('(drawer)');
     };
 
@@ -37,7 +37,7 @@ const SystemSelect = () => {
          <ThemeProvider>
             <View style={styles.container}>
             {DummyData.systems.map((system, index) => (
-                <TouchableOpacity key={index} style={[styles.selectablebutton, {backgroundColor: useTheme().card}]} onPress={() => handlePress(system.systemName, system.url)}>
+                <TouchableOpacity key={index} style={[styles.selectablebutton, {backgroundColor: useTheme().card}]} onPress={() => handlePress(system.systemName, system.ID)}>
                     <Text style={{color: useTheme().text, fontSize: 24}}>{system.systemName}</Text>
                 </TouchableOpacity>
             ))}

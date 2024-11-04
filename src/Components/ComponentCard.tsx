@@ -44,23 +44,18 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
 
   if (loading) {
     return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card, minHeight: 200}]}>
+      <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
         <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-          <View style={[styles.Wrappericon, { backgroundColor: theme.border }]} />
-          <View style={styles.skeletonTextWrapper}>
-            <View style={[styles.skeletonText, { backgroundColor: theme.border }]} />
-            <View style={[styles.skeletonText, { backgroundColor: theme.border }]} />
-          </View>
-        </View>
-        <View style={styles.skeletonBody }>
-          <ActivityIndicator size="large" color={theme.text} />
           <Text style={[styles.deviceCategory, { color: theme.text }]}>Loading device...</Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <View style={[styles.skeletonButton, { backgroundColor: theme.border }]} />
-          <View style={[styles.skeletonButton, { backgroundColor: theme.border }]} />
+        <View style={styles.layout}>
+          <ActivityIndicator size="large" color={theme.text} />
         </View>
-      </View>
+        <View style={styles.buttonContainer}>
+          <View style={[styles.button, { backgroundColor: theme.border }]} />
+          <View style={[styles.button, { backgroundColor: theme.border }]} />
+        </View>
+    </View>
     );
   }
 

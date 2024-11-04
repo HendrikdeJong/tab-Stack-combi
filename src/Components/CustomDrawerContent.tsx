@@ -45,7 +45,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   return (
     <>
       {drawerCustomHeader(props)}
-      {/* {drawerCustomFooter(props)} */} 
+      {/* {drawerCustomFooter(props)}  */}
       {/* uncomment this line to add logout footer to the drawer */}
     </>
   );

@@ -36,7 +36,7 @@ export default function Device_Control_Page({ Settings }: { Settings: any }) {
           {/* BUTTON */}
           {setting.settingtype === 'Button' ? (
             setting.buttons.map((button: any, idx: number) => (
-              <TouchableOpacity style={[styles.SettingsModalButton, { backgroundColor: theme.border, width: '85%'}]}
+              <TouchableOpacity key={idx} style={[styles.SettingsModalButton, { backgroundColor: theme.border, width: '85%'}]}
               onPress={() => {setCurrentSetting({ ...currentSetting, loadingButton: idx });loadfor5seconds(true);}}
               >
                 <View style={{justifyContent: 'space-between', flexDirection: 'row', flex: 1}}>

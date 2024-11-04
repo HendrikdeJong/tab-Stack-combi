@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, useWindowDimensions, ScrollView, View, ActivityIndicator, Text, Button } from 'react-native';
+import { StyleSheet, FlatList, useWindowDimensions, ScrollView, View, ActivityIndicator, Text, Button, RefreshControl } from 'react-native';
 import ComponentCard from '../../Components/ComponentCard';
 import {useFetchConfig} from '../../Components/CustomFunctions'
 import { useState } from 'react';
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#EF5350',
   },
   errorText: {
     color: 'red',

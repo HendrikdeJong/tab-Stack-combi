@@ -71,7 +71,7 @@ export default function DevicesOverview() {
             title: 'Monitor',
             tabBarLabel: ({ color }) => (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Ionicons name='list-circle-sharp' style={{ fontSize: 24, color, marginRight: 8 }}/>
+                <Ionicons name='list' style={{ fontSize: 24, color, marginRight: 8 }}/>
                 <Text style={{ color }}>Monitor</Text>
                 </View>
             ),
@@ -98,7 +98,7 @@ export default function DevicesOverview() {
             tabBarLabel: ({ color }) => (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Ionicons name='warning' style={{ fontSize: 24, marginRight: 8, 
-                    color: MatchingDevice.Alarms.length > 0 ? theme.notification : theme.text }}/>
+                    color: MatchingDevice.Alarms.length > 0 ? theme.notification : color }}/>
                 <Text style={{ color }}>Alarm</Text>
                 </View>
             ),

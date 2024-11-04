@@ -1,9 +1,10 @@
 import { router } from "expo-router";
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, ActivityIndicator } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, ActivityIndicator, Platform } from "react-native";
 import { useTheme } from "../Styling/Theme";
 import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
+
 
 type Alarm = {
   priority: 'critical' | 'warning' | 'information';
@@ -54,31 +55,51 @@ type SystemConfig = {
   };
 };
 
+async function getValueFor(key: string) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    return result;
+  } else {
+    alert('No values stored under that key.');
+    return "1";
+  }
+}
 
 export function useFetchConfig() {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState<SystemConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const isweb = Platform.OS === 'web' ;
 
   useEffect(() => {
     const fetchConfig = async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        
-
+      if (isweb) {
         const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
-
-        // console.log('Fetched configuration:', systemconfig);
         setConfig(systemconfig);
-      } catch (error) {
-        console.error('Failed to fetch configuration:', error);
-        setError('Failed to load configuration. Please try again later.');
-      } finally {
         setLoading(false);
+        return;
+      } else {
+        try {
+          let systemidvalue= getValueFor('systemID');
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          if (await systemidvalue === "1") {
+            const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
+            setConfig(systemconfig);
+          } else {
+            const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig copy.json');
+            setConfig(systemconfig);
+          }
+  
+          // console.log('Fetched configuration:', systemconfig);
+  
+        } catch (error) {
+          console.error('Failed to fetch configuration:', error);
+          setError('Failed to load configuration. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
       }
     };
-
     fetchConfig();
   }, []);
 
@@ -201,12 +222,10 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
           style={[styles.sortButton, { backgroundColor: theme.whisperGreen }]}>
-          <Ionicons name="filter" size={24} color={theme.text} />
-          <Text style={[styles.headerText, { color: theme.text }]}>Sort/Filter</Text>
+          <Ionicons name="filter" size={24} color={theme.whiteText} />
+          <Text style={[styles.headerText, { color: theme.whiteText }]}>Sort/Filter</Text>
         </TouchableOpacity>
       </View>
-
-    
 
       {/* Alarms List with Loading Footer */}
       <FlatList
@@ -227,20 +246,18 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
           )
         )}
       />
-    
-      
         {/* Modal for Sort Options */}
         {modalVisible && (
         <Modal
           transparent={true}
           visible={modalVisible}
-          animationType="fade"
+          animationType="none"
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.modalOverlay}>
             <View style={[styles.modalContainer, { backgroundColor: theme.card, }]}>
               <Text style={[styles.modalTitle, { color: theme.text }]}>Sort Options</Text>
-              <View style={{flexDirection: "row", gap: 5}}>
+              <View style={{flexDirection: "row", gap: 5, alignItems: "center", justifyContent: 'center'}}>
                 <Text style={[styles.label, { color: theme.text }]}>Device ID</Text>
                 <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='deviceId' && sortCriteria.order === 'asc' ? theme.whisperGreen : theme.border}]} onPress={() => handleSortChange('deviceId', 'asc')}>
                   <Text style={{ color: theme.text }}>Ascending</Text>
@@ -249,7 +266,7 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
                   <Text style={{ color: theme.text }}>Descending</Text>
                 </TouchableOpacity>
               </View>
-              <View style={{flexDirection: "row", gap: 5}}>
+              <View style={{flexDirection: "row", gap: 5, alignItems: "center", justifyContent: 'center'}}>
                 <Text style={[styles.label, { color: theme.text }]}>Priority</Text>
                 <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='priority' && sortCriteria.order === 'asc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('priority', 'asc')}>
                   <Text style={{ color: theme.text }}>Ascending</Text>
