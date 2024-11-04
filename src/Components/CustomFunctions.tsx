@@ -60,7 +60,7 @@ async function getValueFor(key: string) {
   if (result) {
     return result;
   } else {
-    alert('No values stored under that key.');
+    console.error('No values stored under that key.', key);
     return "1";
   }
 }
@@ -260,20 +260,20 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
               <View style={{flexDirection: "row", gap: 5, alignItems: "center", justifyContent: 'center'}}>
                 <Text style={[styles.label, { color: theme.text }]}>Device ID</Text>
                 <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='deviceId' && sortCriteria.order === 'asc' ? theme.whisperGreen : theme.border}]} onPress={() => handleSortChange('deviceId', 'asc')}>
-                  <Text style={{ color: theme.text }}>Ascending</Text>
+                  <Text style={{ color: sortCriteria.key ==='deviceId' && sortCriteria.order === 'asc' ? theme.whiteText : theme.text }}>Ascending</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='deviceId' && sortCriteria.order === 'desc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('deviceId', 'desc')}>
-                  <Text style={{ color: theme.text }}>Descending</Text>
+                  <Text style={{ color: sortCriteria.key ==='deviceId' && sortCriteria.order === 'desc' ? theme.whiteText : theme.text }}>Descending</Text>
                 </TouchableOpacity>
               </View>
               <View style={{flexDirection: "row", gap: 5, alignItems: "center", justifyContent: 'center'}}>
                 <Text style={[styles.label, { color: theme.text }]}>Priority</Text>
                 <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='priority' && sortCriteria.order === 'asc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('priority', 'asc')}>
-                  <Text style={{ color: theme.text }}>Ascending</Text>
+                  <Text style={{ color: sortCriteria.key ==='priority' && sortCriteria.order === 'asc' ? theme.whiteText : theme.text }}>Ascending</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.sortButton, { backgroundColor: sortCriteria.key ==='priority' && sortCriteria.order === 'desc' ? theme.whisperGreen : theme.border }]} onPress={() => handleSortChange('priority', 'desc')}>
-                  <Text style={{ color: theme.text }}>Descending</Text>
+                  <Text style={{ color: sortCriteria.key ==='priority' && sortCriteria.order === 'desc' ? theme.whiteText : theme.text }}>Descending</Text>
                 </TouchableOpacity>
               </View>
 
@@ -427,6 +427,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'rgba(0,0,0,0.5)',
+
     },
     modalContainer: {
       padding: 20,

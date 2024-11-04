@@ -54,10 +54,10 @@ export default function Settings() {
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <Text style={[styles.title, { color: theme.text }]}>settings screen</Text>
-      <Button title={GetOSPlatform ? "sorry, this function is still under development!" : "Test Push notifications (Android only)"}
+      {/* <Button title={GetOSPlatform ? "sorry, this function is still under development!" : "Test Push notifications"}
         onPress={schedulePushNotification}
         disabled={GetOSPlatform}
-      />
+      /> */}
     </ScrollView>
   );
 }

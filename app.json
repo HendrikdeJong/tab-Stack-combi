@@ -2,7 +2,7 @@
   "expo": {
     "name": "Whisperlink",
     "slug": "tab-Stack-combi",
-    "version": "1.0.1",
+    "version": "0.1.1",
     "scheme": "your-app-scheme",
     "orientation": "portrait",
     "icon": "./assets/icon-1024x1024.png",

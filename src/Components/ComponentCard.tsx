@@ -44,16 +44,16 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
 
   if (loading) {
     return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
+      <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'space-between', paddingBottom: 10}]}>
         <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-          <Text style={[styles.deviceCategory, { color: theme.text }]}>Loading device...</Text>
+          <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Loading device...</Text>
         </View>
-        <View style={styles.layout}>
+        <View style={[styles.layout, {height: 100, }]}>
           <ActivityIndicator size="large" color={theme.text} />
         </View>
         <View style={styles.buttonContainer}>
-          <View style={[styles.button, { backgroundColor: theme.border }]} />
-          <View style={[styles.button, { backgroundColor: theme.border }]} />
+          <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
+          <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
         </View>
     </View>
     );

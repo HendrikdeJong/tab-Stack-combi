@@ -53,7 +53,6 @@ export default function DevicesOverview() {
         );
     }
 
-
     return (
         <Tab.Navigator
         initialRouteName="Device_Information_Page"
