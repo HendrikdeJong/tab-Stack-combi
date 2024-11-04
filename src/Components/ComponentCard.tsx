@@ -33,12 +33,24 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
     router.push(`/Devices/${ID}/`);
   };
 
-  // Loading State
   if (loading) {
     return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'center', alignItems: 'center' }]}>
-        <ActivityIndicator size="large" color={theme.text} />
-        <Text style={[styles.deviceCategory, { color: theme.text }]}>Loading device...</Text>
+      <View style={[styles.cardContainer, { backgroundColor: theme.card, minHeight: 200}]}>
+        <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
+          <View style={[styles.Wrappericon, { backgroundColor: theme.border }]} />
+          <View style={styles.skeletonTextWrapper}>
+            <View style={[styles.skeletonText, { backgroundColor: theme.border }]} />
+            <View style={[styles.skeletonText, { backgroundColor: theme.border }]} />
+          </View>
+        </View>
+        <View style={styles.skeletonBody }>
+          <ActivityIndicator size="large" color={theme.text} />
+          <Text style={[styles.deviceCategory, { color: theme.text }]}>Loading device...</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <View style={[styles.skeletonButton, { backgroundColor: theme.border }]} />
+          <View style={[styles.skeletonButton, { backgroundColor: theme.border }]} />
+        </View>
       </View>
     );
   }
@@ -251,6 +263,47 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+  },
+  skeletonContainer: {
+    margin: 15,
+    borderRadius: 8,
+    minWidth: 320,
+    maxWidth: 500,
+    flex: 1,
+    overflow: 'hidden',
+    padding: 15,
+  },
+  skeletonHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  skeletonIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+  },
+  skeletonTextWrapper: {
+    flex: 1,
+  },
+  skeletonText: {
+    height: 20,
+    marginBottom: 5,
+    borderRadius: 4,
+  },
+  skeletonBody: {
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  skeletonFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  skeletonButton: {
+    width: '45%',
+    height: 40,
+    borderRadius: 5,
   },
 });
 

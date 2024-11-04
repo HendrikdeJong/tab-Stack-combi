@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Button, StyleSheet, ScrollView } from 'react-native';
+import { View, Button, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider, useTheme } from '../Styling/Theme';
 
 
 // FOR TESTING PURPOSES WE WILL USE DUMMY DATA
@@ -25,21 +27,23 @@ const saveToSecureStore = async (key: string, value: string) => {
 
 const SystemSelect = () => {
     const handlePress = (systemName: string, url: string) => {
-        console.log(`Selected system: ${systemName}, URL: ${url}`);
+        // console.log(`Selected system: ${systemName}, URL: ${url}`);
         saveToSecureStore('selectedSystem', url);
         router.replace('(drawer)');
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+         <GestureHandlerRootView style={{flex: 1,}}>
+         <ThemeProvider>
+            <View style={styles.container}>
             {DummyData.systems.map((system, index) => (
-                <Button
-                    key={index}
-                    title={system.systemName}
-                    onPress={() => handlePress(system.systemName, system.url)}
-                />
+                <TouchableOpacity key={index} style={[styles.selectablebutton, {backgroundColor: useTheme().card}]} onPress={() => handlePress(system.systemName, system.url)}>
+                    <Text style={{color: useTheme().text, fontSize: 24}}>{system.systemName}</Text>
+                </TouchableOpacity>
             ))}
-        </ScrollView>
+            </View>
+         </ThemeProvider>
+       </GestureHandlerRootView>
     );
 };
 
@@ -50,6 +54,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 16,
     },
+    selectablebutton: {
+        padding: 16,
+        borderRadius: 8,
+        marginBottom: 16,
+        width: '80%',
+        alignItems: 'center',
+    }
 });
 
 export default SystemSelect;
