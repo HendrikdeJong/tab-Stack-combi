@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import WpIcons from '../icons/WhisperPowerIconLib';
 import { useTheme } from '../Styling/Theme';
 import { router } from 'expo-router';
@@ -11,7 +11,7 @@ interface DynamicCardProps {
 }
 
 const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
-  // Hook Calls - Must be at the top level
+  // Hook Calls
   const { loading, config, error } = useFetchConfig(); // Fetch configuration
   const theme = useTheme(); // Fetch theme
 
@@ -26,6 +26,15 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const [loadingButton, setLoadingButton] = useState<string | null>(null);
+
+  const handleButtonPress = (buttonName: string) => {
+    setLoadingButton(buttonName);
+    setTimeout(() => {
+      setLoadingButton(null);
+    }, Math.random() * 5000);
+  };
+
   // Find the card data once configuration is loaded
   const cardData = config?.system?.devices?.find(item => item.ID === ID) || null;
 
@@ -36,18 +45,24 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
   // Loading State
   if (loading) {
     return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'center', alignItems: 'center' }]}>
-        <ActivityIndicator size="large" color={theme.text} />
+      <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
+       <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
         <Text style={[styles.deviceCategory, { color: theme.text }]}>Loading device...</Text>
-      </View>
+        <ActivityIndicator size="large" color={theme.text} />
+       </View>
+     </View>
     );
   }
 
   // Error State
   if (error) {
     return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'center', alignItems: 'center' }]}>
-        <Text style={[styles.deviceCategory, { color: theme.text }]}>Error loading configuration. Please try again later.</Text>
+      <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
+        <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
+          <Text style={[styles.deviceCategory, { color: theme.text }]}>
+            Error loading configuration. Please try again later.
+          </Text>
+        </View>
       </View>
     );
   }
@@ -72,7 +87,11 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
     <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
       {/* Header Section */}
       <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-        <WpIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
+        {cardData.iconlib === 'WpIcons' ? (
+          <WpIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
+        ) : (
+          <MaterialCommunityIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
+        )}
         <View style={{ flex: 1 }}>
           <Text style={[styles.deviceCategory, { color: theme.whiteText, borderColor: theme.selected }]}>
             {cardData.class}
@@ -87,10 +106,10 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
       </View>
 
       {/* Enclosed Main Content */}
-      <View style={{ paddingBottom: 10 }}>
+      <View style={{ flexDirection: 'column', justifyContent: 'space-around', paddingVertical: 10, gap: 15 ,flexGrow: 1}}>
         {/* Status Segment */}
         <View style={styles.status}>
-          <Text style={[styles.buttonText, { color: theme.text }]}>{cardData.status}</Text>
+          <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
         </View>
 
         {/* Main segment */}
@@ -98,16 +117,39 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
           {Array.isArray(cardData.Specifications.summary) && cardData.Specifications.summary.map((section, sectionIdx) => {
             const [sectionName, items] = Object.entries(section)[0];
 
+            const renderItems = (items: any[], isGroup: boolean = false) => (
+              items.map((value: { value: string; unit?: string }, idx: number) => (
+                <Text key={idx} style={[styles.text, { color: theme.text }]}>
+                  {value.value}
+                  <Text style={styles.unit}>{value.unit || ''}</Text>
+                </Text>
+              ))
+            );
+
             if (sectionName.toLowerCase() === 'classicon' && Array.isArray(items)) {
               return (
                 <View key={sectionIdx} style={[styles.layoutItem]}>
-                  <WpIcons name={cardData.classIcon as any} size={100} color={theme.invertbackground} />
-                  {items.map((value: { value: string; unit?: string }, idx: number) => (
-                    <Text key={idx} style={[styles.text, { color: theme.text }]}>
-                      {value.value}
-                      <Text style={styles.unit}>{value.unit || ''}</Text>
-                    </Text>
-                  ))}
+                  {cardData.iconlib === 'WpIcons' ? (
+                    <WpIcons name={cardData.classIcon as any} size={85} color={theme.invertbackground} />
+                  ) : (
+                    <MaterialCommunityIcons name={cardData.classIcon as any} size={85} color={theme.invertbackground} />
+                  )}
+                  {renderItems(items)}
+                </View>
+              );
+            }
+            if (sectionName.toLowerCase() === 'group' && Array.isArray(items)) {
+              return (
+                <View key={sectionIdx} style={[styles.layoutItem, { flexDirection: 'column', flexShrink: 1 }]}>
+                  {items.map((groupItem, groupIdx) => {
+                    const [groupName, groupValues] = Object.entries(groupItem)[0];
+                    return (
+                      <View key={groupIdx} style={{ marginBottom: 10 }}>
+                  <Text style={[styles.deviceCategory, { color: theme.text }]}>{groupName}</Text>
+                  {Array.isArray(groupValues) && renderItems(groupValues)}
+                      </View>
+                    );
+                  })}
                 </View>
               );
             }
@@ -115,12 +157,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
             return (
               <View key={sectionIdx} style={styles.layoutItem}>
                 <Text style={[styles.deviceCategory, { color: theme.text }]}>{sectionName}</Text>
-                {items.map((value: { value: string; unit?: string }, idx: number) => (
-                  <Text key={idx} style={[styles.text, { color: theme.text }]}>
-                    {value.value}
-                    <Text style={styles.unit}>{value.unit || ''}</Text>
-                  </Text>
-                ))}
+                {renderItems(items)}
               </View>
             );
           })}
@@ -129,14 +166,10 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
         {/* Bottom segment */}
         <View style={styles.buttonContainer}>
           {hasSettings && (
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: theme.border }]}
-              onPress={() => setModalVisible(true)}
-            >
-              <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={() => setModalVisible(true)}>
+            <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>
+          </TouchableOpacity>
           )}
-
           <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={handlePress}>
             <Text style={[styles.buttonText, { color: theme.text }]}>More <Ionicons name='open' /></Text>
           </TouchableOpacity>
@@ -154,9 +187,21 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
             </Text>
             <View style={styles.buttonContainer}>
               {firstOption?.buttons?.map((value, idx) => (
-                <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]}>
-                  <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
-                </TouchableOpacity>
+                firstOption?.settingtype?.toLowerCase() === 'button' ? (
+                  <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]}
+                    onPress={() => handleButtonPress(value.name)}
+                  >
+                    {loadingButton === value.name ? (
+                      <ActivityIndicator size="small" color={theme.text} />
+                    ) : (
+                      <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
+                    )}
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]}>
+                    <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
+                  </TouchableOpacity>
+                )
               ))}
               <TouchableOpacity style={[styles.button, { backgroundColor: theme.card }]} onPress={() => setModalVisible(false)}>
                 <Text style={[styles.buttonText, { color: theme.text }]}>Close</Text>
@@ -187,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   deviceCategory: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   deviceTitle: {
@@ -199,20 +244,23 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginLeft: 2,
   },
-  status: {
-    marginVertical: 15,
-    alignItems: 'center',
-  },
+  
   layout: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 15,
     width: '100%',
   },
   layoutItem: {
     width: '33%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  status: {
+    alignItems: 'center',
+  },
+  statustext: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   text: {
     fontSize: 24,

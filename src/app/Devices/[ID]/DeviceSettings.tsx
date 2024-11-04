@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, ActivityIndicator } from 'react-native';
 import { useTheme } from '../../../Styling/Theme';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../../../Styling/StyleSheet';
@@ -8,6 +8,16 @@ import { EmptyState } from '../../../Components/CustomFunctions';
 export default function Device_Control_Page({ Settings }: { Settings: any }) {
   const theme = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const loadfor5seconds = (value: boolean) => {
+    setLoading(value);
+    if (value) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 5000);
+    }
+  };
   const [currentSetting, setCurrentSetting] = useState<any>(null);
 
   if (!Settings || Settings.length === 0) {
@@ -26,31 +36,32 @@ export default function Device_Control_Page({ Settings }: { Settings: any }) {
           {/* BUTTON */}
           {setting.settingtype === 'Button' ? (
             setting.buttons.map((button: any, idx: number) => (
-              <View key={idx} style={styles.SettingsItem}>
-                <TouchableOpacity
-                  style={[styles.SettingsModalButton, { backgroundColor: theme.border, flex: 1 }]}>
-                  <Text style={[styles.value, { color: theme.text }]}>{button.value}</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity style={[styles.SettingsModalButton, { backgroundColor: theme.border, width: '85%'}]}
+              onPress={() => {setCurrentSetting({ ...currentSetting, loadingButton: idx });loadfor5seconds(true);}}
+              >
+                <View style={{justifyContent: 'space-between', flexDirection: 'row', flex: 1}}>
+                  <Text style={[styles.value, { color: theme.text }]}>
+                  {button.value}
+                  </Text>
+                  {currentSetting?.loadingButton === idx && loading && (
+                    <ActivityIndicator size="small" color={theme.text} />
+                  )}
+                </View>
+              </TouchableOpacity>
             ))
           ) : (
-            // Small modal button
-            <View style={styles.SettingsItem}>
-              <Text style={[styles.label, { color: theme.text }]}>
-                <Ionicons name='help-circle' color={theme.text} size={32} />
-                {setting.label}
-              </Text>
-              <TouchableOpacity
-                style={[styles.SettingsModalButton, { backgroundColor: theme.border }]}
-                onPress={() => {
-                  setCurrentSetting(setting);
-                  setModalVisible(true);
-                }}
-              >
-                <Text style={[styles.value, { color: theme.text }]}>{setting.value}</Text>
-                <Text style={[styles.unit, { color: theme.text }]}>{setting.unit}</Text>
-              </TouchableOpacity>
-            </View>
+            // Small button that opens modal
+            <TouchableOpacity style={[styles.SettingsModalButton, { backgroundColor: theme.border, alignItems: 'center', width: '85%', justifyContent: 'space-between' }]} 
+              onPress={() => {
+                setCurrentSetting(setting);
+                setModalVisible(true);
+              }}>
+                <Text style={[styles.label, { color: theme.text }]}>{setting.label}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, borderRadius: 10, backgroundColor: theme.card }}>
+                  <Text style={[styles.value, { color: theme.text }]}>{setting.value}</Text>
+                  <Text style={[styles.unit, { color: theme.text }]}>{setting.unit}</Text>
+                </View>
+            </TouchableOpacity>
           )}
 
           {/* Modal for Setting Details */}
@@ -66,9 +77,8 @@ export default function Device_Control_Page({ Settings }: { Settings: any }) {
                   <Text style={[localStyles.modalTitle, { color: theme.text }]}>
                     {currentSetting.label}
                   </Text>
-                  <Text style={[localStyles.text,{color: theme.text,backgroundColor: theme.background,padding: 15,borderRadius: 8,}]}>
-                    {currentSetting.value}
-                    <Text style={localStyles.unit}>{currentSetting.unit || ''}</Text>
+                  <Text style={[localStyles.text,{color: theme.text, backgroundColor: theme.background, padding: 15,borderRadius: 8, alignSelf: 'center'}]}>
+                    {currentSetting.value}<Text style={localStyles.unit}>{currentSetting.unit || ''}</Text>
                   </Text>
                   <View style={localStyles.buttonContainer}>
                     {currentSetting?.buttons &&
@@ -107,6 +117,8 @@ const localStyles = StyleSheet.create({
   },
   modalWrapper: {
     padding: 15,
+    margin: 15,
+    borderRadius: 10,
   },
   modalTitle: {
     fontSize: 20,

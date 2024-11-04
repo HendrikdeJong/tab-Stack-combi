@@ -5,24 +5,6 @@ import { useTheme } from "../Styling/Theme";
 import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 
-// type Device = {
-//   ID: string;
-//   title: string;
-//   class: string;
-//   classicon: string;
-//   status: string;
-//   Alarms: [];
-//   Settings: [];
-//   Specifications: [];
-// };
-
-// type SystemConfig = {
-//   system: {
-//     devices: Device[];
-//     name: string;
-//   };
-// };
-
 type Alarm = {
   priority: 'critical' | 'warning' | 'information';
   description: string;
@@ -58,6 +40,7 @@ type Device = {
   title: string;
   class: string;
   classIcon: string; // This should match the JSON property (`classIcon` in JSON becomes `classicon`)
+  iconlib: string;
   status: string;
   Alarms: Alarm[];
   Settings: Setting[];
@@ -80,13 +63,13 @@ export function useFetchConfig() {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         
 
         const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
 
-        console.log('Fetched configuration:', systemconfig);
+        // console.log('Fetched configuration:', systemconfig);
         setConfig(systemconfig);
       } catch (error) {
         console.error('Failed to fetch configuration:', error);

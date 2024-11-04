@@ -60,7 +60,6 @@ export { default as Sinus } from "./Sinus";
 export { default as SolarCharger } from "./SolarCharger";
 export { default as SolarPanel } from "./SolarPanel";
 export { default as Solar } from "./Solar";
-export { default as SolarCharger } from "./SolarCharger";
 export { default as Sq } from "./Sq";
 export { default as Sun } from "./Sun";
 export { default as Time } from "./Time";

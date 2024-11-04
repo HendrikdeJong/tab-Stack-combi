@@ -7,6 +7,7 @@ import { useTheme } from '../../Styling/Theme';
 export default function GatewayLocal() {
   const { width } = useWindowDimensions();
   const { loading, config, error } = useFetchConfig();
+  const devices = config?.system?.devices ?? [];
   
   const getNumColumns = () => {
     if (width > 1200) return 3;
@@ -33,7 +34,6 @@ export default function GatewayLocal() {
     );
   }
 
-  const devices = config?.system?.devices ?? [];
 
   return (
     <FlatList

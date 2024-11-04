@@ -71,7 +71,7 @@ export default function DevicesOverview() {
             title: 'Monitor',
             tabBarLabel: ({ color }) => (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Ionicons name='logo-html5' style={{ fontSize: 24, color, marginRight: 8 }}/>
+                <Ionicons name='list-circle-sharp' style={{ fontSize: 24, color, marginRight: 8 }}/>
                 <Text style={{ color }}>Monitor</Text>
                 </View>
             ),

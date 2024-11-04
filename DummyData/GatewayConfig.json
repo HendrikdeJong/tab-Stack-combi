@@ -7,6 +7,7 @@
         "title": "Piccolo 6",
         "class": "generator",
         "classIcon": "piccolo",
+        "iconlib": "WpIcons",
         "status": "Running",
         "Alarms":[
           {
@@ -59,8 +60,8 @@
             { "label": "Battery Temperature Sensor", "value": "25.0.", "unit": "°C" }
           ],
           "Historic": [
-            { "label": "Total Generator Run Time Hours", "value": "6"},
-            { "label": "Total Generator Run Time Minutes", "value": "12"},
+            { "label": "Total Run Time Hours", "value": "6"},
+            { "label": "Total Run Time Minutes", "value": "12"},
             { "label": "Last Maintenance hours", "value": "1"},
             { "label": "Last Maintenance Minutes", "value": "4"}
           ]
@@ -79,6 +80,7 @@
         "title": "Supreme Combi",
         "class": "inverter-charger",
         "classIcon": "inverter",
+        "iconlib": "WpIcons",
         "status": "Charging",
         "Alarms":[
           {
@@ -107,14 +109,17 @@
               { "label": "AC Input Current", "value": "12", "unit": "A" }
             ]},
             {
-              "classicon": [
-                { "label": "DC battery voltage", "value": "13.4", "unit": "Vdc" },
-                { "label": "DC battery current", "value": "78", "unit": "A" }
-              ]
+              "classicon": []
             },
-            {"AC Output": [
-              { "label": "AC Output Voltage", "value": "229", "unit": "Vac" },
-              { "label": "AC Output Current", "value": "7.2", "unit": "A" }
+            {"group": [
+              {"AC Output": [
+                { "label": "AC Output Voltage", "value": "229", "unit": "Vac" },
+                { "label": "AC Output Current", "value": "7.2", "unit": "A" }
+              ]},
+              {"DC Battery": [
+                { "label": "DC Battery Voltage", "value": "13.4", "unit": "Vdc" },
+                { "label": "DC Battery Current", "value": "78", "unit": "A" }
+              ]}
             ]}
           ],
           "Dc Connections": [
@@ -130,26 +135,20 @@
             { "label": "AC Input Load", "value": "12", "unit": "%" }
           ],
           "Temperatures": [
-            { "label": "Battery Temperature Sensor", "value": "19.8", "unit": "°C" },
-            { "label": "Internal 1 Temperature Sensor", "value": "19.5", "unit": "°C" },
-            { "label": "Internal 2 Temperature Sensor", "value": "19.7", "unit": "°C" },
-            { "label": "Internal 3 Temperature Sensor", "value": "20.3", "unit": "°C" }
+            { "label": "Battery Temperature", "value": "19.8", "unit": "°C" },
+            { "label": "Internal Sensor 1", "value": "19.5", "unit": "°C" },
+            { "label": "Internal Sensor 2", "value": "19.7", "unit": "°C" },
+            { "label": "Internal Sensor 3", "value": "20.3", "unit": "°C" }
           ]
         }
       },
-
-
-
-
-
-
-
 
       {
         "ID": "LBPA",
         "title": "Lithium battery Power Advanced",
         "class": "battery",
-        "classIcon": "battery",
+        "classIcon": "battery-50",
+        "iconlib": "MaterialCommunityIcons",
         "status": "Operational",
         "Alarms":[
         ],
