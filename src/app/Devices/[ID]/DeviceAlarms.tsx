@@ -12,10 +12,8 @@ export default function Device_Alarm_Page({ Devicejson }: { Devicejson: any }) {
   }
 
   return (
-    <ThemeProvider>
-      <GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.background }}>
-        <AlarmsList filterDeviceId={Devicejson.ID} />
-      </GestureHandlerRootView>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.background }}>
+      <AlarmsList filterDeviceId={Devicejson.ID} />
+    </GestureHandlerRootView>
   );
 }
