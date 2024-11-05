@@ -3,8 +3,7 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, ActivityIndicator, Platform } from "react-native";
 import { useTheme } from "../Styling/Theme";
 import { Ionicons } from '@expo/vector-icons';
-import * as SecureStore from 'expo-secure-store';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Alarm = {
   priority: 'critical' | 'warning' | 'information';
@@ -56,11 +55,11 @@ type SystemConfig = {
 };
 
 async function getValueFor(key: string) {
-  let result = await SecureStore.getItemAsync(key);
+  let result = await AsyncStorage.getItem(key);
   if (result) {
     return result;
   } else {
-    console.error('No values stored under that key.', key);
+    // console.error('Error getting value, using default value for', key);
     return "1";
   }
 }
@@ -69,24 +68,9 @@ export function useFetchConfig() {
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState<SystemConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const isweb = Platform.OS === 'web' ;
 
   useEffect(() => {
     const fetchConfig = async () => {
-      if (isweb) {
-        try {
-          await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000));
-            const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
-            setConfig(systemconfig);
-          // console.log('Fetched configuration:', systemconfig);
-        } catch (error) {
-          console.error('Failed to fetch configuration:', error);
-          setError('Failed to load configuration. Please try again later.');
-        } finally {
-          setLoading(false);
-        }
-
-      } else {
         try {
           let systemidvalue= getValueFor('systemID');
           await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000));
@@ -105,7 +89,6 @@ export function useFetchConfig() {
         } finally {
           setLoading(false);
         }
-      }
     };
     fetchConfig();
   }, []);

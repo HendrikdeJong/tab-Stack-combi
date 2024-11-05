@@ -150,7 +150,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
                     const [groupName, groupValues] = Object.entries(groupItem)[0];
                     return (
                       <View key={groupIdx} style={{ marginBottom: 10 }}>
-                  <Text style={[styles.deviceCategory, { color: theme.text }]}>{groupName}</Text>
+                  <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{groupName}</Text>
                   {Array.isArray(groupValues) && renderItems(groupValues)}
                       </View>
                     );
@@ -161,7 +161,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
 
             return (
               <View key={sectionIdx} style={styles.layoutItem}>
-                <Text style={[styles.deviceCategory, { color: theme.text }]}>{sectionName}</Text>
+                <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{sectionName}</Text>
                 {renderItems(items)}
               </View>
             );

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Button, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider, useTheme } from '../Styling/Theme';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // FOR TESTING PURPOSES WE WILL USE DUMMY DATA
 // IN REAL WORLD SCENARIO, THIS DATA WILL BE FETCHED FROM BLUETOOTH OR WIFI
@@ -22,7 +21,7 @@ const DummyData = {
 };
 
 const saveToSecureStore = async (key: string, value: string) => {
-    await SecureStore.setItemAsync(key, value);
+    await AsyncStorage.setItem(key, value);
 };
 
 const SystemSelect = () => {

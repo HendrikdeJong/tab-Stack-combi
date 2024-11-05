@@ -7,6 +7,8 @@ const common = {
   whiteText: '#FFFFFF',
   selected: '#D1D1D1',
   notification: '#FFA500',
+  subtext: '#808080',
+  error: '#FF0000',
 };
 
 const themes = {

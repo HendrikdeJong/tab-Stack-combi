@@ -1,4 +1,4 @@
-import { ThemeProvider, useTheme } from '../../Styling/Theme';
+import { ThemeProvider, useTheme } from '../Styling/Theme';
 import { Ionicons } from '@expo/vector-icons';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { router, Stack } from 'expo-router';
