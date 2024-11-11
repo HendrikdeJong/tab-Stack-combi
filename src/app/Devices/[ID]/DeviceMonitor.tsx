@@ -26,6 +26,7 @@ export default function Device_Information_Page({ Specifications }: { Specificat
       keyExtractor={(item, index) => item.label + index}
       style={[styles.container, { backgroundColor: theme.background }]}
       ItemSeparatorComponent={() => <View style={{ paddingVertical: 5 }} />}
+      ListFooterComponent={() => <View style={{ height: 20 }} />}
       renderItem={({ item }) => (
         <DetailItem 
           label={item.label} 
