@@ -105,9 +105,10 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
             {cardData.title}
           </Text>
         </View>
-        {cardData.Alarms && cardData.Alarms.length > 0 && (
+        {/* WARNING ICON, FOR DISPLAY OFF */}
+        {/* {cardData.Alarms && cardData.Alarms.length > 0 && (
           <Ionicons name='warning' style={[styles.Wrappericon, { opacity: blink ? 1 : 0.5 }]} color={theme.notification} />
-        )}
+        )} */}
       </View>
 
       {/* Enclosed Main Content */}

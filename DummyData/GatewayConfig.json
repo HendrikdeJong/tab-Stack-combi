@@ -152,7 +152,19 @@
         "status": "Operational",
         "Alarms":[
         ],
-        "Settings": [],
+        "Settings": [
+          {
+            "label": "Battery state",
+            "settingtype": "Button",
+            "value": "Operational",
+            "minvalue": "",
+            "maxvalue": "",
+            "unit": "",
+            "buttons": [
+              { "name": "Reset", "value": "Reset Battery" }
+            ]
+          }
+        ],
         "Specifications": {
           "summary": [
             {"Battery": [

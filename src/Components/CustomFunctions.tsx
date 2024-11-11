@@ -126,10 +126,10 @@ export function DetailItem({ label, value, unit }: { label: string; value?: stri
   const theme = useTheme();
   return (
     <View style={styles.itemContainer}>
-      <Text style={[styles.label, { color: theme.text }]}>{label}</Text>
+      <Text allowFontScaling={false} style={[styles.label, { color: theme.text, }]}>{label}</Text>
       <View style={styles.valueContainer}>
-        {value && <Text style={[styles.value, { color: theme.text }]}>{value}</Text>}
-        {unit && <Text style={[styles.unit, { color: theme.text }]}>{unit}</Text>}
+        {value && <Text allowFontScaling={false} style={[styles.value, { color: theme.text }]}>{value}</Text>}
+        {unit && <Text allowFontScaling={false} style={[styles.unit, { color: theme.text }]}>{unit}</Text>}
       </View>
     </View>
   );
