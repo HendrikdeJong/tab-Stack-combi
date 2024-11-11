@@ -12,6 +12,7 @@ export default function DrawerLayout() {
         <Drawer initialRouteName="index"
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
+              headerShadowVisible: false,
               headerStyle: { backgroundColor: theme.whisperGreen, },
               headerTintColor: theme.whiteText,
               headerTitleStyle: { fontWeight: 'bold', },

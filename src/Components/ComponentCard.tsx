@@ -105,7 +105,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
             {cardData.title}
           </Text>
         </View>
-        {/* WARNING ICON, FOR DISPLAY OFF */}
+        {/* WARNING ICON, FOR DISPLAY OFF  */}
         {/* {cardData.Alarms && cardData.Alarms.length > 0 && (
           <Ionicons name='warning' style={[styles.Wrappericon, { opacity: blink ? 1 : 0.5 }]} color={theme.notification} />
         )} */}
@@ -169,8 +169,8 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID }) => {
           })}
         </View>
 
-        {/* Bottom segment */}
-        <View style={styles.buttonContainer}>
+        {/* buttons segment */}
+        <View style={[styles.buttonContainer,{}]}>
           {hasSettings && (
           <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={() => setModalVisible(true)}>
             <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>

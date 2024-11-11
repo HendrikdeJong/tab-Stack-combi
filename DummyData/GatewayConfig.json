@@ -13,10 +13,6 @@
           {
             "priority": "warning",
             "description": "Maintenance required"
-          },
-          {
-            "priority": "critical",
-            "description": "high exhaust temperature"
           }
         ],
         "Settings": [
@@ -64,81 +60,6 @@
             { "label": "Total Run Time Minutes", "value": "12"},
             { "label": "Last Maintenance hours", "value": "1"},
             { "label": "Last Maintenance Minutes", "value": "4"}
-          ]
-        }
-      },
-
-
-
-
-
-
-
-
-      {
-        "ID": "SupremeCombi",
-        "title": "Supreme Combi",
-        "class": "inverter-charger",
-        "classIcon": "inverter",
-        "iconlib": "WpIcons",
-        "status": "Charging",
-        "Alarms":[
-          {
-            "priority": "information",
-            "description": "test alarm 1"
-          }
-        ],
-        "Settings": [
-          {
-            "label": "AC input Current Limit",
-            "settingtype": "Modal",
-            "value": "12",
-            "maxvalue": "16",
-            "minvalue": "2",
-            "unit": "A",
-            "buttons": [
-              { "name": "+", "value": "Increase" },
-              { "name": "-", "value": "Decrease" }
-            ]
-          }
-        ],
-        "Specifications": {
-          "summary": [
-            {"AC input": [
-              { "label": "AC Input Voltage", "value": "229", "unit": "Vac" },
-              { "label": "AC Input Current", "value": "12", "unit": "A" }
-            ]},
-            {
-              "classicon": []
-            },
-            {"group": [
-              {"AC Output": [
-                { "label": "AC Output Voltage", "value": "229", "unit": "Vac" },
-                { "label": "AC Output Current", "value": "7.2", "unit": "A" }
-              ]},
-              {"DC Battery": [
-                { "label": "DC Battery Voltage", "value": "13.4", "unit": "Vdc" },
-                { "label": "DC Battery Current", "value": "78", "unit": "A" }
-              ]}
-            ]}
-          ],
-          "Dc Connections": [
-            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
-            { "label": "Battery Current", "value": "70", "unit": "A" },
-            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
-            { "label": "DC Output Load", "value": "20", "unit": "%" }
-          ],
-          "AC Input": [
-            { "label": "AC Input Voltage", "value": "230", "unit": "V" },
-            { "label": "AC Input Current", "value": "4", "unit": "A" },
-            { "label": "AC Input Power", "value": "20", "unit": "W" },
-            { "label": "AC Input Load", "value": "12", "unit": "%" }
-          ],
-          "Temperatures": [
-            { "label": "Battery Temperature", "value": "19.8", "unit": "°C" },
-            { "label": "Internal Sensor 1", "value": "19.5", "unit": "°C" },
-            { "label": "Internal Sensor 2", "value": "19.7", "unit": "°C" },
-            { "label": "Internal Sensor 3", "value": "20.3", "unit": "°C" }
           ]
         }
       },
@@ -207,6 +128,70 @@
           "Temperatures": [
             { "label": "Battery Temperature Sensor", "value": "25.0", "unit": "°C" }
           ]         
+        }
+      },
+
+      {
+        "ID": "SupremeCombi",
+        "title": "Supreme Combi",
+        "class": "inverter-charger",
+        "classIcon": "inverter",
+        "iconlib": "WpIcons",
+        "status": "Charging",
+        "Alarms":[
+        ],
+        "Settings": [
+          {
+            "label": "AC input Current Limit",
+            "settingtype": "Modal",
+            "value": "12",
+            "maxvalue": "16",
+            "minvalue": "2",
+            "unit": "A",
+            "buttons": [
+              { "name": "+", "value": "Increase" },
+              { "name": "-", "value": "Decrease" }
+            ]
+          }
+        ],
+        "Specifications": {
+          "summary": [
+            {"AC input": [
+              { "label": "AC Input Voltage", "value": "229", "unit": "Vac" },
+              { "label": "AC Input Current", "value": "12", "unit": "A" }
+            ]},
+            {
+              "classicon": []
+            },
+            {"group": [
+              {"AC Output": [
+                { "label": "AC Output Voltage", "value": "229", "unit": "Vac" },
+                { "label": "AC Output Current", "value": "7.2", "unit": "A" }
+              ]},
+              {"DC Battery": [
+                { "label": "DC Battery Voltage", "value": "13.4", "unit": "Vdc" },
+                { "label": "DC Battery Current", "value": "78", "unit": "A" }
+              ]}
+            ]}
+          ],
+          "Dc Connections": [
+            { "label": "DC Voltage", "value": "24.4", "unit": "V" },
+            { "label": "Battery Current", "value": "70", "unit": "A" },
+            { "label": "Battery Current Limit", "value": "10", "unit": "A" },
+            { "label": "DC Output Load", "value": "20", "unit": "%" }
+          ],
+          "AC Input": [
+            { "label": "AC Input Voltage", "value": "230", "unit": "V" },
+            { "label": "AC Input Current", "value": "4", "unit": "A" },
+            { "label": "AC Input Power", "value": "20", "unit": "W" },
+            { "label": "AC Input Load", "value": "12", "unit": "%" }
+          ],
+          "Temperatures": [
+            { "label": "Battery Temperature", "value": "19.8", "unit": "°C" },
+            { "label": "Internal Sensor 1", "value": "19.5", "unit": "°C" },
+            { "label": "Internal Sensor 2", "value": "19.7", "unit": "°C" },
+            { "label": "Internal Sensor 3", "value": "20.3", "unit": "°C" }
+          ]
         }
       }
     ]

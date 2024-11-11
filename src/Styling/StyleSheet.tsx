@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
       fontSize: 30,
       fontWeight: 'bold',
       marginBottom: 10,
-      paddingBottom: 10,
       borderBottomWidth: 1,
     },
     itemContainer: {

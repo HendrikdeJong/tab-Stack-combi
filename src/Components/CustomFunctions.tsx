@@ -78,7 +78,7 @@ export function useFetchConfig() {
             const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
             setConfig(systemconfig);
           } else {
-            const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig copy.json');
+            const systemconfig: SystemConfig = require('../../DummyData/DemoLib.json');
             setConfig(systemconfig);
           }
   
@@ -126,12 +126,12 @@ export function DetailItem({ label, value, unit }: { label: string; value?: stri
   const theme = useTheme();
   return (
     <View style={styles.itemContainer}>
-      <Text allowFontScaling={false} style={[styles.label, { color: theme.text, }]}>{label}</Text>
+      <Text style={[styles.label, { color: theme.text }]}>{label}</Text>
       <View style={styles.valueContainer}>
-        {value && <Text allowFontScaling={false} style={[styles.value, { color: theme.text }]}>{value}</Text>}
-        {unit && <Text allowFontScaling={false} style={[styles.unit, { color: theme.text }]}>{unit}</Text>}
+        {value && <Text style={[styles.value, { color: theme.text }]}>{value}</Text>}
+        {unit && <Text style={[styles.unit, { color: theme.text }]}>{unit}</Text>}
       </View>
-    </View>
+  </View>
   );
 }
 
@@ -221,7 +221,7 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
       <FlatList
         data={sortedData}
         keyExtractor={(item, index) => `${index}-${item.deviceId}-${item.description}`}
-        renderItem={({ item }) => <AlarmItem alarm={item} />}
+        renderItem={({ item }) => <AlarmItem alarm={item} HideName={!!filterDeviceId} />}
         initialNumToRender={5}
         maxToRenderPerBatch={5}
         windowSize={5}
@@ -278,161 +278,163 @@ export function AlarmsList({ alarms, filterDeviceId }: { alarms?: any[]; filterD
   );
 }
 
-export function AlarmItem({ alarm }: { alarm: any }) {
+export function AlarmItem({ alarm, HideName }: { alarm: any, HideName?: boolean }) {
   const theme = useTheme();
   return (
     <View style={{padding: 10, backgroundColor: theme.border }}>
       <View style={{ flexDirection: "row", alignItems: 'center'}}>
         <Ionicons style={[styles.alertIcon, {fontSize: 30,}]} name={mapPriorityToIcon(alarm.priority).name as any} color={mapPriorityToIcon(alarm.priority).color} />
         <Text style={{fontSize: 15, color: theme.text }}>
-          {alarm.deviceId ? `${alarm.deviceName}: ` : ''}
+          {!HideName && alarm.deviceId ? `${alarm.deviceName}: ` : ''}
           {alarm.description}
         </Text>
       </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 16,
-    },
-    section: {
-      marginBottom: 24,
-    },
-    title: {
-      fontSize: 30,
-      fontWeight: 'bold',
-      marginBottom: 10,
-      paddingBottom: 10,
-      borderBottomWidth: 1,
-    },
-    itemContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginBottom: 5,
-    },
-    label: {
-      fontSize: 20,
-    },
-    valueContainer: {
-      flexDirection: 'row',
-    },
-    value: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    unit: {
-      fontSize: 16,
-      alignSelf: 'flex-end',
-      marginLeft: 2,
-      fontWeight: 'bold',
-    },
-    screenContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    screenText: {
-      fontSize: 24,
-      fontWeight: 'bold',
-    },
-    ContentWrapper: {
-      height: '90%',
-      width: '90%',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: 20,
-    },
-
-    listitemContainer: {
-      padding: 10,
-      borderRadius: 5,
-      marginBottom: 5,
-      overflow: 'hidden',
-    },
-    ItemContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      flex: 1,
-    },
-    alertText: {
-      fontSize: 14,
-      flex: 1,
-    },
-    alertIcon: {
-      fontSize: 20,
-      marginRight: 5,
-      textAlignVertical: 'center',
-    },
-    headerContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingVertical: 10,
-      paddingHorizontal: 5,
-    },
-    headerText: {
-      fontSize: 16,
-      fontWeight: 'bold',
-    },
-    sortSelector: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    sortOption: {
-      flex: 1,
-      paddingVertical: 10,
-      paddingHorizontal: 15,
-      marginHorizontal: 5,
-      borderRadius: 5,
-      alignItems: 'center',
-    },
-    SettingsItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    },
-    SettingButton: {
-      fontSize: 24,
-      padding: 10,
-      borderRadius: 5,
-    },
-    SettingsModalButton: {
-      marginHorizontal: 10,
-      flexDirection: 'row',
-      padding: 8,
-      borderRadius: 8,
-      textAlign: 'center',
-    },
-    sortButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 10,
-      borderRadius: 5,
-    },
-    modalOverlay: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.5)',
-
-    },
-    modalContainer: {
-      padding: 20,
-      borderRadius: 10,
-      gap: 10,
-    },
-    modalTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginBottom: 15,
-    },
-    modalButton: {
-      padding: 10,
-      borderRadius: 5,
-      alignItems: 'center',
-      marginVertical: 5,
-    },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+    flexWrap: 'wrap',
+  },
+  label: {
+    fontSize: 20,
+    marginRight: 10,
+  },
+  valueContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexShrink: 1,
+  },
+  value: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  unit: {
+    fontSize: 16,
+    marginLeft: 2,
+    fontWeight: 'bold',
+    alignSelf: 'flex-end',
+  },
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  section: {
+    marginBottom: 24,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+  },
+  screenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  screenText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  ContentWrapper: {
+    height: '90%',
+    width: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
+  },
+  listitemContainer: {
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+    overflow: 'hidden',
+  },
+  ItemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  alertText: {
+    fontSize: 14,
+    flex: 1,
+  },
+  alertIcon: {
+    fontSize: 20,
+    marginRight: 5,
+    textAlignVertical: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  sortSelector: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sortOption: {
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    marginHorizontal: 5,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  SettingsItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  SettingButton: {
+    fontSize: 24,
+    padding: 10,
+    borderRadius: 5,
+  },
+  SettingsModalButton: {
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    padding: 8,
+    borderRadius: 8,
+    textAlign: 'center',
+  },
+  sortButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContainer: {
+    padding: 20,
+    borderRadius: 10,
+    gap: 10,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  modalButton: {
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginVertical: 5,
+  },
 });

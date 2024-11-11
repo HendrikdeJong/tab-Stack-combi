@@ -5,10 +5,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from "expo-constants";
-import { Platform } from 'react-native';
+import { Platform, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useEffect } from 'react';
 import * as NavigationBar from 'expo-navigation-bar';
-
+import { Ionicons } from '@expo/vector-icons';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -60,7 +60,13 @@ async function registerForPushNotificationsAsync() {
 
 export default function Layout() {
   const theme = useTheme();
-  
+
+  (Text as any).defaultProps = (Text as any).defaultProps || {};
+  (Text as any).defaultProps.allowFontScaling = false;
+
+  (TextInput as any).defaultProps = (TextInput as any).defaultProps || {};
+  (TextInput as any).defaultProps.allowFontScaling = false;
+
   if (Platform.OS !== 'web') {
     useEffect(() => {
       registerForPushNotificationsAsync();
@@ -70,16 +76,16 @@ export default function Layout() {
     }, []);
   }
   
-
   return (
-    <GestureHandlerRootView style={{flex: 1,}}>
+    <GestureHandlerRootView style={{flex: 1}}>
       <ThemeProvider>
         <StatusBar style='light' translucent={true}/>
-        <Stack screenOptions={{
+        <Stack screenOptions={({ navigation }) => ({
             headerTintColor: theme.whiteText,
             headerStyle: {
               backgroundColor: theme.whisperGreen,
             },
+            headerShadowVisible: false,
             headerTitleStyle: {
               fontWeight: 'bold',
               color: theme.whiteText,
@@ -87,7 +93,12 @@ export default function Layout() {
             contentStyle: {
               backgroundColor: theme.background,
             },
-          }}>
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('(drawer)')} style={{ paddingHorizontal: 10 }}>
+                <Ionicons name="arrow-back" size={24} color={theme.whiteText} />
+              </TouchableOpacity>
+            ),
+          })}>
           <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         </Stack>
       </ThemeProvider>
