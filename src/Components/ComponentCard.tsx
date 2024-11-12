@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 8,
     minWidth: 320,
-    maxWidth: 500,
+    maxWidth: 600,
     flex: 1,
     overflow: 'hidden',
   },

@@ -46,6 +46,7 @@ export default function GatewayLocal() {
   );
 }
 
+
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     justifyContent: 'space-evenly',
-    marginBottom: 10,
   },
   title: {
     textAlign: 'center',

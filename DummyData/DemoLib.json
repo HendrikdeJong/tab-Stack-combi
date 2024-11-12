@@ -5,8 +5,8 @@
       {
         "ID": "piccollo",
         "title": "Piccolo 6",
-        "class": "generator",
-        "classIcon": "engine",
+        "classIcon": "piccolo",
+        "iconlib": "WpIcons",
         "status": "Running",
         "Alarms":[
           {
