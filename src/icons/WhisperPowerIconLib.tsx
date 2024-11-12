@@ -147,7 +147,7 @@ type CustomIconLibraryProps = {
   name: keyof typeof iconMap; // This will ensure TypeScript suggests only valid keys
   size?: number;
   color?: string;
-  style?: ViewStyle;
+  style?: TextStyle | ViewStyle;
 };
 
 const WpIcons: React.FC<CustomIconLibraryProps> = ({

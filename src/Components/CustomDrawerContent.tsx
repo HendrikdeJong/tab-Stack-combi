@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Button, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../Styling/Theme';
@@ -45,8 +45,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   return (
     <>
       {drawerCustomHeader(props)}
-      {/* {drawerCustomFooter(props)}  */}
-      {/* uncomment this line to add logout footer to the drawer */}
+      {Platform.OS == 'android' && (
+        drawerCustomFooter(props)
+      )}
+      {/* uncomment this line to add logout footer to the drawer for android */}
     </>
   );
 };

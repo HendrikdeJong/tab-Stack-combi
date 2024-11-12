@@ -39,7 +39,7 @@ export default function GatewayLocal() {
       data={devices}
       key={numColumns}
       keyExtractor={(item) => item.ID}
-      renderItem={({ item }) => <ComponentCard ID={item.ID}/>}
+      renderItem={({ item }) => <ComponentCard ID={item.ID} collapsible={numColumns === 1}/>}
       numColumns={numColumns}
       columnWrapperStyle={numColumns > 1 ? styles.columnWrapper : null}
     />
