@@ -3,6 +3,7 @@ import ComponentCard from '../../Components/ComponentCard';
 import {useFetchConfig} from '../../Components/CustomFunctions'
 import { useState } from 'react';
 import { useTheme } from '../../Styling/Theme';
+import React from 'react';
 
 export default function GatewayLocal() {
   const { width } = useWindowDimensions();

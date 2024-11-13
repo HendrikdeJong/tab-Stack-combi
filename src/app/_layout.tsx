@@ -9,6 +9,7 @@ import { Platform, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useEffect } from 'react';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

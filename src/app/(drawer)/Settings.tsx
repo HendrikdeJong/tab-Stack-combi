@@ -3,6 +3,8 @@ import { useTheme } from '../../Styling/Theme';
 import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
 import { router, useNavigation } from 'expo-router';
+import React from 'react';
+import { EmptyState } from '@/Components/CustomFunctions';
 
 var activeAlarms = 0;
 
@@ -53,7 +55,7 @@ export default function Settings() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
-      <Text style={[styles.title, { color: theme.text }]}>settings screen under development</Text>
+      <EmptyState message={'this page is still under development'} BackButton={false} surroundwithCard={true}/>
       {/* <Button title={GetOSPlatform ? "sorry, this function is still under development!" : "Test Push notifications"}
         onPress={schedulePushNotification}
         disabled={GetOSPlatform}

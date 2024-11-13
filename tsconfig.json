@@ -1,6 +1,15 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "baseUrl": "./", // Allows relative imports from the root
+    "paths": {
+      "@/*": ["src/*"] // Helps resolve imports using '@/' to point to 'src' directory
+    },
+    "jsx": "react", // Ensures correct JSX factory for React
+    "esModuleInterop": true, // Ensures compatibility with ES modules
+    "allowSyntheticDefaultImports": true // Allow default imports from non-ES modules
+  },
+  "include": ["src", "app"], // Include the 'src' directory for compilation
+  "exclude": ["node_modules"] // Exclude node_modules from compilation
 }

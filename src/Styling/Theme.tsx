@@ -4,6 +4,7 @@ import { Appearance } from 'react-native';
 
 const common = {
   whisperGreen: '#006561',
+  whisperGreenShade: '#1E8B8F',  
   whiteText: '#FFFFFF',
   selected: '#D1D1D1',
   notification: '#FFA500',
