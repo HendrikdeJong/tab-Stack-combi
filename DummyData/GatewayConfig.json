@@ -19,14 +19,15 @@
           {
             "label": "Generator state",
             "settingtype": "Button",
-            "value": "running",
+            "value": "Running",
             "minvalue": "",
             "maxvalue": "",
             "unit": "",
             "buttons": [
               { "name": "Start", "value": "Start Generator" },
               { "name": "Stop", "value": "Stop Generator" }
-            ]
+            ],
+            "showAsFirstSetting": true
           }
         ],
         "Specifications": {
@@ -82,8 +83,9 @@
             "maxvalue": "",
             "unit": "",
             "buttons": [
-              { "name": "Reset", "value": "Reset Battery" }
-            ]
+              { "name": "Reset SOC", "value": "Reset Battery State of Charge" }
+            ],
+            "showAsFirstSetting": false
           }
         ],
         "Specifications": {
@@ -151,7 +153,8 @@
             "buttons": [
               { "name": "+", "value": "Increase" },
               { "name": "-", "value": "Decrease" }
-            ]
+            ],
+            "showAsFirstSetting": true
           }
         ],
         "Specifications": {

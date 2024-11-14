@@ -23,6 +23,7 @@ type Setting = {
   maxvalue?: string;
   unit?: string;
   buttons?: ButtonOption[];
+  showAsFirstSetting: boolean;
 };
 
 type SpecificationDetail = {
@@ -478,7 +479,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   value: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   unit: {

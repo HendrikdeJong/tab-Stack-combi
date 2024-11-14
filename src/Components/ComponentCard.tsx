@@ -19,8 +19,9 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
 
   // Find the card data once configuration is loaded
   const cardData = config?.system?.devices?.find(item => item.ID === ID) || null;
-  const firstOption = cardData?.Settings && cardData.Settings.length > 0 ? cardData.Settings[0] : null;
+  const firstOption = cardData?.Settings?.find(setting => setting.showAsFirstSetting) || null;
   const hasSettings = firstOption !== null;
+
 
   // States
   const [loadingButton, setLoadingButton] = useState<string | null>(null);
@@ -107,7 +108,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
 
       {/* Enclosed Main Content */}
       {collapsible ? (
-        <Collapsible collapsed={collapsed} style={{ flexDirection: 'column', justifyContent: 'space-between', paddingVertical: 15, gap: 15, minHeight: 350}}>
+        <Collapsible collapsed={collapsed} style={{ flexDirection: 'column', justifyContent: 'space-between', paddingTop: 16, paddingBottom: 8, gap: 15, minHeight: 350 }}>
         {/* Status Segment */}
         <View style={styles.status}>
           <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
@@ -202,7 +203,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
         )}
         </Collapsible>
       ) : (
-      <View style={{ flexDirection: 'column', justifyContent: 'space-between', paddingVertical: 15, gap: 15, minHeight: 350 }}>
+      <View style={{ flexDirection: 'column', justifyContent: 'space-between', paddingTop: 16, paddingBottom: 8, gap: 15, minHeight: 350 }}>
           {/* Status Segment */}
         <View style={styles.status}>
           <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>

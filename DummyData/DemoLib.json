@@ -10,7 +10,7 @@
         "status": "Running",
         "Alarms":[
           {
-            "priority": "warning",
+            "priority": "information",
             "description": "Maintenance required"
           },
           {
@@ -65,6 +65,75 @@
             { "label": "Last Maintenance Minutes", "value": "4"}
           ]
         }
+      },
+      {
+        "ID": "piccollo2",
+        "title": "Piccolo 10",
+        "class": "generator",
+        "classIcon": "piccolo",
+        "iconlib": "WpIcons",
+        "status": "Running",
+        "Alarms":[
+          {
+            "priority": "warning",
+            "description": "Maintenance 50 hours due"
+          },
+          {
+            "priority": "information",
+            "description": "Maintenance required"
+          },
+          {
+            "priority": "critical",
+            "description": "high exhaust temperature"
+          }
+        ],
+        "Settings": [
+          {
+            "label": "Generator state",
+            "settingtype": "Button",
+            "value": "running",
+            "minvalue": "",
+            "maxvalue": "",
+            "unit": "",
+            "buttons": [
+              { "name": "Start", "value": "Start Generator" },
+              { "name": "Stop", "value": "Stop Generator" }
+            ]
+          }
+        ],
+        "Specifications": {
+          "summary": [
+            {
+                "classicon": [
+                { "label": "DC starter battery voltage", "value": "14.2", "unit": "Vdc" }
+                ]
+              },
+              {"AC Output": [
+                { "label": "AC output voltage", "value": "229", "unit": "Vac" },
+                { "label": "AC output current", "value": "15", "unit": "A" },
+                { "label": "output load percentage", "value": "50", "unit": "%" }
+              ]}
+              ],
+              "Functional State": [
+              { "label": "DDC state", "value": "idle"},
+              { "label": "Engine started by", "value": "manual"}
+              ],
+              "Engine": [
+              { "label": "Rpm", "value": "2200", "unit": "RPM" },
+              { "label": "starterBatteryVoltage", "value": "12.5", "unit": "VDC" },
+              { "label": "startsSuccesfull", "value": "10"},
+              { "label": "startsFailed", "value": "1"}
+              ],
+              "Temperature": [
+              { "label": "Battery Temperature Sensor", "value": "27.0", "unit": "°C" }
+              ],
+              "Historic": [
+              { "label": "Total Run Time Hours", "value": "8"},
+              { "label": "Total Run Time Minutes", "value": "20"},
+              { "label": "Last Maintenance hours", "value": "2"},
+              { "label": "Last Maintenance Minutes", "value": "10"}
+              ]
+            }
       }
 
 
