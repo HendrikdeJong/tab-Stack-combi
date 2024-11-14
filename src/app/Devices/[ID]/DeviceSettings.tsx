@@ -24,8 +24,7 @@ export default function Device_Control_Page({ Settings }: { Settings: any }) {
     return (
       <EmptyState
         message="This device does not support / have any settings"
-        BackButton={false}
-      />
+        BackButton={false} surroundwithCard={true}      />
     );
   }
 

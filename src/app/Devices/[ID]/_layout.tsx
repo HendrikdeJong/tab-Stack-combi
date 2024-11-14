@@ -49,7 +49,7 @@ export default function DevicesOverview() {
     if (!MatchingDevice) {
         return (
             <View style={[styles.screenContainer, { backgroundColor: theme.background }]}>
-                <EmptyState message="No device found" BackButton={true} />
+                <EmptyState message="No device found" BackButton={true} surroundwithCard={true} />
             </View>
         );
     }

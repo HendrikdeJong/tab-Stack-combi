@@ -9,7 +9,7 @@ export default function Device_Information_Page({ Specifications }: { Specificat
 
   // If Specifications are empty or null, display an empty state
   if (!Specifications || Object.keys(Specifications).length === 0) {
-    return <EmptyState message="This device does not support / have any specifications" BackButton={false} />;
+    return <EmptyState message="This device does not support / have any specifications" BackButton={false} surroundwithCard={true} />;
   }
 
   // Prepare sections array for SectionList

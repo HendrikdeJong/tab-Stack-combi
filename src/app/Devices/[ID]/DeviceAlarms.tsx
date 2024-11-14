@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export default function Device_Alarm_Page({ Devicejson }: { Devicejson: any }) {
   const theme = useTheme();
   if (!Devicejson.Alarms || Devicejson.Alarms.length === 0) {
-    return <EmptyState message="This device does not have any alerts" BackButton={false} />;
+    return <EmptyState message="This device does not have any alerts" BackButton={false} surroundwithCard={true} />;
   }
 
   return (
