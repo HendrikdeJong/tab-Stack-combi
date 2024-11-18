@@ -348,9 +348,9 @@ export function AlarmItem({ alarm, HideName }: { alarm: any, HideName?: boolean 
       />
       <View style={styles.alarmInfoContainer}>
         {alarm.deviceName && !HideName && (
-          <Text style={[styles.alarmDeviceName, { color: theme.whiteText, borderColor: theme.selected }]}>{alarm.deviceName}</Text>
+          <Text style={[styles.alarmDeviceName, { color: theme.text, borderColor: theme.selected }]}>{alarm.deviceName}</Text>
         )}
-        <Text style={[styles.alarmDescription, { color: alarm.deviceName && !HideName ? theme.selected : theme.text }]}>{alarm.description}</Text>
+        <Text style={[styles.alarmDescription, { color: alarm.deviceName && !HideName ? theme.subtext : theme.text }]}>{alarm.description}</Text>
       </View>
     </View>
   );
