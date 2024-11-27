@@ -43,6 +43,8 @@ export default function GatewayLocal() {
       renderItem={({ item }) => <ComponentCard ID={item.ID} collapsible={numColumns === 1}/>}
       numColumns={numColumns}
       columnWrapperStyle={numColumns > 1 ? styles.columnWrapper : null}
+      contentContainerStyle={{marginHorizontal: width > 350 ? 16 : 0, marginVertical: 16}}
+      ItemSeparatorComponent={() => <View style={{height: 16}} />}
     />
   );
 }
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     justifyContent: 'space-evenly',
+    gap: 16,
   },
   title: {
     textAlign: 'center',

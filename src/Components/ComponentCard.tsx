@@ -304,7 +304,6 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    margin: 15,
     borderRadius: 8,
     minWidth: 320,
     maxWidth: 600,
