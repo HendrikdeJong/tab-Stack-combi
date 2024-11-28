@@ -36,7 +36,7 @@ export default function GatewayLocal() {
 
 
   return (
-    <FlatList
+    <FlatList 
       data={devices}
       key={numColumns}
       keyExtractor={(item) => item.ID}

@@ -74,7 +74,7 @@ export function useFetchConfig() {
     const fetchConfig = async () => {
         try {
           let systemidvalue= getValueFor('systemID');
-          await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000));
+          await new Promise((resolve) => setTimeout(resolve, Math.random() * 900));
           if (await systemidvalue === "1") {
             const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
             setConfig(systemconfig);
