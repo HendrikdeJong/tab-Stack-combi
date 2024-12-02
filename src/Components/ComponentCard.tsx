@@ -10,9 +10,10 @@ import Collapsible from 'react-native-collapsible';
 interface DynamicCardProps {
   ID: string;
   collapsible: boolean;
+  hidden?: boolean;
 }
 
-const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
+const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = false }) => {
   // Hook Calls
   const theme = useTheme(); // Fetch theme
   const { loading, config, error } = useFetchConfig(); // Fetch configuration
@@ -22,81 +23,193 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
   const firstOption = cardData?.Settings?.find(setting => setting.showAsFirstSetting) || null;
   const hasSettings = firstOption !== null;
 
-
   // States
   const [loadingButton, setLoadingButton] = useState<string | null>(null);
+  const [blink, setBlink] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [collapsed, setCollapsed] = useState(collapsible);
-
-   // Change to ensure collapsible starts as expanded if collapsible is false
-  const [blink, setBlink] = useState(true);
+  const [isHidden, setIsHidden] = useState(hidden);
 
   // UseEffect for blinking warning icon
   useEffect(() => {
-    const interval = setInterval(() => {
-      setBlink(prev => !prev);
-    }, 800);
+    const interval = setInterval(() => setBlink(prev => !prev), 800);
     return () => clearInterval(interval);
   }, []);
 
-  const handleButtonPress = (buttonName: string) => {
+  // Event Handlers
+  interface ButtonPressHandler {
+    (buttonName: string): void;
+  }
+
+  const handleButtonPress: ButtonPressHandler = (buttonName) => {
     setLoadingButton(buttonName);
-    setTimeout(() => {
-      setLoadingButton(null);
-    }, Math.random() * 5000);
+    setTimeout(() => setLoadingButton(null), Math.random() * 3600);
   };
 
   const handlePress = () => {
     router.push(`/Devices/${ID}/`);
   };
 
-  //loading state
-  if (loading) {
-    return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'space-between', paddingBottom: 10}]}>
-        <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-          <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Loading device...</Text>
+  const HiddenCard = () => (
+    <View style={[styles.cardContainer, styles.transparentCard]}>
+        <View style={[styles.headerWrapper, styles.transparent]}>
+          <Text style={[styles.deviceCategory, styles.transparentText]}>this should be hidden</Text>
         </View>
-        <View style={[styles.layout, {height: 100, }]}>
-          <ActivityIndicator size="large" color={theme.text} />
+        <View style={[styles.layout, { height: 100 }]}>
+          <ActivityIndicator size="large" color="transparent" />
         </View>
         <View style={styles.buttonContainer}>
-          <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
-          <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
+          <View style={[styles.button, styles.transparent]} />
+          <View style={[styles.button, styles.transparent]} />
         </View>
+      </View>
+  );
+
+  const renderLoadingState = () => (
+    <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'space-between', paddingBottom: 10 }]}>
+      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
+        <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Loading device...</Text>
+      </View>
+      <View style={[styles.layout, { height: 100 }]}>
+        <ActivityIndicator size="large" color={theme.text} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
+        <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
+      </View>
     </View>
-    );
+  );
+
+  const renderErrorState = () => (
+    <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
+      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
+        <Text style={[styles.deviceCategory, { color: theme.text }]}>Error loading configuration. Please try again later.</Text>
+      </View>
+    </View>
+  );
+
+  const renderEmptyState = () => (
+    <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
+      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
+        <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Device not found</Text>
+      </View>
+    </View>
+  );
+
+  const renderButtons = () => (
+    <View style={styles.buttonContainer}>
+      {hasSettings && (
+        <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={() => setModalVisible(true)}>
+          <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>
+        </TouchableOpacity>
+      )}
+      <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={handlePress}>
+        <Text style={[styles.buttonText, { color: theme.text }]}>More <Ionicons name='open' /></Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderMainContent = () => (
+    cardData != null &&
+    <View style={{ flexDirection: 'column', justifyContent: 'space-between', paddingTop: 16, paddingBottom: 8, gap: 15, minHeight: 350 }}>
+      <View style={styles.status}>
+        <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
+      </View>
+      <View style={styles.layout}>
+        {Array.isArray(cardData.Specifications.summary) && cardData.Specifications.summary.map((section, sectionIdx) => {
+          const [sectionName, items] = Object.entries(section)[0];
+          return renderSection(sectionName, items, sectionIdx);
+        })}
+      </View>
+      {renderButtons()}
+      {renderModal()}
+    </View>
+  );
+
+  interface SectionItem {
+    value: string;
+    unit?: string;
   }
 
-  // Error State
-  if (error) {
-    return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-        <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-          <Text style={[styles.deviceCategory, { color: theme.text }]}>Error loading configuration. Please try again later.</Text>
+  interface GroupItem {
+    [key: string]: SectionItem[];
+  }
+
+  const renderSection = (sectionName: string, items: SectionItem[] | GroupItem[], sectionIdx: number) => {
+    const renderItems = (items: SectionItem[]) => items.map((value, idx) => (
+      <Text key={idx} style={[styles.text, { color: theme.text }]}> {value.value}<Text style={styles.unit}>{value.unit || ''}</Text></Text>
+    ));
+
+    if (sectionName.toLowerCase() === 'classicon' && Array.isArray(items)) {
+      return (
+        <View key={sectionIdx} style={styles.layoutItem}>
+          {cardData && cardData.iconlib === 'WpIcons' ? (
+            <WpIcons name={cardData.classIcon} size={85} color={theme.invertbackground} />
+          ) : (
+            <MaterialCommunityIcons name={cardData?.classIcon as any} size={85} color={theme.invertbackground} />
+          )}
+          {renderItems(items as SectionItem[])}
         </View>
+      );
+    }
+
+    if (sectionName.toLowerCase() === 'group' && Array.isArray(items)) {
+      return (
+        <View key={sectionIdx} style={[styles.layoutItem, { flexDirection: 'column', flexShrink: 1 }]}>
+          {(items as GroupItem[]).map((groupItem, groupIdx) => {
+            const [groupName, groupValues] = Object.entries(groupItem)[0];
+            return (
+              <View key={groupIdx} style={{ marginBottom: 10 }}>
+                <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{groupName}</Text>
+                {Array.isArray(groupValues) && renderItems(groupValues)}
+              </View>
+            );
+          })}
+        </View>
+      );
+    }
+
+    return (
+      <View key={sectionIdx} style={styles.layoutItem}>
+        <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{sectionName}</Text>
+        {renderItems(items as SectionItem[])}
       </View>
     );
-  }
+  };
 
-  // empty state
-  if (!cardData) {
-    return (
-      <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-        <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-          <Text style={[styles.deviceCategory, { color: theme.whiteText, borderColor: theme.selected }]}>Device not found</Text>
+  const renderModal = () => (
+    modalVisible && hasSettings && (
+      <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
+        <Text style={[styles.modalTitle, { color: theme.text }]}>{firstOption?.label}</Text>
+        <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
+        <View style={styles.buttonContainer}>
+          {firstOption?.buttons?.map((value, idx) => (
+            <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]} onPress={() => handleButtonPress(value.name)}>
+              {loadingButton === value.name ? (
+                <ActivityIndicator size="small" color={theme.text} />
+              ) : (
+                <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
+              )}
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity style={[styles.button, { backgroundColor: theme.card }]} onPress={() => setModalVisible(false)}>
+            <Text style={[styles.buttonText, { color: theme.text }]}>Close</Text>
+          </TouchableOpacity>
         </View>
       </View>
-    );
-  }
+    )
+  );
 
-  // loaded state
+  if (isHidden) return HiddenCard();
+  if (loading) return renderLoadingState();
+  if (error) return renderErrorState();
+  if (!cardData) return renderEmptyState();
+
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-      {/* Header content */}
-      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]} onPress={() => setCollapsed(prev => !prev)} >
+      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]} onPress={() => setCollapsed(prev => !prev)}>
         {cardData.iconlib === 'WpIcons' ? (
-          <WpIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
+          <WpIcons name={cardData.classIcon} style={styles.Wrappericon} color={theme.whiteText} />
         ) : (
           <MaterialCommunityIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
         )}
@@ -105,203 +218,10 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible }) => {
           <Text style={[styles.deviceTitle, { color: theme.selected }]}>{cardData.title}</Text>
         </View>
       </TouchableOpacity>
-
-      {/* Enclosed Main Content */}
-      {collapsible ? (
-        <Collapsible collapsed={collapsed} style={{ flexDirection: 'column', justifyContent: 'space-between', paddingTop: 16, paddingBottom: 8, gap: 15, minHeight: 350 }}>
-        {/* Status Segment */}
-        <View style={styles.status}>
-          <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
-        </View>
-
-        {/* Main segment */}
-        <View style={styles.layout}>
-          {Array.isArray(cardData.Specifications.summary) && cardData.Specifications.summary.map((section, sectionIdx) => {
-            const [sectionName, items] = Object.entries(section)[0];
-
-            const renderItems = (items: any[], isGroup: boolean = false) => (
-              items.map((value: { value: string; unit?: string }, idx: number) => (
-                <Text key={idx} style={[styles.text, { color: theme.text }]}> {value.value}<Text style={styles.unit}>{value.unit || ''}</Text></Text>
-              ))
-            );
-
-            if (sectionName.toLowerCase() === 'classicon' && Array.isArray(items)) {
-              return (
-                <View key={sectionIdx} style={[styles.layoutItem]}>
-                  {cardData.iconlib === 'WpIcons' ? (
-                    <WpIcons name={cardData.classIcon as any} size={85} color={theme.invertbackground} />
-                  ) : (
-                    <MaterialCommunityIcons name={cardData.classIcon as any} size={85} color={theme.invertbackground} />
-                  )}
-                  {renderItems(items)}
-                </View>
-              );
-            }
-            if (sectionName.toLowerCase() === 'group' && Array.isArray(items)) {
-              return (
-                <View key={sectionIdx} style={[styles.layoutItem, { flexDirection: 'column', flexShrink: 1 }]}>
-                  {items.map((groupItem, groupIdx) => {
-                    const [groupName, groupValues] = Object.entries(groupItem)[0];
-                    return (
-                      <View key={groupIdx} style={{ marginBottom: 10 }}>
-                        <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{groupName}</Text>
-                        {Array.isArray(groupValues) && renderItems(groupValues)}
-                      </View>
-                    );
-                  })}
-                </View>
-              );
-            }
-
-            return (
-              <View key={sectionIdx} style={styles.layoutItem}>
-                <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{sectionName}</Text>
-                {renderItems(items)}
-              </View>
-            );
-          })}
-        </View>
-
-        {/* buttons content */}
-        <View style={[styles.buttonContainer,{}]}>
-          {hasSettings && (
-          <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={() => setModalVisible(true)}>
-            <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>
-          </TouchableOpacity>
-          )}
-          <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={handlePress}>
-            <Text style={[styles.buttonText, { color: theme.text }]}>More <Ionicons name='open' /></Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Custom Modal View */}
-        {modalVisible && hasSettings && (
-          <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
-            <Text style={[styles.modalTitle, { color: theme.text }]}>{firstOption?.label}</Text>
-            <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
-            <View style={styles.buttonContainer}>
-              {firstOption?.buttons?.map((value, idx) => (
-                firstOption?.settingtype?.toLowerCase() === 'button' ? (
-                  <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]} onPress={() => handleButtonPress(value.name)}>
-                    {loadingButton === value.name ? (
-                      <ActivityIndicator size="small" color={theme.text} />
-                    ) : (
-                      <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
-                    )}
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]}>
-                    <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
-                  </TouchableOpacity>
-                )
-              ))}
-              <TouchableOpacity style={[styles.button, { backgroundColor: theme.card }]} onPress={() => setModalVisible(false)}>
-                <Text style={[styles.buttonText, { color: theme.text }]}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-        </Collapsible>
-      ) : (
-      <View style={{ flexDirection: 'column', justifyContent: 'space-between', paddingTop: 16, paddingBottom: 8, gap: 15, minHeight: 350 }}>
-          {/* Status Segment */}
-        <View style={styles.status}>
-          <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
-        </View>
-
-        {/* Main segment */}
-        <View style={styles.layout}>
-          {Array.isArray(cardData.Specifications.summary) && cardData.Specifications.summary.map((section, sectionIdx) => {
-            const [sectionName, items] = Object.entries(section)[0];
-
-            const renderItems = (items: any[], isGroup: boolean = false) => (
-              items.map((value: { value: string; unit?: string }, idx: number) => (
-                <Text key={idx} style={[styles.text, { color: theme.text }]}> {value.value}<Text style={styles.unit}>{value.unit || ''}</Text></Text>
-              ))
-            );
-
-            if (sectionName.toLowerCase() === 'classicon' && Array.isArray(items)) {
-              return (
-                <View key={sectionIdx} style={[styles.layoutItem]}>
-                  {cardData.iconlib === 'WpIcons' ? (
-                    <WpIcons name={cardData.classIcon as any} size={85} color={theme.invertbackground} />
-                  ) : (
-                    <MaterialCommunityIcons name={cardData.classIcon as any} size={85} color={theme.invertbackground} />
-                  )}
-                  {renderItems(items)}
-                </View>
-              );
-            }
-            if (sectionName.toLowerCase() === 'group' && Array.isArray(items)) {
-              return (
-                <View key={sectionIdx} style={[styles.layoutItem, { flexDirection: 'column', flexShrink: 1 }]}>
-                  {items.map((groupItem, groupIdx) => {
-                    const [groupName, groupValues] = Object.entries(groupItem)[0];
-                    return (
-                      <View key={groupIdx} style={{ marginBottom: 10 }}>
-                        <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{groupName}</Text>
-                        {Array.isArray(groupValues) && renderItems(groupValues)}
-                      </View>
-                    );
-                  })}
-                </View>
-              );
-            }
-
-            return (
-              <View key={sectionIdx} style={styles.layoutItem}>
-                <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{sectionName}</Text>
-                {renderItems(items)}
-              </View>
-            );
-          })}
-        </View>
-
-        {/* buttons content */}
-        <View style={[styles.buttonContainer,{}]}>
-          {hasSettings && (
-          <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={() => setModalVisible(true)}>
-            <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>
-          </TouchableOpacity>
-          )}
-          <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={handlePress}>
-            <Text style={[styles.buttonText, { color: theme.text }]}>More <Ionicons name='open' /></Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Custom Modal View */}
-        {modalVisible && hasSettings && (
-          <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
-            <Text style={[styles.modalTitle, { color: theme.text }]}>{firstOption?.label}</Text>
-            <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
-            <View style={styles.buttonContainer}>
-              {firstOption?.buttons?.map((value, idx) => (
-                firstOption?.settingtype?.toLowerCase() === 'button' ? (
-                  <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]} onPress={() => handleButtonPress(value.name)}>
-                    {loadingButton === value.name ? (
-                      <ActivityIndicator size="small" color={theme.text} />
-                    ) : (
-                      <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
-                    )}
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]}>
-                    <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
-                  </TouchableOpacity>
-                )
-              ))}
-              <TouchableOpacity style={[styles.button, { backgroundColor: theme.card }]} onPress={() => setModalVisible(false)}>
-                <Text style={[styles.buttonText, { color: theme.text }]}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-        </View>
-      )}
+      {collapsible ? <Collapsible collapsed={collapsed}>{renderMainContent()}</Collapsible> : renderMainContent()}
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 8,
@@ -389,6 +309,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  transparentCard: {
+    backgroundColor: 'transparent',
+    opacity: 0,
+  },
+  transparent: {
+    backgroundColor: 'transparent',
+  },
+  transparentText: {
+    color: 'transparent',
+  },
 });
-
 export default DynamicCard;
