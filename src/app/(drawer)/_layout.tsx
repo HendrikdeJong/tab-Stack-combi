@@ -28,7 +28,7 @@ export default function DrawerLayout() {
           <Drawer.Screen name="Alarms" options={{ title: 'Alarms', drawerIcon: () => (<Ionicons name='notifications' size={30} color={theme.text}/>)}}/>
           <Drawer.Screen name="Settings" options={{ title: 'Settings', drawerIcon: () => (<Ionicons name='settings' size={30} color={theme.text}/>)}}/>
           <Drawer.Screen name="About" options={{ title: 'About', drawerIcon: () => (<Ionicons name='information-circle' size={30} color={theme.text}/>)}}/>
-          <Drawer.Screen name="Demolib" options={{ title: 'Demolib', drawerIcon: () => (<Ionicons name='library' size={30} color={theme.text}/>)}}/>
+          <Drawer.Screen name="demolib" options={{ title: 'Demolib', drawerIcon: () => (<Ionicons name='library' size={30} color={theme.text}/>)}}/>
           
         </Drawer>
       </ThemeProvider>

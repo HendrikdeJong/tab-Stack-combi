@@ -1,0 +1,3299 @@
+{
+    "_id": "673359d02cccfd949371748f",
+    "serialNumber": "74623926",
+    "modelName": "WP Battery monitor Smart Shunt Pro",
+    "deviceId": "d0fa9cf2-c531-45df-a1b0-19822e9f1e01",
+    "modelCode": "WP-BMSS PRO",
+    "name": "Battery Monitor 2",
+    "className": "battery-monitor",
+    "modelInfo": {
+      "name": "WP Battery monitor Smart Shunt Pro",
+      "categories": [
+        "Battery monitor"
+      ],
+      "alternativeNames": [
+        "WP-BMSS Pro"
+      ],
+      "manufacturerName": "WhisperPower",
+      "description": {
+        "en": "WP-BMSS Pro is a professional grade battery monitor with remote monitoring capability.",
+        "de": ""
+      },
+      "skus": [
+        "00000000"
+      ]
+    },
+    "monitoring": {
+      "operationalState": {
+        "type": "array",
+        "name": {
+          "en": "General Device States",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the operational status of the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "offline",
+            "off",
+            "operational"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "functionalState": {
+        "type": "object",
+        "properties": {
+          "batteryChargingState": {
+            "type": "array",
+            "name": {
+              "en": "Battery charging state",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicaties if the battery is being charged or discharged",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "idle",
+                "charging",
+                "discharging"
+              ]
+            }
+          }
+        }
+      },
+      "extendedState": {
+        "type": "object",
+        "properties": {
+          "generatorRequest": {
+            "type": "array",
+            "name": {
+              "en": "Generator request",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicaties which generator request is active",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "low priority request",
+                "high priority request"
+              ]
+            }
+          }
+        }
+      },
+      "warnings": {
+        "type": "array",
+        "name": {
+          "en": "Device warnings",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the warnings active on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "low voltage",
+            "high voltage",
+            "high charge current",
+            "high discharge current",
+            "low state of charge",
+            "low temperature",
+            "high temperature",
+            "low time remaining"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "alarms": {
+        "type": "array",
+        "name": {
+          "en": "Device alarms",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the alarms active on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "low voltage",
+            "high voltage",
+            "high charge current",
+            "high discharge current",
+            "low state of charge",
+            "low temperature",
+            "high temperature",
+            "low time remaining"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "digitalIO": {
+        "type": "object",
+        "properties": {
+          "digitalOutput1": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 1 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital output 1",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active",
+                "manual off",
+                "manual on"
+              ]
+            }
+          },
+          "digitalOutput2": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 2 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital output 2",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active",
+                "manual off",
+                "manual on"
+              ]
+            }
+          }
+        }
+      },
+      "battery": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.535,
+            "decimals": 2,
+            "name": {
+              "en": "DC Battery Voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC Battery",
+              "de": ""
+            },
+            "displayPriority": 2,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": -3276.8,
+            "maximum": 3276.7,
+            "decimals": 0,
+            "name": {
+              "en": "Battery current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of amps going in our out of the battery",
+              "de": ""
+            },
+            "displayPriority": 2,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "stateOfCharge": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Battery SOC",
+              "de": ""
+            },
+            "description": {
+              "en": "Battery state of charge in percentage",
+              "de": ""
+            },
+            "displayPriority": 3,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "timeRemaining": {
+            "type": "number",
+            "unit": "minutes",
+            "minimum": -1,
+            "maximum": 32767,
+            "decimals": 0,
+            "name": {
+              "en": "Time remaining",
+              "de": ""
+            },
+            "description": {
+              "en": "Time remaining until battery is empty",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "capacityDrawn": {
+            "type": "number",
+            "unit": "Ah",
+            "minimum": 0,
+            "maximum": 429496729.5,
+            "decimals": 0,
+            "name": {
+              "en": "Battery capacity drawn",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of Ah drawn from battery",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "capacityRemaining": {
+            "type": "number",
+            "unit": "Ah",
+            "minimum": 0,
+            "maximum": 429496729.5,
+            "decimals": 0,
+            "name": {
+              "en": "Peukert capacity remaining",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of peukert corrected Ah remaining in battery",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "temperature": {
+        "type": "object",
+        "properties": {
+          "battery": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Battery Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Battery temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayPriority": 3,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "controls": {
+      "resetSOC": {
+        "name": {
+          "en": "Reset battery SOC",
+          "de": ""
+        },
+        "description": {
+          "en": "Resets the battery state of charge to 100%",
+          "de": ""
+        },
+        "displayPriority": 0
+      },
+      "resetAlarms": {
+        "name": {
+          "en": "Reset warning and alarms",
+          "de": ""
+        },
+        "description": {
+          "en": "Resets all active warning and alarms",
+          "de": ""
+        }
+      }
+    },
+    "configuration": {
+      "whisperConnect": {
+        "type": "object",
+        "properties": {
+          "transmitPeriod": {
+            "type": "number",
+            "unit": "ms",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "WhisperConnect transmit period",
+              "de": ""
+            },
+            "description": {
+              "en": "The rate at which monitoring messages are send",
+              "de": ""
+            }
+          },
+          "additionalEnabled": {
+            "type": "boolean",
+            "name": {
+              "en": "WhisperConnect additional messages enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Enables additional monitoring messages",
+              "de": ""
+            }
+          },
+          "nickName": {
+            "type": "string",
+            "name": {
+              "en": "WhisperConnect nick name",
+              "de": ""
+            },
+            "description": {
+              "en": "The nick name used in WhisperConnect communication",
+              "de": ""
+            }
+          },
+          "whisperConnectID": {
+            "type": "number",
+            "minimum": 16,
+            "maximum": 31,
+            "decimals": 0,
+            "name": {
+              "en": "WhisperConnect ID",
+              "de": ""
+            },
+            "description": {
+              "en": "The WhisperConnect ID used in communication",
+              "de": ""
+            }
+          }
+        }
+      },
+      "batteryMonitor": {
+        "type": "object",
+        "properties": {
+          "shuntVoltage": {
+            "type": "number",
+            "unit": "mV",
+            "minimum": 1,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Nominal shunt voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Nominal shunt voltage rating",
+              "de": ""
+            },
+            "displayPriority": 3
+          },
+          "shuntCurrent": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 1,
+            "maximum": 5000,
+            "decimals": 0,
+            "name": {
+              "en": "Nominal shunt current",
+              "de": ""
+            },
+            "description": {
+              "en": "Nominal shunt current rating",
+              "de": ""
+            },
+            "displayPriority": 3
+          },
+          "batteryCapacity": {
+            "type": "number",
+            "unit": "Ah",
+            "minimum": 1,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Nominal battery capacity",
+              "de": ""
+            },
+            "description": {
+              "en": "Nominal battery capacity of battery to be monitored",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "batteryRatedC": {
+            "type": "number",
+            "unit": "CRating",
+            "minimum": 1,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Battery C rating",
+              "de": ""
+            },
+            "description": {
+              "en": "Battery C rating at which the capacity is specified",
+              "de": ""
+            }
+          },
+          "peukertCoefficient": {
+            "type": "number",
+            "unit": "",
+            "minimum": 1,
+            "maximum": 1.5,
+            "decimals": 2,
+            "name": {
+              "en": "Battery peukert coefficient",
+              "de": ""
+            },
+            "description": {
+              "en": "Battery peukert coefficient rating",
+              "de": ""
+            }
+          },
+          "chargeEfficiencyFactor": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 1,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Charge efficiency factor",
+              "de": ""
+            },
+            "description": {
+              "en": "Charging efficiency factor of the system specified in percentage",
+              "de": ""
+            }
+          },
+          "autoSynchronizeVoltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.355,
+            "decimals": 2,
+            "name": {
+              "en": "Auto synchronize voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "The battery voltage level at wich the battery monitor will synchronize",
+              "de": ""
+            }
+          },
+          "autoSynchronizeCurrent": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.355,
+            "decimals": 2,
+            "name": {
+              "en": "Auto synchronize current",
+              "de": ""
+            },
+            "description": {
+              "en": "The charge current level at wich the battery monitor will synchronize",
+              "de": ""
+            }
+          },
+          "autoSynchronizeTime": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.355,
+            "decimals": 2,
+            "name": {
+              "en": "Auto synchronize time",
+              "de": ""
+            },
+            "description": {
+              "en": "The time after wich the battery monitor will synchronize",
+              "de": ""
+            }
+          },
+          "timeRemainingAveragingPeriod": {
+            "type": "number",
+            "unit": "s",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Time remaining averaging period",
+              "de": ""
+            },
+            "description": {
+              "en": "The period length for which an average is calculated for the time remaining",
+              "de": ""
+            }
+          },
+          "timeRemainingDischargeFloor": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Time remaining discharge floor",
+              "de": ""
+            },
+            "description": {
+              "en": "The battery SOC at which the battery is considered empty for the time remaining",
+              "de": ""
+            }
+          }
+        }
+      },
+      "digitalIO": {
+        "type": "object",
+        "properties": {
+          "digitalOutput1Processing": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 1 processing",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects how all signals are processed into digital output 1",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "OR",
+                "AND"
+              ]
+            }
+          },
+          "digitalOutput2Processing": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 2 processing",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects how all signals are processed into digital output 2",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "OR",
+                "AND"
+              ]
+            }
+          },
+          "digitalOutput1Mode": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 1 mode",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the behaviour of digital output 1",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "inverted",
+                "pulseOnRisingEdge",
+                "pulseOnFallingEdge",
+                "pulseOnBothEdges"
+              ]
+            }
+          },
+          "digitalOutput2Mode": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 2 mode",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the behaviour of digital output 2",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "inverted",
+                "pulseOnRisingEdge",
+                "pulseOnFallingEdge",
+                "pulseOnBothEdges"
+              ]
+            }
+          }
+        }
+      },
+      "measurementCalibration": {
+        "type": "object",
+        "properties": {
+          "voltageCalibrationOffset": {
+            "type": "number",
+            "unit": "",
+            "minimum": -32768,
+            "maximum": 32767,
+            "decimals": 0,
+            "name": {
+              "en": "Voltage calibration offset",
+              "de": ""
+            },
+            "description": {
+              "en": "Calibration offset for the battery voltage measurement",
+              "de": ""
+            }
+          },
+          "voltageCalibrationMultiplier": {
+            "type": "number",
+            "unit": "",
+            "minimum": -32768,
+            "maximum": 32767,
+            "decimals": 0,
+            "name": {
+              "en": "Voltage calibration multiplier",
+              "de": ""
+            },
+            "description": {
+              "en": "Calibration multiplier for the battery voltage measurement",
+              "de": ""
+            }
+          },
+          "currentCalibrationOffset": {
+            "type": "number",
+            "unit": "",
+            "minimum": -32768,
+            "maximum": 32767,
+            "decimals": 0,
+            "name": {
+              "en": "Current calibration offset",
+              "de": ""
+            },
+            "description": {
+              "en": "Calibration offset for the battery current measurement",
+              "de": ""
+            }
+          },
+          "currentCalibrationMultiplier": {
+            "type": "number",
+            "unit": "",
+            "minimum": -32768,
+            "maximum": 32767,
+            "decimals": 0,
+            "name": {
+              "en": "Current calibration multiplier",
+              "de": ""
+            },
+            "description": {
+              "en": "Calibration multiplier for the battery current measurement",
+              "de": ""
+            }
+          },
+          "chargeCurrentDeadband": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65.355,
+            "decimals": 3,
+            "name": {
+              "en": "Charge current measurement deadband",
+              "de": ""
+            },
+            "description": {
+              "en": "Deadband to ignore charge current measurements",
+              "de": ""
+            }
+          },
+          "dischargeCurrentDeadband": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65.355,
+            "decimals": 3,
+            "name": {
+              "en": "Discharge current measurement deadband",
+              "de": ""
+            },
+            "description": {
+              "en": "Deadband to ignore discharge current measurements",
+              "de": ""
+            }
+          }
+        }
+      },
+      "userInterface": {
+        "type": "object",
+        "properties": {
+          "romLedBarMaximumChargeCurrent": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Maximum charge current for ROM led bar",
+              "de": ""
+            },
+            "description": {
+              "en": "Maximum charge current corresponding to a full ROM led bar",
+              "de": ""
+            }
+          },
+          "romLedBarMaximumDishargeCurrent": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Maximum discharge current for ROM led bar",
+              "de": ""
+            },
+            "description": {
+              "en": "Maximum discharge current corresponding to a full ROM led bar",
+              "de": ""
+            }
+          }
+        }
+      },
+      "alarms": {
+        "type": "object",
+        "properties": {
+          "lowVoltage": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low voltage alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low voltage alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low voltage alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low voltage alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low voltage alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low voltage alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low voltage alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highVoltage": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High voltage alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high voltage alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high voltage alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "High voltage alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high voltage alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "High voltage alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high voltage alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highDischargeCurrent": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High discharge current alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high discharge current alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high discharge current alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high discharge current alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high discharge current alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highChargeCurrent": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High charge current alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high charge current alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high charge current alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high charge current alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high charge current alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "lowStateOfCharge": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low state of charge alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low state of charge alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low state of charge alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low state of charge alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low state of charge alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "lowTemperature": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low temperature alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low temperature alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low temperature alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low temperature alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 128,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low temperature alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highTemperature": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High temperature alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high temperature alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high temperature alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high temperature alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high temperature alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "lowTimeRemaining": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low time remaining alarm enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low time remaining alarm",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low time remaining alarm",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining alarm trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low time remaining alarm triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low time remaining alarm trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low time remaining alarm triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining alarm trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining alarm trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining alarm minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the alarm must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining alarm maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the alarm can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "warnings": {
+        "type": "object",
+        "properties": {
+          "lowVoltage": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low voltage warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low voltage warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low voltage warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low voltage warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low voltage warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low voltage warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low voltage warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low voltage warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highVoltage": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High voltage warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high voltage warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high voltage warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "High voltage warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high voltage warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "High voltage warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high voltage warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High voltage warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highDischargeCurrent": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High discharge current warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high discharge current warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high discharge current warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high discharge current warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high discharge current warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High discharge current warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highChargeCurrent": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High charge current warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high charge current warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high charge current warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high charge current warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high charge current warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High charge current warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "lowStateOfCharge": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low state of charge warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low state of charge warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low state of charge warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low state of charge warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low state of charge warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low state of charge warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "lowTemperature": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low temperature warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low temperature warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low temperature warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low temperature warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low temperature warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low temperature warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highTemperature": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High temperature warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high temperature warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high temperature warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high temperature warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "celcius",
+                "minimum": -128,
+                "maximum": 127,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the high temperature warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High temperature warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "lowTimeRemaining": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low time remaining warning enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low time remaining warning",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low time remaining warning",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "triggerOnValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining warning trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low time remaining warning triggers on",
+                  "de": ""
+                }
+              },
+              "triggerOffValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining warning trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Value at which the low time remaining warning triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining warning trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining warning trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining warning minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the warning must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low time remaining warning maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the warning can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "generatorRequests": {
+        "type": "object",
+        "properties": {
+          "lowPriority": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "Low priority generator request enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the low priority generator request",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for low priority generator request",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "voltageTriggerOnValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low priority generator request voltage trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Voltage at which the low priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "currentTriggerOnValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request current trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Discharge current at which the low priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "stateOfChargeTriggerOnValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request state of charge trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "State of charge at which the low priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "timeRemainingTriggerOnValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request time remaining trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Time remaining at which the low priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "voltageTriggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "Low priority generator request voltage trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Voltage at which the low priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "currentTriggerOffValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request current trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Discharge current at which the low priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "stateOfChargeTriggerOffValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request state of charge trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "State of charge at which the low priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "timeRemainingTriggerOffValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request time remaining trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Time remaining at which the low priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "Low priority generator request minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the generator request must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "low priority generator request maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the generator request can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          },
+          "highPriority": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "name": {
+                  "en": "High priority generator request enabled",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Enables the high priority generator request",
+                  "de": ""
+                }
+              },
+              "digitalOutputsUsed": {
+                "type": "array",
+                "name": {
+                  "en": "Digital outputs used",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Digital outputs used for high priority generator request",
+                  "de": ""
+                },
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "digital output 1",
+                    "digital output 2"
+                  ]
+                }
+              },
+              "voltageTriggerOnValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "High priority generator request voltage trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Voltage at which the high priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "currentTriggerOnValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request current trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Discharge current at which the high priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "stateOfChargeTriggerOnValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request state of charge trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "State of charge at which the high priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "timeRemainingTriggerOnValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request time remaining trigger on value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Time remaining at which the high priority generator request triggers on",
+                  "de": ""
+                }
+              },
+              "voltageTriggerOffValue": {
+                "type": "number",
+                "unit": "VDC",
+                "minimum": 0,
+                "maximum": 65.355,
+                "decimals": 2,
+                "name": {
+                  "en": "High priority generator request voltage trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Voltage at which the high priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "currentTriggerOffValue": {
+                "type": "number",
+                "unit": "A",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request current trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Discharge current at which the high priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "stateOfChargeTriggerOffValue": {
+                "type": "number",
+                "unit": "%",
+                "minimum": 0,
+                "maximum": 100,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request state of charge trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "State of charge at which the high priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "timeRemainingTriggerOffValue": {
+                "type": "number",
+                "unit": "min",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request time remaining trigger off value",
+                  "de": ""
+                },
+                "description": {
+                  "en": "Time remaining at which the high priority generator request triggers off",
+                  "de": ""
+                }
+              },
+              "triggerOnDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request trigger on delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "triggerOffDelay": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request trigger off delay",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The delay at which the trigger must be met",
+                  "de": ""
+                }
+              },
+              "minimumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "High priority generator request minimum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The time the generator request must be on before it can turn off",
+                  "de": ""
+                }
+              },
+              "maximumOnTime": {
+                "type": "number",
+                "unit": "s",
+                "minimum": 0,
+                "maximum": 65355,
+                "decimals": 0,
+                "name": {
+                  "en": "high priority generator request maximum on time",
+                  "de": ""
+                },
+                "description": {
+                  "en": "The maximum time the generator request can be on before it is forced off",
+                  "de": ""
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "createdAt": "2024-11-12T13:36:16.399Z",
+    "updatedAt": "2024-11-12T14:49:18.600Z",
+    "__v": 0,
+    "lastMonitoringEvent": {
+      "event": {
+        "operationalState": "operational",
+        "functionalState": {
+          "batteryChargingState": "idle"
+        },
+        "extendedState": {
+          "generatorRequest": "low priority request"
+        },
+        "alarms": [],
+        "warnings": [],
+        "digitalIO": {
+          "digitalOutput1": "active",
+          "digitalOutput2": "inactive"
+        },
+        "battery": {
+          "voltage": 25.4,
+          "current": 88,
+          "stateOfCharge": 88.4,
+          "timeRemaining": -1,
+          "capacityDrawn": 35.3,
+          "capacityRemaining": 360
+        },
+        "temperature": {
+          "battery": 25
+        }
+      },
+      "source": {
+        "deviceClass": "battery-monitor",
+        "deviceId": "d0fa9cf2-c531-45df-a1b0-19822e9f1e01",
+        "deviceModelName": "WP-BMSS PRO",
+        "deviceSerialNumber": "74623926",
+        "measuredAt": "2024-12-05T12:00:00.000Z"
+      }
+    },
+    "lastMonitoringEventReceivedAt": "2024-11-12T14:49:18.599Z",
+    "newAlerts": [],
+    "id": "673359d02cccfd949371748f",
+    "device": {
+      "class": "battery-monitor",
+      "modelInfo": {
+        "name": "WP Battery monitor Smart Shunt Pro",
+        "categories": [
+          "Battery monitor"
+        ],
+        "alternativeNames": [
+          "WP-BMSS Pro"
+        ],
+        "manufacturerName": "WhisperPower",
+        "description": {
+          "en": "WP-BMSS Pro is a professional grade battery monitor with remote monitoring capability.",
+          "de": ""
+        },
+        "skus": [
+          "00000000"
+        ]
+      }
+    }
+  }

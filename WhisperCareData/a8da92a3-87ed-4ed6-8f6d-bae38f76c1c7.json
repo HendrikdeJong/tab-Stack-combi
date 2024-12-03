@@ -1,0 +1,840 @@
+{
+    "_id": "673359d02cccfd5334717483",
+    "serialNumber": "44995787",
+    "modelName": "AC PowerCube 14kW",
+    "deviceId": "a8da92a3-87ed-4ed6-8f6d-bae38f76c1c7",
+    "modelCode": "AC14",
+    "name": "AC PowerCube 1",
+    "className": "inverter",
+    "modelInfo": {
+      "name": "AC PowerCube 14kW",
+      "categories": [
+        "Inverter"
+      ],
+      "alternativeNames": [
+        "AC PowerCube 24 V / 14000 VA"
+      ],
+      "manufacturerName": "WhisperPower",
+      "description": {
+        "en": "The AC PowerCube is a professional inverter suitable for continuous operation even under extreme conditions.",
+        "de": "Der AC PowerCube ist ein professioneller Wechselrichter, der für die dauerhafte Nutzung auch unter extremen Bedingungen entwickelt wurde. Wir bieten drei Modelle zur Auswahl: Die 3,5kVA-Ausführung, Die 7kVA-Ausfürhrung besteht aus zwei Leistungsmodulen von jeweils 3,5kVA die parallel geschaltet sind und Der AC PowerCube mit 14kVA besteht aus vier 3.5kVA redundant geschalteten Modulen. "
+      },
+      "skus": [
+        "60203010"
+      ]
+    },
+    "monitoring": {
+      "operationalState": {
+        "type": "array",
+        "name": {
+          "en": "General Device States",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the operational status of the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "offline",
+            "off",
+            "operational"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "functionalState": {
+        "type": "object",
+        "properties": {
+          "acOutputPresent": {
+            "type": "boolean",
+            "name": {
+              "en": "AC output present",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if acceptable AC output is present",
+              "de": ""
+            }
+          }
+        }
+      },
+      "extendedState": {
+        "type": "object",
+        "properties": {
+          "dcStage1Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "DC stage 1 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if DC stage 1 is enabled",
+              "de": ""
+            }
+          },
+          "dcStage2Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "DC stage 2 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if DC stage 2 is enabled",
+              "de": ""
+            }
+          },
+          "dcStage3Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "DC stage 3 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if DC stage 3 is enabled",
+              "de": ""
+            }
+          },
+          "dcStage4Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "DC stage 4 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if DC stage 4 is enabled",
+              "de": ""
+            }
+          },
+          "acStage1Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "AC stage 1 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if AC stage 1 is enabled",
+              "de": ""
+            }
+          },
+          "acStage2Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "AC stage 2 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if AC stage 2 is enabled",
+              "de": ""
+            }
+          },
+          "acStage3Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "AC stage 3 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if AC stage 3 is enabled",
+              "de": ""
+            }
+          },
+          "acStage4Enabled": {
+            "type": "boolean",
+            "name": {
+              "en": "AC stage 4 enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if AC stage 4 is enabled",
+              "de": ""
+            }
+          }
+        }
+      },
+      "alarms": {
+        "type": "array",
+        "name": {
+          "en": "Device alarms",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the alarms active on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "common failure",
+            "overload",
+            "low voltage",
+            "high voltage",
+            "high temperature",
+            "dc stage 1 error",
+            "dc stage 2 error",
+            "dc stage 3 error",
+            "dc stage 4 error"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "digitalIO": {
+        "type": "object",
+        "properties": {
+          "digitalInput1": {
+            "type": "array",
+            "name": {
+              "en": "Digital input 1 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital input 1",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active"
+              ]
+            }
+          },
+          "digitalInput2": {
+            "type": "array",
+            "name": {
+              "en": "Digital input 2 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital input 2",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active"
+              ]
+            }
+          }
+        }
+      },
+      "dipswitches": {
+        "type": "array",
+        "name": {
+          "en": "Dipswitches",
+          "de": ""
+        },
+        "description": {
+          "en": "A list of set dipswitches on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "dipswitch 1",
+            "dipswitch 2",
+            "dipswitch 3",
+            "dipswitch 4",
+            "dipswitch 5",
+            "dipswitch 6",
+            "dipswitch 7",
+            "dipswitch 8"
+          ]
+        }
+      },
+      "acOutput": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VAC",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "AC output voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of AC volts on the output of the inverter",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 0,
+            "name": {
+              "en": "AC output current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of AC current on the output of the inverter",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "frequency": {
+            "type": "number",
+            "unit": "Hz",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "AC output frequency",
+              "de": ""
+            },
+            "description": {
+              "en": "The frequency of the inverter output",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "power": {
+            "type": "number",
+            "unit": "VA",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "AC output power",
+              "de": ""
+            },
+            "description": {
+              "en": "The power of the inverter output",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "dc": {
+        "type": "object",
+        "properties": {
+          "voltageBank1": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 2,
+            "name": {
+              "en": "Bank 1 DC voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC on bank 1",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Voltage"
+            }
+          },
+          "loadBank1": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 1 DC load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the DC on bank 1",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Load"
+            }
+          },
+          "voltageBank2": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 2,
+            "name": {
+              "en": "Bank 2 DC voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC on bank 2",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Voltage"
+            }
+          },
+          "loadBank2": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 2 DC load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the DC on bank 2",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Load"
+            }
+          },
+          "voltageBank3": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 2,
+            "name": {
+              "en": "Bank 3 DC voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC on bank 3",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Voltage"
+            }
+          },
+          "loadBank3": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 3 DC load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the DC on bank 3",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Load"
+            }
+          },
+          "voltageBank4": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 2,
+            "name": {
+              "en": "Bank 4 DC voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC on bank 4",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Voltage"
+            }
+          },
+          "loadBank4": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 4 DC load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the DC on bank 4",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "DC Load"
+            }
+          }
+        }
+      },
+      "dcSummary": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.535,
+            "decimals": 2,
+            "name": {
+              "en": "DC Voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC Battery",
+              "de": ""
+            },
+            "displayPriority": 2,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Battery current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of amps going to the battery",
+              "de": ""
+            },
+            "displayPriority": 2,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "load": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "DC output load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the charger DC output",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "inverter": {
+        "type": "object",
+        "properties": {
+          "internalDCBusVoltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 255,
+            "decimals": 0,
+            "name": {
+              "en": "Internal DC bus voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts on the internal DC bus",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "temperature": {
+        "type": "object",
+        "properties": {
+          "bank1": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 1 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internal bank 1 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "Temperature"
+            }
+          },
+          "bank2": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 2 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internal bank 2 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "Temperature"
+            }
+          },
+          "bank3": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 3 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internal bank 3 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "Temperature"
+            }
+          },
+          "bank4": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Bank 4 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internal bank 4 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "Temperature"
+            }
+          }
+        }
+      }
+    },
+    "controls": {
+      "setOperationalState": {
+        "type": "boolean",
+        "monitoringField": "operationalState",
+        "monitoringValue": "Inverting",
+        "nameOn": {
+          "en": "Turn inverter on",
+          "de": ""
+        },
+        "nameOff": {
+          "en": "Turn inverter off",
+          "de": ""
+        },
+        "description": {
+          "en": "Turns the inverter on or off",
+          "de": ""
+        }
+      }
+    },
+    "configuration": {
+      "whisperConnect": {
+        "type": "object",
+        "properties": {
+          "transmitPeriod": {
+            "type": "number",
+            "unit": "ms",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "WhisperConnect transmit period",
+              "de": ""
+            },
+            "description": {
+              "en": "The rate at which monitoring messages are send",
+              "de": ""
+            }
+          },
+          "additionalEnabled": {
+            "type": "boolean",
+            "name": {
+              "en": "WhisperConnect additional messages enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Enables additional monitoring messages",
+              "de": ""
+            }
+          },
+          "whisperConnectID": {
+            "type": "number",
+            "minimum": 16,
+            "maximum": 31,
+            "decimals": 0,
+            "name": {
+              "en": "WhisperConnect ID",
+              "de": ""
+            },
+            "description": {
+              "en": "The WhisperConnect ID used in communication",
+              "de": ""
+            }
+          }
+        }
+      }
+    },
+    "createdAt": "2024-11-12T13:36:16.202Z",
+    "updatedAt": "2024-11-12T14:49:18.556Z",
+    "__v": 0,
+    "lastMonitoringEvent": {
+      "event": {
+        "operationalState": "operational",
+        "functionalState": {
+          "acOutputPresent": true
+        },
+        "extendedState": {
+          "dcStage1Enabled": true,
+          "dcStage2Enabled": true,
+          "dcStage3Enabled": true,
+          "dcStage4Enabled": true,
+          "acStage1Enabled": true,
+          "acStage2Enabled": true,
+          "acStage3Enabled": true,
+          "acStage4Enabled": true
+        },
+        "alarms": [],
+        "digitalIO": {
+          "digitalInput1": "active",
+          "digitalInput2": "inactive"
+        },
+        "dipswitches": [],
+        "acOutput": {
+          "voltage": 229.4,
+          "current": 7.5,
+          "frequency": 50,
+          "power": 1720.5
+        },
+        "dc": {
+          "voltageBank1": 24.1,
+          "voltageBank2": 24.2,
+          "voltageBank3": 24.3,
+          "voltageBank4": 24.4,
+          "loadBank1": 12.1,
+          "loadBank2": 12.2,
+          "loadBank3": 12.3,
+          "loadBank4": 12.4
+        },
+        "dcSummary": {
+          "voltage": 24.1,
+          "current": 88.8,
+          "load": 12.25
+        },
+        "inverter": {
+          "internalDCBusVoltage": 389
+        },
+        "temperature": {
+          "bank1": 25,
+          "bank2": 25,
+          "bank3": 25,
+          "bank4": 25
+        }
+      },
+      "source": {
+        "deviceClass": "inverter",
+        "deviceId": "a8da92a3-87ed-4ed6-8f6d-bae38f76c1c7",
+        "deviceModelName": "AC14",
+        "deviceSerialNumber": "44995787",
+        "measuredAt": "2024-12-05T12:00:00.000Z"
+      }
+    },
+    "lastMonitoringEventReceivedAt": "2024-11-12T14:49:18.555Z",
+    "newAlerts": [],
+    "id": "673359d02cccfd5334717483",
+    "device": {
+      "class": "inverter",
+      "modelInfo": {
+        "name": "AC PowerCube 14kW",
+        "categories": [
+          "Inverter"
+        ],
+        "alternativeNames": [
+          "AC PowerCube 24 V / 14000 VA"
+        ],
+        "manufacturerName": "WhisperPower",
+        "description": {
+          "en": "The AC PowerCube is a professional inverter suitable for continuous operation even under extreme conditions.",
+          "de": "Der AC PowerCube ist ein professioneller Wechselrichter, der für die dauerhafte Nutzung auch unter extremen Bedingungen entwickelt wurde. Wir bieten drei Modelle zur Auswahl: Die 3,5kVA-Ausführung, Die 7kVA-Ausfürhrung besteht aus zwei Leistungsmodulen von jeweils 3,5kVA die parallel geschaltet sind und Der AC PowerCube mit 14kVA besteht aus vier 3.5kVA redundant geschalteten Modulen. "
+        },
+        "skus": [
+          "60203010"
+        ]
+      }
+    }
+  }

@@ -1,0 +1,502 @@
+{
+    "_id": "673359d02cccfde8227174ad",
+    "serialNumber": "73298364",
+    "modelName": "WP-Suntrack80",
+    "deviceId": "fb0bbec8-5d0f-4bf3-a663-47ce9f60edbb",
+    "modelCode": "WP-Suntrack80",
+    "name": "Solar 2",
+    "className": "solar-charger",
+    "modelInfo": {
+      "name": "WP-Suntrack80",
+      "categories": [
+        "solar-charger"
+      ],
+      "alternativeNames": [
+        "WP-Suntrack 80"
+      ],
+      "manufacturerName": "WhisperPower",
+      "description": {
+        "en": "The WhisperPower Suntrack Solar Charge Controller is designed to harness the maximum amount of energy from your solar panels and delivery a 3 stage charging cycle to your batteries.",
+        "de": ""
+      },
+      "skus": [
+        "60203010"
+      ]
+    },
+    "monitoring": {
+      "operationalState": {
+        "type": "array",
+        "name": {
+          "en": "General Device States",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the operational status of the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": []
+        },
+        "displayPriority": 3
+      },
+      "extendedState": {
+        "type": "object",
+        "properties": {
+          "systemVoltage": {
+            "type": "number",
+            "unit": "V",
+            "minimum": 0,
+            "maximum": 655,
+            "decimals": 0,
+            "name": {
+              "en": "System voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Nominal System Voltage",
+              "de": ""
+            },
+            "displayPriority": 3
+          },
+          "model": {
+            "type": "string",
+            "name": {
+              "en": "Model",
+              "de": ""
+            },
+            "description": {
+              "en": "Suntrack Model",
+              "de": ""
+            },
+            "displayPriority": 4
+          }
+        }
+      },
+      "functionalState": {
+        "type": "object",
+        "properties": {
+          "solarInputPresent": {
+            "type": "boolean",
+            "name": {
+              "en": "Solar input present",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if acceptable solar input is present",
+              "de": ""
+            },
+            "displayPriority": 5
+          },
+          "state": {
+            "type": "string",
+            "name": {
+              "en": "State",
+              "de": ""
+            },
+            "description": {
+              "en": "This states reflect the operational status of the device",
+              "de": ""
+            },
+            "displayPriority": 3
+          },
+          "chargeState": {
+            "type": "string",
+            "name": {
+              "en": "Battery charge phase",
+              "de": ""
+            },
+            "description": {
+              "en": "These states reflect the phase of charging of the battery",
+              "de": ""
+            },
+            "displayPriority": 4
+          },
+          "remoteEntryState": {
+            "type": "string",
+            "name": {
+              "en": "Remote Entry",
+              "de": ""
+            },
+            "description": {
+              "en": "This states reflect the operational status of the device",
+              "de": ""
+            },
+            "displayPriority": 3
+          }
+        }
+      },
+      "alarms": {
+        "type": "array",
+        "name": {
+          "en": "Device alarms",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the alarms active on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "common failure",
+            "failure",
+            "high battery voltage",
+            "earth",
+            "no battery",
+            "high temperature",
+            "high solar voltage",
+            "other failure"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "digitalIO": {
+        "type": "object",
+        "properties": {
+          "relay1": {
+            "type": "string",
+            "name": {
+              "en": "Auxiliary relay 1",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of auxiliary relay 1",
+              "de": ""
+            }
+          },
+          "relay2": {
+            "type": "string",
+            "name": {
+              "en": "Auxiliary relay 2",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of auxiliary relay 3",
+              "de": ""
+            }
+          },
+          "relay3": {
+            "type": "string",
+            "name": {
+              "en": "Auxiliary relay 3",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of auxiliary relay 3",
+              "de": ""
+            }
+          },
+          "relay4": {
+            "type": "string",
+            "name": {
+              "en": "Auxiliary relay 4",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of relay 4",
+              "de": ""
+            }
+          }
+        }
+      },
+      "solarInput": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 655.35,
+            "decimals": 2,
+            "name": {
+              "en": "Solar input voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts on the solar input",
+              "de": ""
+            },
+            "displayPriority": 10
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 0,
+            "name": {
+              "en": "Solar input current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of current on the solar input",
+              "de": ""
+            },
+            "displayPriority": 9
+          },
+          "power": {
+            "type": "number",
+            "unit": "W",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Solar input power",
+              "de": ""
+            },
+            "description": {
+              "en": "The power of the solar input",
+              "de": ""
+            },
+            "displayPriority": 8
+          },
+          "dailyProduction": {
+            "type": "number",
+            "unit": "Wh",
+            "name": {
+              "en": "Daily produced",
+              "de": ""
+            },
+            "description": {
+              "en": "The amount of kWh produced per day",
+              "de": ""
+            },
+            "displayPriority": 7
+          },
+          "totalProducedEnergy": {
+            "type": "number",
+            "unit": "Wh",
+            "decimals": 1,
+            "name": {
+              "en": "Total produced",
+              "de": ""
+            },
+            "description": {
+              "en": "The amount of MWh total produced energy",
+              "de": ""
+            },
+            "displayPriority": 6
+          },
+          "maxSolarVoltageThisDay": {
+            "type": "number",
+            "unit": "VDC",
+            "decimals": 1,
+            "name": {
+              "en": "Max Solar Voltage Today",
+              "de": ""
+            },
+            "description": {
+              "en": "The highest Solar input Voltage today",
+              "de": ""
+            },
+            "displayPriority": 5
+          },
+          "maxSolarPowerThisDay": {
+            "type": "number",
+            "unit": "W",
+            "decimals": 1,
+            "name": {
+              "en": "Peak Solar power Today",
+              "de": ""
+            },
+            "description": {
+              "en": "The highest Solar power input today",
+              "de": ""
+            },
+            "displayPriority": 5
+          },
+          "irradiationHoursThisDay": {
+            "type": "number",
+            "unit": "Hours",
+            "decimals": 1,
+            "name": {
+              "en": "Solar hours today",
+              "de": ""
+            },
+            "description": {
+              "en": "The total Solar hours today",
+              "de": ""
+            },
+            "displayPriority": 4
+          },
+          "irradiationHoursLastDay": {
+            "type": "number",
+            "unit": "Hours",
+            "decimals": 1,
+            "name": {
+              "en": "Solar hours yesterday",
+              "de": ""
+            },
+            "description": {
+              "en": "The total Solar hours yesterday",
+              "de": ""
+            },
+            "displayPriority": 3
+          }
+        }
+      },
+      "dc": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 655.35,
+            "decimals": 2,
+            "name": {
+              "en": "Output Voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 6553.5,
+            "decimals": 1,
+            "name": {
+              "en": "Output Current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of Amps for DC",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "temperature": {
+        "type": "object",
+        "properties": {
+          "battery": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Battery Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Battery temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "controls": {
+      "setOperationalState": {
+        "type": "boolean",
+        "monitoringField": "functionalState.state",
+        "monitoringValue": "On",
+        "nameOn": {
+          "en": "Enable Suntrack",
+          "de": ""
+        },
+        "nameOff": {
+          "en": "Disable Suntrack",
+          "de": ""
+        },
+        "description": {
+          "en": "Enable/Disable Suntrack",
+          "de": ""
+        }
+      }
+    },
+    "createdAt": "2024-11-12T13:36:16.701Z",
+    "updatedAt": "2024-11-12T14:49:18.690Z",
+    "__v": 0,
+    "lastMonitoringEvent": {
+      "event": {
+        "operationalState": "operational",
+        "extendedState": {
+          "systemVoltage": 24,
+          "model": "Suntrack 80"
+        },
+        "functionalState": {
+          "solarInputPresent": "Present",
+          "state": "Charge V",
+          "chargeState": "Float",
+          "remoteEntryState": "Inactive"
+        },
+        "alarms": [],
+        "digitalIO": {
+          "relay1": "Inactive",
+          "relay2": "Inactive",
+          "relay3": "Inactive",
+          "relay4": "Inactive"
+        },
+        "solarInput": {
+          "voltage": 125.6,
+          "current": 3.4,
+          "power": 427.04,
+          "dailyProduction": 12700,
+          "totalProducedEnergy": 42069,
+          "maxSolarVoltageThisDay": 145.6,
+          "maxSolarPowerThisDay": 1548.5,
+          "irradiationHoursThisDay": 15.4,
+          "irradiationHoursLastDay": 16.8
+        },
+        "dc": {
+          "voltage": 25.8,
+          "current": 50.8
+        },
+        "temperature": {
+          "battery": 25
+        }
+      },
+      "source": {
+        "deviceClass": "solar-charger",
+        "deviceId": "fb0bbec8-5d0f-4bf3-a663-47ce9f60edbb",
+        "deviceModelName": "WP-Suntrack80",
+        "deviceSerialNumber": "73298364",
+        "measuredAt": "2024-12-05T12:00:00.000Z"
+      }
+    },
+    "lastMonitoringEventReceivedAt": "2024-11-12T14:49:18.689Z",
+    "newAlerts": [],
+    "id": "673359d02cccfde8227174ad",
+    "device": {
+      "class": "solar-charger",
+      "modelInfo": {
+        "name": "WP-Suntrack80",
+        "categories": [
+          "solar-charger"
+        ],
+        "alternativeNames": [
+          "WP-Suntrack 80"
+        ],
+        "manufacturerName": "WhisperPower",
+        "description": {
+          "en": "The WhisperPower Suntrack Solar Charge Controller is designed to harness the maximum amount of energy from your solar panels and delivery a 3 stage charging cycle to your batteries.",
+          "de": ""
+        },
+        "skus": [
+          "60203010"
+        ]
+      }
+    }
+  }

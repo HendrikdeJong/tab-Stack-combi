@@ -1,0 +1,72 @@
+{
+    "functionalStatus": {
+      "batteryStateOfCharge": 77.2,
+      "gridInputPresent": true,
+      "generatorRunning": false,
+      "solarInputPresent": true
+    },
+    "generatorStatus": [
+      {
+        "deviceId": "05f960f2-b431-4e92-aa91-9a84456e3cf1",
+        "starterBatteryVoltage": 13.43,
+        "generatorStatus": "Standby",
+        "generatorRpm": 0,
+        "alarms": 0,
+        "advancedGeneratorControl": "enabled",
+        "timeTillMaintenance": "25:34",
+        "startedBy": null
+      }
+    ],
+    "energyStatus": {
+      "gridInput": [
+        {
+          "gridId": "ac-grid-1",
+          "currentLimit": 16,
+          "current": 2.05,
+          "voltage": 223.3,
+          "power": 457.77,
+          "gridPresent": true
+        }
+      ],
+      "battery": [
+        {
+          "deviceId": "8002ef15-310b-4044-9116-d96993f0a767",
+          "voltage": 13.72,
+          "current": 89.4,
+          "stateOfCharge": 88.1,
+          "class": "battery-monitor"
+        },
+        {
+          "deviceId": "d0fa9cf2-c531-45df-a1b0-19822e9f1e01",
+          "voltage": 12.62,
+          "current": 22.4,
+          "stateOfCharge": 44.9,
+          "class": "battery-monitor"
+        }
+      ],
+      "solar": [
+        {
+          "deviceId": "0276a05c-c309-44b4-a0fe-5523d3f973e1",
+          "voltage": 125.3,
+          "power": 836.4,
+          "dailyProduction": 15.8,
+          "solarPresent": true
+        },
+        {
+          "deviceId": "fb0bbec8-5d0f-4bf3-a663-47ce9f60edbb",
+          "voltage": 122.8,
+          "power": 666.8,
+          "dailyProduction": 12.8,
+          "solarPresent": true
+        }
+      ],
+      "consumerOutput": [
+        {
+          "consumerId": "ac-consumer-1",
+          "voltage": 229.4,
+          "current": 7.5,
+          "power": 1720.5
+        }
+      ]
+    }
+  }

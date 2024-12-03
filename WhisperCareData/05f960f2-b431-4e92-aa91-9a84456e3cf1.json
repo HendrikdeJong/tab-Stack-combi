@@ -1,0 +1,536 @@
+{
+    "_id": "673359d02cccfd7e137174a1",
+    "serialNumber": "1",
+    "modelName": "DDC-GenVerter",
+    "deviceId": "05f960f2-b431-4e92-aa91-9a84456e3cf1",
+    "modelCode": "DDC-GV",
+    "name": "Genverter 1",
+    "className": "generator",
+    "modelInfo": {
+      "name": "DDC-GenVerter",
+      "categories": [
+        "generator"
+      ],
+      "alternativeNames": [
+        "Digital Diesel Control"
+      ],
+      "manufacturerName": "WhisperPower",
+      "description": {
+        "en": "WhisperPower silent and compact generator",
+        "de": ""
+      },
+      "skus": [
+        "00000000"
+      ]
+    },
+    "monitoring": {
+      "operationalState": {
+        "type": "array",
+        "name": {
+          "en": "General Device States",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the operational status of the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "offline",
+            "off",
+            "operational"
+          ]
+        },
+        "displayPriority": 4
+      },
+      "functionalState": {
+        "type": "object",
+        "properties": {
+          "generatorType": {
+            "type": "array",
+            "displayIsHidden": true,
+            "name": {
+              "en": "Generator type",
+              "de": ""
+            },
+            "description": {
+              "en": "These states reflect the mode of the device",
+              "de": ""
+            },
+            "displayPriority": 10
+          },
+          "ecuState": {
+            "type": "array",
+            "name": {
+              "en": "DDC state",
+              "de": ""
+            },
+            "description": {
+              "en": "These states reflect the state of the device",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "off",
+                "idle",
+                "startDelay",
+                "pumping",
+                "preheating",
+                "cranking",
+                "crankDelay",
+                "safetyOnDelay",
+                "warminUp",
+                "running",
+                "coolingDown",
+                "stopping",
+                "alarm"
+              ]
+            },
+            "displayPriority": 9
+          },
+          "engineStartedBy": {
+            "type": "string",
+            "name": {
+              "en": "Engine started by",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates which source started the generator",
+              "de": ""
+            },
+            "displayPriority": 8
+          }
+        }
+      },
+      "alarms": {
+        "type": "array",
+        "name": {
+          "en": "Device alarms",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the alarms active on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "sensor digital 1",
+            "sensor digital 2",
+            "sensor digital 3",
+            "sensor digital 4",
+            "sensor analog 1",
+            "sensor analog 2",
+            "sensor backend temperature",
+            "generator low voltage 1",
+            "generator low voltage 2",
+            "generator high voltage 1",
+            "generator high voltage 2",
+            "generator high current 1",
+            "generator high current 2",
+            "generator high power 1",
+            "generator high power 2",
+            "low battery voltage",
+            "battery failed to charge",
+            "engine low rpm 1",
+            "engine low rpm 2",
+            "engine high rpm 1",
+            "engine high rpm 2",
+            "failed to start",
+            "failed to stop",
+            "emergency stop",
+            "maintenance needed",
+            "digital user input 1",
+            "digital user input 2",
+            "analog user input"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "device": {
+        "type": "object",
+        "properties": {
+          "deviceID": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Device identifier",
+              "de": ""
+            },
+            "description": {
+              "en": "Identifier of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "revisionCode": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Revision code",
+              "de": ""
+            },
+            "description": {
+              "en": "Revision code of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "revisionWeek": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Revision week date",
+              "de": ""
+            },
+            "description": {
+              "en": "Revision week date of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "revisionYear": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Revision year date",
+              "de": ""
+            },
+            "description": {
+              "en": "Revision year date of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "productionYear": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Production year",
+              "de": ""
+            },
+            "description": {
+              "en": "Production year of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "productionMonth": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Production month",
+              "de": ""
+            },
+            "description": {
+              "en": "Production month of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "productionDay": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Production day",
+              "de": ""
+            },
+            "description": {
+              "en": "Production day of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "productionNumber": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Production number",
+              "de": ""
+            },
+            "description": {
+              "en": "Production number of the device",
+              "de": ""
+            },
+            "displayPriority": 2
+          }
+        }
+      },
+      "engine": {
+        "type": "object",
+        "properties": {
+          "rpm": {
+            "type": "number",
+            "unit": "RPM",
+            "minimum": 2100,
+            "maximum": 3000,
+            "warningUnder": 2200,
+            "warningOver": 2900,
+            "decimals": 0,
+            "name": {
+              "en": "Engine rpm",
+              "de": ""
+            },
+            "description": {
+              "en": "The rpm of the engine",
+              "de": ""
+            },
+            "displayPriority": 10,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "starterBatteryVoltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 10.5,
+            "maximum": 15,
+            "warningUnder": 11,
+            "warningOver": 14.5,
+            "decimals": 3,
+            "name": {
+              "en": "Starter battery voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "The voltage of the engine starter battery",
+              "de": ""
+            },
+            "displayPriority": 9,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "startsSuccesfull": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Succesfull starts",
+              "de": ""
+            },
+            "description": {
+              "en": "The amount of succesfull starts of the generator",
+              "de": ""
+            },
+            "displayPriority": 8
+          },
+          "startsFailed": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Failed starts",
+              "de": ""
+            },
+            "description": {
+              "en": "The amount of failed starts of the generator",
+              "de": ""
+            },
+            "displayPriority": 7
+          }
+        }
+      },
+      "temperature": {
+        "type": "object",
+        "properties": {
+          "engine": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Engine temperature",
+              "de": ""
+            },
+            "description": {
+              "en": "The measured engine temperature",
+              "de": ""
+            },
+            "displayPriority": 10
+          }
+        }
+      },
+      "historic": {
+        "type": "object",
+        "properties": {
+          "totalRunTime": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Total Generator Run Time (HH:MM)",
+              "de": ""
+            },
+            "description": {
+              "en": "Total Generator Run Time (HH:MM)",
+              "de": ""
+            },
+            "displayPriority": 10
+          },
+          "previousMaintenance": {
+            "type": "number",
+            "unit": "",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Maintenance Run Time (HH:MM)",
+              "de": ""
+            },
+            "description": {
+              "en": "Runtime since last maintenance reset",
+              "de": ""
+            },
+            "displayPriority": 9
+          },
+          "maintenanceInterval": {
+            "type": "number",
+            "unit": "Hours",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "Maintenance Interval",
+              "de": ""
+            },
+            "description": {
+              "en": "Maintenance interval in hours",
+              "de": ""
+            },
+            "displayPriority": 8
+          }
+        }
+      }
+    },
+    "controls": {
+      "startGenerator": {
+        "type": "object",
+        "name": {
+          "en": "Start Generator",
+          "de": ""
+        },
+        "description": {
+          "en": "Manually override and start generator",
+          "de": ""
+        }
+      },
+      "stopGenerator": {
+        "type": "object",
+        "name": {
+          "en": "Stop Generator",
+          "de": ""
+        },
+        "description": {
+          "en": "Manually override start generator",
+          "de": ""
+        }
+      }
+    },
+    "createdAt": "2024-11-12T13:36:16.577Z",
+    "updatedAt": "2024-11-12T14:49:18.657Z",
+    "__v": 0,
+    "lastMonitoringEvent": {
+      "event": {
+        "operationalState": "Standby",
+        "functionalState": {
+          "generatorType": "GV2",
+          "ecuState": "Standby",
+          "engineStartedBy": null
+        },
+        "alarms": [],
+        "device": {
+          "deviceID": 81,
+          "revisionCode": 0,
+          "revisionWeek": 0,
+          "revisionYear": 0,
+          "productionYear": 0,
+          "productionMonth": 0,
+          "productionDay": 0,
+          "productionNumber": 0
+        },
+        "engine": {
+          "rpm": 0,
+          "starterBatteryVoltage": 13.8,
+          "startsSuccesfull": 21,
+          "startsFailed": 1
+        },
+        "temperature": {
+          "engine": 25
+        },
+        "historic": {
+          "totalRunTime": "185:21",
+          "previousMaintenance": "64:39",
+          "maintenanceInterval": 250
+        }
+      },
+      "source": {
+        "deviceClass": "generator",
+        "deviceId": "05f960f2-b431-4e92-aa91-9a84456e3cf1",
+        "deviceModelName": "DDC-GV",
+        "deviceSerialNumber": "1",
+        "measuredAt": "2024-12-05T12:00:00.000Z"
+      }
+    },
+    "lastMonitoringEventReceivedAt": "2024-11-12T14:49:18.656Z",
+    "newAlerts": [],
+    "id": "673359d02cccfd7e137174a1",
+    "device": {
+      "class": "generator",
+      "modelInfo": {
+        "name": "DDC-GenVerter",
+        "categories": [
+          "generator"
+        ],
+        "alternativeNames": [
+          "Digital Diesel Control"
+        ],
+        "manufacturerName": "WhisperPower",
+        "description": {
+          "en": "WhisperPower silent and compact generator",
+          "de": ""
+        },
+        "skus": [
+          "00000000"
+        ]
+      }
+    },
+    "configuration": {}
+  }

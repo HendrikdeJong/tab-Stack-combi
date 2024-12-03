@@ -1,0 +1,919 @@
+{
+    "_id": "673359d02cccfd68bf71749b",
+    "serialNumber": "26443343",
+    "modelName": "WP-DC Powercube",
+    "deviceId": "ac13eef7-8101-4a2e-8234-6e3f7e8560d8",
+    "modelCode": "DC24",
+    "name": "DC PowerCube 2",
+    "className": "battery-charger",
+    "modelInfo": {
+      "name": "WP-DC Powercube",
+      "categories": [
+        "Charger"
+      ],
+      "alternativeNames": [
+        "WP-DC PC"
+      ],
+      "manufacturerName": "WhisperPower",
+      "description": {
+        "en": "",
+        "de": ""
+      },
+      "skus": [
+        "00000000"
+      ]
+    },
+    "monitoring": {
+      "operationalState": {
+        "type": "array",
+        "name": {
+          "en": "General Device States",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the operational status of the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "offline",
+            "off",
+            "operational"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "functionalState": {
+        "type": "object",
+        "properties": {
+          "acInputPresent": {
+            "type": "string",
+            "name": {
+              "en": "AC input present",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if acceptable AC input is present",
+              "de": ""
+            }
+          },
+          "generatorInputPresent": {
+            "type": "string",
+            "name": {
+              "en": "Generator input present",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if acceptable generator input is present",
+              "de": ""
+            }
+          },
+          "chargerState": {
+            "type": "string",
+            "name": {
+              "en": "Charger state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of charging",
+              "de": ""
+            },
+            "displayPriority": 2
+          }
+        }
+      },
+      "extendedState": {
+        "type": "object",
+        "properties": {
+          "batteryType": {
+            "type": "string",
+            "name": {
+              "en": "Battery type",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the battery type charging algorithm",
+              "de": ""
+            }
+          },
+          "powerLimit": {
+            "type": "string",
+            "name": {
+              "en": "Power limit",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if power is limited",
+              "de": ""
+            }
+          },
+          "temperatureCompensation": {
+            "type": "boolean",
+            "name": {
+              "en": "Temperature compensation",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if voltage temperature compensation is enabled",
+              "de": ""
+            }
+          },
+          "diodeCompensation": {
+            "type": "number",
+            "name": {
+              "en": "Diode compensation",
+              "de": ""
+            },
+            "description": {
+              "en": "Indicates if voltage diode compensation is enabled",
+              "de": ""
+            }
+          }
+        }
+      },
+      "alarms": {
+        "type": "array",
+        "name": {
+          "en": "Device alarms",
+          "de": ""
+        },
+        "description": {
+          "en": "These states reflect the alarms active on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "common failure",
+            "high voltage",
+            "high temperature"
+          ]
+        },
+        "displayPriority": 3
+      },
+      "digitalIO": {
+        "type": "object",
+        "properties": {
+          "digitalOutput1": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 1 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital output 1",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active"
+              ]
+            }
+          },
+          "digitalOutput2": {
+            "type": "array",
+            "name": {
+              "en": "Digital output 2 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital output 2",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active"
+              ]
+            }
+          },
+          "digitalInput1": {
+            "type": "array",
+            "name": {
+              "en": "Digital input 1 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital input 1",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active"
+              ]
+            }
+          },
+          "digitalInput2": {
+            "type": "array",
+            "name": {
+              "en": "Digital input 2 state",
+              "de": ""
+            },
+            "description": {
+              "en": "Reflects the state of digital input 2",
+              "de": ""
+            },
+            "items": {
+              "type": "string",
+              "enum": [
+                "inactive",
+                "active"
+              ]
+            }
+          }
+        }
+      },
+      "dipswitches": {
+        "type": "array",
+        "name": {
+          "en": "Dipswitches",
+          "de": ""
+        },
+        "description": {
+          "en": "A list of set dipswitches on the device",
+          "de": ""
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "dipswitch 1",
+            "dipswitch 2",
+            "dipswitch 3",
+            "dipswitch 4",
+            "dipswitch 5",
+            "dipswitch 6",
+            "dipswitch 7",
+            "dipswitch 8"
+          ]
+        }
+      },
+      "acInput": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VAC",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 1,
+            "name": {
+              "en": "AC input voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of AC volts on the input of the charger",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 16,
+            "decimals": 1,
+            "name": {
+              "en": "AC input current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of AC current on the input of the charger",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "currentLimit": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 128,
+            "decimals": 0,
+            "name": {
+              "en": "AC input current limit",
+              "de": ""
+            },
+            "description": {
+              "en": "The max limit of AC current on the input of the charger",
+              "de": ""
+            }
+          },
+          "power": {
+            "type": "number",
+            "unit": "VA",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "AC input power",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of power on the input of the charger",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "load": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "AC input load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of AC input on the input of the charger",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "generatorInput": {
+        "type": "object",
+        "properties": {
+          "frequency": {
+            "type": "number",
+            "unit": "Hz",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Generator input frequency",
+              "de": ""
+            },
+            "description": {
+              "en": "The frequency of the generator input of the charger",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "currentPhase1": {
+            "type": "number",
+            "unit": "A",
+            "decimals": 1,
+            "name": {
+              "en": "Generator input current phase 1",
+              "de": ""
+            },
+            "description": {
+              "en": "The phase 1 current of the generator input of the charger",
+              "de": ""
+            }
+          },
+          "currentPhase2": {
+            "type": "number",
+            "unit": "A",
+            "decimals": 1,
+            "name": {
+              "en": "Generator input current phase 2",
+              "de": ""
+            },
+            "description": {
+              "en": "The phase 2 current of the generator input of the charger",
+              "de": ""
+            }
+          },
+          "currentPhase3": {
+            "type": "number",
+            "unit": "A",
+            "decimals": 1,
+            "name": {
+              "en": "Generator input current phase 3",
+              "de": ""
+            },
+            "description": {
+              "en": "The phase 3 current of the generator input of the charger",
+              "de": ""
+            }
+          },
+          "load": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "Generator input load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of generator input on the input of the charger",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "currentLimit": {
+            "type": "number",
+            "unit": "A",
+            "decimals": 1,
+            "name": {
+              "en": "input current limit generator",
+              "de": ""
+            },
+            "description": {
+              "en": "The input current limit for the generator",
+              "de": ""
+            }
+          }
+        }
+      },
+      "dcConnections": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.535,
+            "decimals": 2,
+            "name": {
+              "en": "DC Voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC Battery",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Battery current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of amps going to the battery",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "currentLimit": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Battery current limit",
+              "de": ""
+            },
+            "description": {
+              "en": "Max current limit going to the battery",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "load": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "DC output load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the charger DC output",
+              "de": ""
+            }
+          }
+        }
+      },
+      "dcSummary": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "minimum": 0,
+            "maximum": 65.535,
+            "decimals": 2,
+            "name": {
+              "en": "DC Voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC Battery",
+              "de": ""
+            },
+            "displayPriority": 2,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "current": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Battery current",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of amps going to the battery",
+              "de": ""
+            },
+            "displayPriority": 2,
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          },
+          "currentLimit": {
+            "type": "number",
+            "unit": "A",
+            "minimum": 0,
+            "maximum": 65355,
+            "decimals": 0,
+            "name": {
+              "en": "Battery current limit",
+              "de": ""
+            },
+            "description": {
+              "en": "Max current limit going to the battery",
+              "de": ""
+            },
+            "displayPriority": 2
+          },
+          "load": {
+            "type": "number",
+            "unit": "%",
+            "minimum": 0,
+            "maximum": 100,
+            "decimals": 0,
+            "name": {
+              "en": "DC output load",
+              "de": ""
+            },
+            "description": {
+              "en": "The load of the charger DC output",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "dcSlave": {
+        "type": "object",
+        "properties": {
+          "voltage": {
+            "type": "number",
+            "unit": "VDC",
+            "decimals": 2,
+            "name": {
+              "en": "DC slave output Voltage",
+              "de": ""
+            },
+            "description": {
+              "en": "Amount of volts for DC slave output",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ]
+            }
+          }
+        }
+      },
+      "temperature": {
+        "type": "object",
+        "properties": {
+          "battery": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Battery Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Battery temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "displayAnalytics": {
+              "operations": [
+                "avg"
+              ],
+              "group": "Temperature"
+            }
+          },
+          "internal1": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Internal 1 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internally 1 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "group": "Temperature"
+          },
+          "internal2": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Internal 2 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internally 2 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "group": "Temperature"
+          },
+          "internal3": {
+            "type": "number",
+            "unit": "celcius",
+            "minimum": -128,
+            "maximum": 127,
+            "decimals": 0,
+            "name": {
+              "en": "Internal 3 Temperature Sensor",
+              "de": ""
+            },
+            "description": {
+              "en": "Internally 3 temperature reflected in celcius (-127 C to 128 C)",
+              "de": ""
+            },
+            "group": "Temperature"
+          }
+        }
+      }
+    },
+    "controls": {
+      "setOperationalState": {
+        "type": "boolean",
+        "monitoringField": "operationalState",
+        "monitoringValue": "operational",
+        "nameOn": {
+          "en": "Turn charger on",
+          "de": ""
+        },
+        "nameOff": {
+          "en": "Turn charger off",
+          "de": ""
+        },
+        "description": {
+          "en": "Sets the operational state of the charger to on",
+          "de": ""
+        }
+      },
+      "setACInputCurrentLimit": {
+        "type": "number",
+        "unit": "A",
+        "minimum": 0,
+        "maximum": 16,
+        "decimals": 0,
+        "monitoringField": "acInput.currentLimit",
+        "name": {
+          "en": "AC input current limit",
+          "de": ""
+        },
+        "description": {
+          "en": "Max AC current limit on the input of the charger",
+          "de": ""
+        }
+      },
+      "setGeneratorInputCurrentLimit": {
+        "type": "number",
+        "unit": "A",
+        "minimum": 0,
+        "maximum": 16,
+        "decimals": 0,
+        "monitoringField": "generatorInput.currentLimit",
+        "name": {
+          "en": "Generator input current limit",
+          "de": ""
+        },
+        "description": {
+          "en": "Max generator current limit on the input of the charger",
+          "de": ""
+        }
+      },
+      "setDCOutputCurrentLimit": {
+        "type": "number",
+        "unit": "A",
+        "minimum": 0,
+        "maximum": 150,
+        "decimals": 0,
+        "monitoringField": "dcSummary.currentLimit",
+        "name": {
+          "en": "DC output current limit",
+          "de": ""
+        },
+        "description": {
+          "en": "Max DC current limit on the output of the charger",
+          "de": ""
+        }
+      },
+      "forceChargeStateToFloat": {
+        "name": {
+          "en": "Force charging state to float",
+          "de": ""
+        },
+        "description": {
+          "en": "Sets the charging state to float, independent of the output voltage",
+          "de": ""
+        }
+      }
+    },
+    "configuration": {
+      "whisperConnect": {
+        "type": "object",
+        "properties": {
+          "transmitPeriod": {
+            "type": "number",
+            "unit": "ms",
+            "minimum": 0,
+            "maximum": 65535,
+            "decimals": 0,
+            "name": {
+              "en": "WhisperConnect transmit period",
+              "de": ""
+            },
+            "description": {
+              "en": "The rate at which monitoring messages are send",
+              "de": ""
+            }
+          },
+          "additionalEnabled": {
+            "type": "boolean",
+            "name": {
+              "en": "WhisperConnect additional messages enabled",
+              "de": ""
+            },
+            "description": {
+              "en": "Enables additional monitoring messages",
+              "de": ""
+            }
+          },
+          "whisperConnectID": {
+            "type": "number",
+            "minimum": 16,
+            "maximum": 31,
+            "decimals": 0,
+            "name": {
+              "en": "WhisperConnect ID",
+              "de": ""
+            },
+            "description": {
+              "en": "The WhisperConnect ID used in communication",
+              "de": ""
+            }
+          }
+        }
+      }
+    },
+    "createdAt": "2024-11-12T13:36:16.517Z",
+    "updatedAt": "2024-11-12T14:49:18.638Z",
+    "__v": 0,
+    "lastMonitoringEvent": {
+      "event": {
+        "operationalState": "standby",
+        "functionalState": {
+          "acInputPresent": "Present",
+          "generatorInputPresent": "Not present",
+          "chargerState": "Float"
+        },
+        "extendedState": {
+          "batteryType": "AGM",
+          "powerLimit": "Inactive",
+          "temperatureCompensation": "Inactive",
+          "diodeCompensation": "Disabled"
+        },
+        "alarms": [],
+        "digitalIO": {
+          "digitalOutput1": "active",
+          "digitalOutput2": "inactive",
+          "digitalInput1": "High",
+          "digitalInput2": "Low"
+        },
+        "dipswitches": [],
+        "acInput": {
+          "voltage": 209.8,
+          "current": 2.4,
+          "currentLimit": 8,
+          "power": 503.52,
+          "load": 25.3
+        },
+        "generatorInput": {
+          "frequency": 0,
+          "currentPhase1": 0,
+          "currentPhase2": 0,
+          "currentPhase3": 0,
+          "load": 0,
+          "currentLimit": 16
+        },
+        "dcConnections": {
+          "voltage": 24.5,
+          "current": 58.1,
+          "currentLimit": 150,
+          "load": 32.2
+        },
+        "dcSummary": {
+          "voltage": 24.5,
+          "current": 58.1,
+          "currentLimit": 150,
+          "load": 32.2
+        },
+        "dcSlave": {
+          "voltage": 14.2
+        },
+        "temperature": {
+          "battery": 25,
+          "internal1": 25,
+          "internal2": 25,
+          "internal3": 25
+        }
+      },
+      "source": {
+        "deviceClass": "battery-charger",
+        "deviceId": "ac13eef7-8101-4a2e-8234-6e3f7e8560d8",
+        "deviceModelName": "DC24",
+        "deviceSerialNumber": "26443343",
+        "measuredAt": "2024-12-05T12:00:00.000Z"
+      }
+    },
+    "lastMonitoringEventReceivedAt": "2024-11-12T14:49:18.638Z",
+    "newAlerts": [],
+    "id": "673359d02cccfd68bf71749b",
+    "device": {
+      "class": "battery-charger",
+      "modelInfo": {
+        "name": "WP-DC Powercube",
+        "categories": [
+          "Charger"
+        ],
+        "alternativeNames": [
+          "WP-DC PC"
+        ],
+        "manufacturerName": "WhisperPower",
+        "description": {
+          "en": "",
+          "de": ""
+        },
+        "skus": [
+          "00000000"
+        ]
+      }
+    }
+  }
