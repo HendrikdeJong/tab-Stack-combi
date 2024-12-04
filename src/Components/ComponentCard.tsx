@@ -41,12 +41,21 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
     (buttonName: string): void;
   }
 
+  interface SectionItem {
+    value: string;
+    unit?: string;
+  }
+
+  interface GroupItem {
+    [key: string]: SectionItem[];
+  }
+
   const handleButtonPress: ButtonPressHandler = (buttonName) => {
     setLoadingButton(buttonName);
     setTimeout(() => setLoadingButton(null), Math.random() * 3600);
   };
 
-  const handlePress = () => {
+  const goToDevice = () => {
     router.push(`/Devices/${ID}/`);
   };
 
@@ -99,19 +108,19 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
   const renderButtons = () => (
     <View style={styles.buttonContainer}>
       {hasSettings && (
-        <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={() => setModalVisible(true)}>
-          <Text style={[styles.buttonText, { color: theme.text }]}>Settings</Text>
+        <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(true)}>
+          <Text style={[styles.buttonText, { color: theme.whiteText}]}>Settings</Text>
         </TouchableOpacity>
       )}
-      <TouchableOpacity style={[styles.button, { backgroundColor: theme.border }]} onPress={handlePress}>
-        <Text style={[styles.buttonText, { color: theme.text }]}>More <Ionicons name='open' /></Text>
+      <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={goToDevice}>
+        <Text style={[styles.buttonText, { color: theme.whiteText}]}>More <Ionicons name='open' /></Text>
       </TouchableOpacity>
     </View>
   );
 
   const renderMainContent = () => (
     cardData != null &&
-    <View style={{ flexDirection: 'column', justifyContent: 'space-between', paddingTop: 16, paddingBottom: 8, gap: 15, minHeight: 350 }}>
+    <View style={styles.MainContentContainer}>
       <View style={styles.status}>
         <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
       </View>
@@ -126,14 +135,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
     </View>
   );
 
-  interface SectionItem {
-    value: string;
-    unit?: string;
-  }
-
-  interface GroupItem {
-    [key: string]: SectionItem[];
-  }
+  
 
   const renderSection = (sectionName: string, items: SectionItem[] | GroupItem[], sectionIdx: number) => {
     const renderItems = (items: SectionItem[]) => items.map((value, idx) => (
@@ -184,16 +186,16 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
         <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
         <View style={styles.buttonContainer}>
           {firstOption?.buttons?.map((value, idx) => (
-            <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.card }]} onPress={() => handleButtonPress(value.name)}>
+            <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => handleButtonPress(value.name)}>
               {loadingButton === value.name ? (
-                <ActivityIndicator size="small" color={theme.text} />
+                <ActivityIndicator size="small" color={theme.whiteText} />
               ) : (
-                <Text style={[styles.buttonText, { color: theme.text }]}>{value.name}</Text>
+                <Text style={[styles.buttonText, { color: theme.whiteText }]}>{value.name}</Text>
               )}
             </TouchableOpacity>
           ))}
-          <TouchableOpacity style={[styles.button, { backgroundColor: theme.card }]} onPress={() => setModalVisible(false)}>
-            <Text style={[styles.buttonText, { color: theme.text }]}>Close</Text>
+          <TouchableOpacity style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(false)}>
+            <Text style={[styles.buttonText, { color: theme.whiteText }]}>Close</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -207,7 +209,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
 
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]} onPress={() => setCollapsed(prev => !prev)}>
+      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen,}]} onPress={() => setCollapsed(prev => !prev)}>
         {cardData.iconlib === 'WpIcons' ? (
           <WpIcons name={cardData.classIcon} style={styles.Wrappericon} color={theme.whiteText} />
         ) : (
@@ -217,26 +219,40 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
           <Text style={[styles.deviceCategory, { color: theme.whiteText, borderColor: theme.selected }]}>{cardData.class}</Text>
           <Text style={[styles.deviceTitle, { color: theme.selected }]}>{cardData.title}</Text>
         </View>
-      </TouchableOpacity>
+        {collapsible &&
+          <TouchableOpacity style={{padding: 12}} onPress={() => setCollapsed(prev => !prev)}>
+            {collapsed ? <Ionicons name='chevron-down' size={24} color={theme.whiteText} /> : <Ionicons name='chevron-up' size={24} color={theme.whiteText} />}
+          </TouchableOpacity>
+        }
+        </TouchableOpacity>
       {collapsible ? <Collapsible collapsed={collapsed}>{renderMainContent()}</Collapsible> : renderMainContent()}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 8,
     minWidth: 320,
-    maxWidth: 600,
     flex: 1,
     overflow: 'hidden',
+    minHeight: "100%",
   },
   headerWrapper: {
-    padding: 10,
-    gap: 10,
-    flex: 1,
+    padding: 12,
+    gap: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    flexGrow: 1,
   },
+  MainContentContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    flexBasis: 280,
+    flex: 1,
+  },
+
   Wrappericon: {
     fontSize: 48,
   },
@@ -256,15 +272,16 @@ const styles = StyleSheet.create({
   
   layout: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
+    justifyContent: 'space-evenly',
+    flex: 1,
   },
   layoutItem: {
-    width: '33%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   status: {
+    paddingTop: 8,
     alignItems: 'center',
   },
   statustext: {
@@ -298,7 +315,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
     borderBottomStartRadius: 8,

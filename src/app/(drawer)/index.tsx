@@ -2,7 +2,7 @@ import { useFetchConfig } from "@/Components/CustomFunctions";
 import { useTheme } from "@/Styling/Theme";
 import ComponentCard from "@/Components/ComponentCard";
 import React from "react";
-import { View, ActivityIndicator, StyleSheet, FlatList, useWindowDimensions, Button, Text, ScrollView } from "react-native";
+import { View, ActivityIndicator, StyleSheet, FlatList, useWindowDimensions, Button, Text, ScrollView, ImageBackground } from "react-native";
 
 export default function Demolib() {
     const { width } = useWindowDimensions();
@@ -11,10 +11,9 @@ export default function Demolib() {
     const theme = useTheme();
 
     const getNumColumns = () => {
-        if (width > 2000) return 4;
         if (width > 1200) return 3;
         if (width > 640) return 2;
-        return 1;                   
+        return 1; 
     };
     const numColumns = getNumColumns();
 
@@ -48,21 +47,29 @@ export default function Demolib() {
 
 
     return (
-      <ScrollView style={{}} contentContainerStyle={{}}>
-        <View>
-        {/* <View style={{maxWidth: 2000}}> */}
+    //   <ImageBackground
+    //     source={require('assets/WP_BG_01.jpg')}
+    //     style={{ flex: 1, width: null, height: null,}}
+    //     resizeMode="cover"
+    //     blurRadius={10}
+    //   >
         <FlatList
+            style={{flex: 1}}
             data={dataWithGhosts}
             key={numColumns}
             numColumns={numColumns}
             keyExtractor={(item, index) => item.ID + index}
-            renderItem={({ item }) => <ComponentCard ID={item.ID} collapsible={numColumns === 1} hidden={item.ID.startsWith("ghost-placeholder")}/>}
+            renderItem={({ item }) => 
+            <ComponentCard 
+                ID={item.ID} 
+                collapsible={numColumns === 1} 
+                hidden={item.ID.startsWith("ghost-placeholder")}
+            />}
             columnWrapperStyle={numColumns > 1 ? styles.columnWrapper : null}
-            contentContainerStyle={{marginHorizontal: width > 350 ? 16 : 0, marginVertical: 16}}
+            contentContainerStyle={{marginHorizontal: width > 350 ? 16 : 0, marginVertical: 16, flex: 1}}
             ItemSeparatorComponent={() => <View style={{height: 16}} />}
-            />
-        </View>
-      </ScrollView>
+        />
+    //   </ImageBackground>
     );
 }
 
