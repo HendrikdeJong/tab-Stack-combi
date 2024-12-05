@@ -13,7 +13,20 @@ interface DynamicCardProps {
   hidden?: boolean;
 }
 
-const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = false }) => {
+interface ButtonPressHandler {
+  (buttonName: string): void;
+}
+
+interface SectionItem {
+  value: string;
+  unit?: string;
+}
+
+interface GroupItem {
+  [key: string]: SectionItem[];
+}
+
+export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardProps) {
   // Hook Calls
   const theme = useTheme(); // Fetch theme
   const { loading, config, error } = useFetchConfig(); // Fetch configuration
@@ -35,20 +48,6 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
     const interval = setInterval(() => setBlink(prev => !prev), 800);
     return () => clearInterval(interval);
   }, []);
-
-  // Event Handlers
-  interface ButtonPressHandler {
-    (buttonName: string): void;
-  }
-
-  interface SectionItem {
-    value: string;
-    unit?: string;
-  }
-
-  interface GroupItem {
-    [key: string]: SectionItem[];
-  }
 
   const handleButtonPress: ButtonPressHandler = (buttonName) => {
     setLoadingButton(buttonName);
@@ -135,8 +134,6 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
     </View>
   );
 
-  
-
   const renderSection = (sectionName: string, items: SectionItem[] | GroupItem[], sectionIdx: number) => {
     const renderItems = (items: SectionItem[]) => items.map((value, idx) => (
       <Text key={idx} style={[styles.text, { color: theme.text }]}> {value.value}<Text style={styles.unit}>{value.unit || ''}</Text></Text>
@@ -209,7 +206,7 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
 
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen,}]} onPress={() => setCollapsed(prev => !prev)}>
+      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen,}]} onPress={() => setCollapsed((prev: any) => !prev)}>
         {cardData.iconlib === 'WpIcons' ? (
           <WpIcons name={cardData.classIcon} style={styles.Wrappericon} color={theme.whiteText} />
         ) : (
@@ -217,10 +214,10 @@ const DynamicCard: React.FC<DynamicCardProps> = ({ ID, collapsible, hidden = fal
         )}
         <View style={{ flex: 1 }}>
           <Text style={[styles.deviceCategory, { color: theme.whiteText, borderColor: theme.selected }]}>{cardData.class}</Text>
-          <Text style={[styles.deviceTitle, { color: theme.selected }]}>{cardData.title}</Text>
+          <Text style={[styles.deviceTitle, { color: theme.selected,}]} lineBreakMode='tail' numberOfLines={1}>{cardData.title}</Text>
         </View>
         {collapsible &&
-          <TouchableOpacity style={{padding: 12}} onPress={() => setCollapsed(prev => !prev)}>
+          <TouchableOpacity style={{padding: 12}} onPress={() => setCollapsed((prev: any) => !prev)}>
             {collapsed ? <Ionicons name='chevron-down' size={24} color={theme.whiteText} /> : <Ionicons name='chevron-up' size={24} color={theme.whiteText} />}
           </TouchableOpacity>
         }
@@ -234,21 +231,22 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 8,
     minWidth: 320,
+    maxWidth: 640,
     flex: 1,
     overflow: 'hidden',
-    minHeight: "100%",
   },
   headerWrapper: {
     padding: 12,
     gap: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    flexGrow: 1,
+    flex: 1,
   },
   MainContentContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
     paddingVertical: 8,
+    gap: 16,
     flexBasis: 280,
     flex: 1,
   },
@@ -264,10 +262,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   unit: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
     alignSelf: 'flex-end',
-    marginLeft: 2,
   },
   
   layout: {
@@ -317,7 +314,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
+    padding: 16,
     borderBottomStartRadius: 8,
     borderBottomEndRadius: 8,
   },
@@ -337,4 +334,4 @@ const styles = StyleSheet.create({
     color: 'transparent',
   },
 });
-export default DynamicCard;
+
