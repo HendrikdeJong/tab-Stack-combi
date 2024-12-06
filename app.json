@@ -4,7 +4,7 @@
     "slug": "tab-Stack-combi",
     "version": "0.1.1",
     "scheme": "your-app-scheme",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon-1024x1024.png",
     "userInterfaceStyle": "automatic",
     "splash": {

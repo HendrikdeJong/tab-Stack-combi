@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SvgProps } from 'react-native-svg';
 
 // Import icons (ensure all are generated with SVGR using react-native-svg)
@@ -144,7 +145,7 @@ const iconMap: { [key: string]: React.FC<SvgProps> } = {
 
 // Define Props for CustomIconLibrary
 type CustomIconLibraryProps = {
-  name: keyof typeof iconMap; // This will ensure TypeScript suggests only valid keys
+  name: keyof typeof iconMap;
   size?: number;
   color?: string;
   style?: TextStyle | ViewStyle;
@@ -158,8 +159,7 @@ const WpIcons: React.FC<CustomIconLibraryProps> = ({
 }) => {
   const IconComponent = iconMap[name];
   if (!IconComponent) {
-    console.warn(`Icon ${name} not found in library`);
-    return <View style={style} />; // Return an empty view if the icon does not exist
+    return <MaterialCommunityIcons name={name as any} size={size} color={color} style={style} />; // Return an empty view if the icon does not exist
   }
 
   const flattenedStyle = StyleSheet.flatten(style);

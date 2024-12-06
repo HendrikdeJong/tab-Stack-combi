@@ -1,102 +1,143 @@
-import React, { useState } from 'react';
-import { View, FlatList, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { useFetchConfig } from "@/Components/CustomFunctions";
+import { useTheme } from "@/Styling/Theme";
+import ComponentCard from "@/Components/ComponentCard";
+import Card from "@/Components/Card";
+import React, { useState } from "react";
+import { View, ActivityIndicator, StyleSheet, FlatList, useWindowDimensions, Text, TouchableOpacity, SafeAreaView, ImageBackground } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-const { width } = Dimensions.get('window');
-const isLargeScreen = width > 600; // Adjust this value based on your needs
+export default function LandingPage() {
+    const { width, height } = useWindowDimensions();
+    const { loading, config, error } = useFetchConfig();
+    const devices = config?.system?.devices ?? [];
+    const theme = useTheme();
 
-const getNumColumns = () => {
-  if (width > 2000) return 4;
-  if (width > 1200) return 3;
-  if (width > 640) return 2;
-  return 1;
-};
-const NUM_COLUMNS = getNumColumns();
-const CARDS_PER_PAGE = 6;
+    const getNumColumns = () => {
+        if (width > 1200) return 3;
+        if (width > 640) return 2;
+        return 1;                   
+    };
+    const numColumns = getNumColumns();
+    const cardScale = width / numColumns / 360;
+    const itemsPerPage = numColumns * 2; //this value should change depending on how many cards can fit under each other while not making the page scrollable, need to use height of flatlist to not change that as else the page breaks
 
-const data = Array.from({ length: 18 }, (_, index) => ({
-  id: index + 1,
-  title: `Card ${index + 1}`,
-}));
+    const [currentPage, setCurrentPage] = useState(0);
+    const totalPages = Math.ceil(devices.length / itemsPerPage);
 
-const PaginatedCards = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+    const getCurrentPageData = () => {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return devices.slice(startIndex, endIndex);
+    };
 
-  const startIdx = currentPage * CARDS_PER_PAGE;
-  const endIdx = startIdx + CARDS_PER_PAGE;
-  const paginatedData = data.slice(startIdx, endIdx);
+    const currentPageData = getCurrentPageData();
+    const remainder = currentPageData.length % numColumns;
+    const ghostBlocksNeeded = remainder === 0 ? 0 : numColumns - remainder;
 
-  const nextPage = () => {
-    if (endIdx < data.length) {
-      setCurrentPage(prev => prev + 1);
+    const dataWithGhosts = [
+        ...currentPageData,
+        ...Array.from({ length: ghostBlocksNeeded }, (_, index) => ({
+            ID: `ghost-placeholder-${index}`,
+        })),
+    ];
+
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color={theme.whisperGreen} />
+            </View>
+        );
     }
-  };
 
-  const prevPage = () => {
-    if (startIdx > 0) {
-      setCurrentPage(prev => prev - 1);
+    if (error) {
+        return (
+            <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+                <TouchableOpacity onPress={() => window.location.reload()}>
+                    <Ionicons name="reload" size={24} color="white" />
+                </TouchableOpacity>
+            </View>
+        );
     }
-  };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.card}>
-      <Text>{item.title}</Text>
-    </View>
-  );
 
-  return (
-    <View style={styles.container}>
+    return (
+      <ImageBackground
+        source={require('assets/WP_BG_01.jpg')}
+        style={{ flex: 1, width: null, height: null,}}
+        resizeMode="cover"
+        blurRadius={10}
+      >
       <FlatList
-        style={{flex: 1}}
-        data={paginatedData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={NUM_COLUMNS}
-        key={NUM_COLUMNS} // Important to trigger rerender when changing number of columns
-        scrollEnabled={false}
-        contentContainerStyle={{ flexGrow: 1 }}
-        ListFooterComponent={
-        <View style={styles.paginationContainer}>
-            <TouchableOpacity onPress={prevPage} disabled={startIdx === 0} style={styles.button}>
-              <Text style={styles.buttonText}>Previous</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={nextPage} disabled={endIdx >= data.length} style={styles.button}>
-              <Text style={styles.buttonText}>Next</Text>
-            </TouchableOpacity>
-        </View>
-        }
+          data={dataWithGhosts}
+          key={numColumns}
+          numColumns={numColumns}
+          keyExtractor={(item, index) => item.ID + index}
+          renderItem={({ item }) => (
+              <Card
+                  ID={item.ID}
+                  collapsible={numColumns === 1}
+                  hidden={item.ID.startsWith("ghost-placeholder")}
+                  scale={cardScale}
+              />
+          )}
+          contentContainerStyle={[
+              { justifyContent: 'center', alignItems: 'center', flexGrow: 1, paddingVertical: 16, gap: 16 },
+              width > 320 ? { paddingHorizontal: 16 } : { paddingVertical: 16 }
+          ]}
+          columnWrapperStyle={numColumns > 1 ? { gap: 16 } : null}
+          scrollEnabled={false}
       />
-     
-    </View>
-  );
-};
+      <View style={styles.paginationContainer}>
+              <TouchableOpacity
+                  onPress={() => setCurrentPage(prev => Math.max(prev - 1, 0))}
+                  disabled={currentPage === 0}
+              >
+              <Ionicons name="chevron-back" size={48} color={theme.whisperGreen} />
+              </TouchableOpacity>
+                  {Array.from({ length: totalPages }).map((_, index) => (
+                      <TouchableOpacity key={index}style={[styles.paginationDot,index === currentPage ? {backgroundColor: theme.whiteText} : {backgroundColor: theme.whisperGreen}]} onPress={() => setCurrentPage(index)}/>
+                  ))}
+              <TouchableOpacity
+                  onPress={() => setCurrentPage(prev => Math.min(prev + 1, totalPages - 1))}
+                  disabled={currentPage === totalPages - 1}
+              >
+                  <Ionicons name="chevron-forward" size={48} color={theme.whisperGreen} />
+              </TouchableOpacity>
+          </View>
+    </ImageBackground>
+    );
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  card: {
-    flex: 1,
-    margin: 8,
-    height: 200,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 16,
-  },
-  button: {
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
-  },
-});
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#EF5350',
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    paginationContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 16,
+    },
+    paginationDot: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: '#ccc',
+        marginHorizontal: 5,
+    },
 
-export default PaginatedCards;
+});

@@ -9,8 +9,8 @@ import Collapsible from 'react-native-collapsible';
 
 interface DynamicCardProps {
   ID: string;
-  collapsible: boolean;
   hidden?: boolean;
+  numColumns?: number
 }
 
 interface ButtonPressHandler {
@@ -26,7 +26,7 @@ interface GroupItem {
   [key: string]: SectionItem[];
 }
 
-export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardProps) {
+export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProps) {
   // Hook Calls
   const theme = useTheme(); // Fetch theme
   const { loading, config, error } = useFetchConfig(); // Fetch configuration
@@ -40,6 +40,7 @@ export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardPro
   const [loadingButton, setLoadingButton] = useState<string | null>(null);
   const [blink, setBlink] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const collapsible = numColumns === 1
   const [collapsed, setCollapsed] = useState(collapsible);
   const [isHidden, setIsHidden] = useState(hidden);
 
@@ -104,18 +105,6 @@ export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardPro
     </View>
   );
 
-  const renderButtons = () => (
-    <View style={styles.buttonContainer}>
-      {hasSettings && (
-        <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(true)}>
-          <Text style={[styles.buttonText, { color: theme.whiteText}]}>Settings</Text>
-        </TouchableOpacity>
-      )}
-      <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={goToDevice}>
-        <Text style={[styles.buttonText, { color: theme.whiteText}]}>More <Ionicons name='open' /></Text>
-      </TouchableOpacity>
-    </View>
-  );
 
   const renderMainContent = () => (
     cardData != null &&
@@ -176,6 +165,19 @@ export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardPro
     );
   };
 
+  const renderButtons = () => (
+    <View style={styles.buttonContainer}>
+      {hasSettings && (
+        <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(true)}>
+          <Text style={[styles.buttonText, { color: theme.whiteText}]}>Settings</Text>
+        </TouchableOpacity>
+      )}
+      <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={goToDevice}>
+        <Text style={[styles.buttonText, { color: theme.whiteText}]}>More <Ionicons name='open' /></Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   const renderModal = () => (
     modalVisible && hasSettings && (
       <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
@@ -198,6 +200,7 @@ export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardPro
       </View>
     )
   );
+  
 
   if (isHidden) return HiddenCard();
   if (loading) return renderLoadingState();
@@ -222,7 +225,7 @@ export default function DynamicCard ({ ID, collapsible, hidden }: DynamicCardPro
           </TouchableOpacity>
         }
         </TouchableOpacity>
-      {collapsible ? <Collapsible collapsed={collapsed}>{renderMainContent()}</Collapsible> : renderMainContent()}
+        {collapsible ? <Collapsible collapsed={collapsed}>{renderMainContent()}</Collapsible> : renderMainContent()}
     </View>
   );
 };
@@ -240,7 +243,6 @@ const styles = StyleSheet.create({
     gap: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
   },
   MainContentContainer: {
     flexDirection: 'column',
