@@ -5,9 +5,7 @@ import WpIcons from '../icons/WhisperPowerIconLib';
 import { useTheme } from '../Styling/Theme';
 import { router } from 'expo-router';
 import { useFetchConfig } from './CustomFunctions';
-import Collapsible from 'react-native-collapsible';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 interface DynamicCardProps {
   ID: string;
@@ -93,82 +91,6 @@ export default function DynamicCard ({ ID, collapsible, hidden, scale}: DynamicC
 </View>
   );
 
-//   const renderErrorState = () => (
-//     <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-//       <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-//         <Text style={[styles.deviceCategory, { color: theme.text }]}>Error loading configuration. Please try again later.</Text>
-//       </View>
-//     </View>
-//   );
-
-//   const renderEmptyState = () => (
-//     <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-//       <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-//         <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Device not found</Text>
-//       </View>
-//     </View>
-//   );
-
-
-//   const renderMainContent = () => (
-//     cardData != null &&
-//     <View style={styles.MainContentContainer}>
-//       <View style={styles.status}>
-//         <Text style={[styles.statustext, { color: theme.text }]}>{cardData.status}</Text>
-//       </View>
-//       <View style={styles.layout}>
-//         {Array.isArray(cardData.Specifications.summary) && cardData.Specifications.summary.map((section, sectionIdx) => {
-//           const [sectionName, items] = Object.entries(section)[0];
-//           return renderSection(sectionName, items, sectionIdx);
-//         })}
-//       </View>
-//       {renderButtons()}
-//       {renderModal()}
-//     </View>
-//   );
-
-//   const renderSection = (sectionName: string, items: SectionItem[] | GroupItem[], sectionIdx: number) => {
-//     const renderItems = (items: SectionItem[]) => items.map((value, idx) => (
-//       <Text key={idx} style={[styles.text, { color: theme.text }]}> {value.value}<Text style={styles.unit}>{value.unit || ''}</Text></Text>
-//     ));
-
-//     if (sectionName.toLowerCase() === 'classicon' && Array.isArray(items)) {
-//       return (
-//         <View key={sectionIdx} style={styles.layoutItem}>
-//           {cardData && cardData.iconlib === 'WpIcons' ? (
-//             <WpIcons name={cardData.classIcon} size={85} color={theme.invertbackground} />
-//           ) : (
-//             <MaterialCommunityIcons name={cardData?.classIcon as any} size={85} color={theme.invertbackground} />
-//           )}
-//           {renderItems(items as SectionItem[])}
-//         </View>
-//       );
-//     }
-
-//     if (sectionName.toLowerCase() === 'group' && Array.isArray(items)) {
-//       return (
-//         <View key={sectionIdx} style={[styles.layoutItem, { flexDirection: 'column', flexShrink: 1 }]}>
-//           {(items as GroupItem[]).map((groupItem, groupIdx) => {
-//             const [groupName, groupValues] = Object.entries(groupItem)[0];
-//             return (
-//               <View key={groupIdx} style={{ marginBottom: 10 }}>
-//                 <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{groupName}</Text>
-//                 {Array.isArray(groupValues) && renderItems(groupValues)}
-//               </View>
-//             );
-//           })}
-//         </View>
-//       );
-//     }
-
-//     return (
-//       <View key={sectionIdx} style={styles.layoutItem}>
-//         <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{sectionName}</Text>
-//         {renderItems(items as SectionItem[])}
-//       </View>
-//     );
-//   };
-
   const renderButtons = () => (
     <View style={{flexDirection: 'row',
         justifyContent: 'space-around',
@@ -183,30 +105,6 @@ export default function DynamicCard ({ ID, collapsible, hidden, scale}: DynamicC
       </TouchableOpacity>
     </View>
   );
-
-//   const renderModal = () => (
-//     modalVisible && hasSettings && (
-//       <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
-//         <Text style={[styles.modalTitle, { color: theme.text }]}>{firstOption?.label}</Text>
-//         <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
-//         <View style={styles.buttonContainer}>
-//           {firstOption?.buttons?.map((value, idx) => (
-//             <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => handleButtonPress(value.name)}>
-//               {loadingButton === value.name ? (
-//                 <ActivityIndicator size="small" color={theme.whiteText} />
-//               ) : (
-//                 <Text style={[styles.buttonText, { color: theme.whiteText }]}>{value.name}</Text>
-//               )}
-//             </TouchableOpacity>
-//           ))}
-//           <TouchableOpacity style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(false)}>
-//             <Text style={[styles.buttonText, { color: theme.whiteText }]}>Close</Text>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     )
-//   );
-
 
   if (isHidden) return HiddenCard();
   if (loading || error || !cardData) return renderLoadingState();

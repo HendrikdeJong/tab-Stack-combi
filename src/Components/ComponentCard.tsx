@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, useWindowDimensions } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import WpIcons from '../icons/WhisperPowerIconLib';
 import { useTheme } from '../Styling/Theme';
 import { router } from 'expo-router';
 import { useFetchConfig } from './CustomFunctions';
 import Collapsible from 'react-native-collapsible';
+import {scale, ModerateScale, ModerateVerticalScale, VerticalScale, verticalScale} from 'react-native-size-matters';
 
 interface DynamicCardProps {
   ID: string;
   hidden?: boolean;
-  numColumns?: number
+  numColumns: number
+  Iscollapsible?: boolean;
 }
 
 interface ButtonPressHandler {
@@ -26,7 +28,7 @@ interface GroupItem {
   [key: string]: SectionItem[];
 }
 
-export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProps) {
+export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: DynamicCardProps) {
   // Hook Calls
   const theme = useTheme(); // Fetch theme
   const { loading, config, error } = useFetchConfig(); // Fetch configuration
@@ -35,12 +37,12 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
   const cardData = config?.system?.devices?.find(item => item.ID === ID) || null;
   const firstOption = cardData?.Settings?.find(setting => setting.showAsFirstSetting) || null;
   const hasSettings = firstOption !== null;
-
+  
   // States
   const [loadingButton, setLoadingButton] = useState<string | null>(null);
   const [blink, setBlink] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const collapsible = numColumns === 1
+  const collapsible = Iscollapsible ?  numColumns === 1 : false;
   const [collapsed, setCollapsed] = useState(collapsible);
   const [isHidden, setIsHidden] = useState(hidden);
 
@@ -59,52 +61,20 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
     router.push(`/Devices/${ID}/`);
   };
 
-  const HiddenCard = () => (
-    <View style={[styles.cardContainer, styles.transparentCard]}>
-        <View style={[styles.headerWrapper, styles.transparent]}>
-          <Text style={[styles.deviceCategory, styles.transparentText]}>this should be hidden</Text>
+  function RenderState(message: string, RenderStateHidden : boolean, showloadingbar: boolean){
+    return(
+      <View style={[styles.cardContainer, RenderStateHidden? styles.transparentCard: {},{ backgroundColor: theme.card }]}>
+        <View style={[styles.headerWrapper, RenderStateHidden? styles.transparent: {},{ backgroundColor: theme.whisperGreen }]}>
+          <Text style={[styles.deviceCategory, RenderStateHidden? styles.transparentText: {},{ color: theme.text }]}>{message}</Text>
         </View>
-        <View style={[styles.layout, { height: 100 }]}>
-          <ActivityIndicator size="large" color="transparent" />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={[styles.button, styles.transparent]} />
-          <View style={[styles.button, styles.transparent]} />
+        <View style={[styles.layout, { flex: 1 }]}>
+          {showloadingbar? 
+          <ActivityIndicator size="large" color={RenderStateHidden? 'transparent' : theme.text}/>:<Text style={[styles.deviceCategory, RenderStateHidden? styles.transparentText: {},{ color: theme.text }]}>{message}</Text>
+          }
         </View>
       </View>
-  );
-
-  const renderLoadingState = () => (
-    <View style={[styles.cardContainer, { backgroundColor: theme.card, justifyContent: 'space-between', paddingBottom: 10 }]}>
-      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-        <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Loading device...</Text>
-      </View>
-      <View style={[styles.layout, { height: 100 }]}>
-        <ActivityIndicator size="large" color={theme.text} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
-        <View style={[styles.button, { backgroundColor: theme.border, minHeight: 30 }]} />
-      </View>
-    </View>
-  );
-
-  const renderErrorState = () => (
-    <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-        <Text style={[styles.deviceCategory, { color: theme.text }]}>Error loading configuration. Please try again later.</Text>
-      </View>
-    </View>
-  );
-
-  const renderEmptyState = () => (
-    <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-      <View style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen }]}>
-        <Text style={[styles.deviceCategory, { color: theme.whiteText }]}>Device not found</Text>
-      </View>
-    </View>
-  );
-
+    );
+  }
 
   const renderMainContent = () => (
     cardData != null &&
@@ -118,7 +88,8 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
           return renderSection(sectionName, items, sectionIdx);
         })}
       </View>
-      {renderButtons()}
+      {collapsible &&
+      renderButtons()}
       {renderModal()}
     </View>
   );
@@ -132,9 +103,9 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
       return (
         <View key={sectionIdx} style={styles.layoutItem}>
           {cardData && cardData.iconlib === 'WpIcons' ? (
-            <WpIcons name={cardData.classIcon} size={85} color={theme.invertbackground} />
+            <WpIcons name={cardData.classIcon} style={styles.classIcon} color={theme.invertbackground} />
           ) : (
-            <MaterialCommunityIcons name={cardData?.classIcon as any} size={85} color={theme.invertbackground} />
+            <MaterialCommunityIcons name={cardData?.classIcon as any} style={styles.classIcon} color={theme.invertbackground} />
           )}
           {renderItems(items as SectionItem[])}
         </View>
@@ -143,12 +114,12 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
 
     if (sectionName.toLowerCase() === 'group' && Array.isArray(items)) {
       return (
-        <View key={sectionIdx} style={[styles.layoutItem, { flexDirection: 'column', flexShrink: 1 }]}>
+        <View key={sectionIdx} style={[styles.layoutItem]}>
           {(items as GroupItem[]).map((groupItem, groupIdx) => {
             const [groupName, groupValues] = Object.entries(groupItem)[0];
             return (
-              <View key={groupIdx} style={{ marginBottom: 10 }}>
-                <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{groupName}</Text>
+              <View key={groupIdx}>
+                <Text style={[styles.deviceCategory, { color: theme.subtext }]} lineBreakMode='tail' numberOfLines={1}>{groupName}</Text>
                 {Array.isArray(groupValues) && renderItems(groupValues)}
               </View>
             );
@@ -159,7 +130,7 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
 
     return (
       <View key={sectionIdx} style={styles.layoutItem}>
-        <Text style={[styles.deviceCategory, { color: theme.subtext }]}>{sectionName}</Text>
+        <Text style={[styles.deviceCategory, { color: theme.subtext }]} lineBreakMode='tail' numberOfLines={1}>{sectionName}</Text>
         {renderItems(items as SectionItem[])}
       </View>
     );
@@ -173,7 +144,7 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
         </TouchableOpacity>
       )}
       <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={goToDevice}>
-        <Text style={[styles.buttonText, { color: theme.whiteText}]}>More <Ionicons name='open' /></Text>
+        <Text style={[styles.buttonText, { color: theme.whiteText}]}>More <Ionicons style={styles.buttonText} name='open' /></Text>
       </TouchableOpacity>
     </View>
   );
@@ -187,7 +158,7 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
           {firstOption?.buttons?.map((value, idx) => (
             <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => handleButtonPress(value.name)}>
               {loadingButton === value.name ? (
-                <ActivityIndicator size="small" color={theme.whiteText} />
+                <ActivityIndicator size={styles.buttonText.fontSize} color={theme.whiteText} />
               ) : (
                 <Text style={[styles.buttonText, { color: theme.whiteText }]}>{value.name}</Text>
               )}
@@ -200,31 +171,52 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
       </View>
     )
   );
+
+  const renderHeader = () => (
+    cardData &&
+    <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen,}]} onPress={() => setCollapsed((prev: any) => !prev)}>
+      {cardData.iconlib === 'WpIcons' ? (
+        <WpIcons name={cardData.classIcon} style={styles.Wrappericon} color={theme.whiteText} />
+      ) : (
+        <MaterialCommunityIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
+      )}
+      <View style={{ flex: 3 }}>
+        <Text style={[styles.deviceCategory, { color: theme.whiteText, borderColor: theme.selected }]} lineBreakMode='tail' numberOfLines={1}>{cardData.class}</Text>
+        <Text style={[styles.deviceTitle, { color: theme.selected,}]} lineBreakMode='tail' numberOfLines={1}>{cardData.title}</Text>
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        {!collapsible && hasSettings && (
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Ionicons name="settings-outline" style={styles.Wrappericon} color={theme.whiteText} />
+          </TouchableOpacity>
+        )}
+        {!collapsible && (
+          <TouchableOpacity onPress={goToDevice}>
+            <Ionicons name="ellipsis-horizontal-circle-outline" style={styles.Wrappericon} color={theme.whiteText} />
+          </TouchableOpacity>
+        )}
+        {collapsible && (
+          <TouchableOpacity onPress={() => setCollapsed((prev: any) => !prev)}>
+            {collapsed ? (
+              <Ionicons name="chevron-down-circle-outline" style={styles.Wrappericon} color={theme.whiteText} />
+            ) : (
+              <Ionicons name="chevron-up-circle-outline" style={styles.Wrappericon} color={theme.whiteText} />
+            )}
+          </TouchableOpacity>
+        )}
+      </View>
+    </TouchableOpacity>
+  );
   
 
-  if (isHidden) return HiddenCard();
-  if (loading) return renderLoadingState();
-  if (error) return renderErrorState();
-  if (!cardData) return renderEmptyState();
+  if (isHidden) return RenderState('should be hidden', true, false);
+  if (loading) return RenderState('loading device', false, true);
+  if (!cardData) return RenderState('Device not found', false, false);
+  if (error) return RenderState('a problem acurred during loading configuration. Please try again.', false, false);
 
   return (
-    <View style={[styles.cardContainer, { backgroundColor: theme.card }]}>
-      <TouchableOpacity style={[styles.headerWrapper, { backgroundColor: theme.whisperGreen,}]} onPress={() => setCollapsed((prev: any) => !prev)}>
-        {cardData.iconlib === 'WpIcons' ? (
-          <WpIcons name={cardData.classIcon} style={styles.Wrappericon} color={theme.whiteText} />
-        ) : (
-          <MaterialCommunityIcons name={cardData.classIcon as any} style={styles.Wrappericon} color={theme.whiteText} />
-        )}
-        <View style={{ flex: 1 }}>
-          <Text style={[styles.deviceCategory, { color: theme.whiteText, borderColor: theme.selected }]}>{cardData.class}</Text>
-          <Text style={[styles.deviceTitle, { color: theme.selected,}]} lineBreakMode='tail' numberOfLines={1}>{cardData.title}</Text>
-        </View>
-        {collapsible &&
-          <TouchableOpacity style={{padding: 12}} onPress={() => setCollapsed((prev: any) => !prev)}>
-            {collapsed ? <Ionicons name='chevron-down' size={24} color={theme.whiteText} /> : <Ionicons name='chevron-up' size={24} color={theme.whiteText} />}
-          </TouchableOpacity>
-        }
-        </TouchableOpacity>
+    <View style={[styles.cardContainer, { backgroundColor: theme.card,}]}>
+        {renderHeader()}
         {collapsible ? <Collapsible collapsed={collapsed}>{renderMainContent()}</Collapsible> : renderMainContent()}
     </View>
   );
@@ -232,43 +224,42 @@ export default function DynamicCard ({ ID, hidden, numColumns }: DynamicCardProp
 
 const styles = StyleSheet.create({
   cardContainer: {
-    borderRadius: 8,
+    borderRadius: Math.max(verticalScale(8), 4),
     minWidth: 320,
-    maxWidth: 640,
-    flex: 1,
+    maxWidth: verticalScale(400),
+    flex: 1, 
     overflow: 'hidden',
   },
   headerWrapper: {
-    padding: 12,
-    gap: 12,
+    padding: Math.max(verticalScale(6), 8),
+    gap: Math.max(verticalScale(6), 8),
     flexDirection: 'row',
     alignItems: 'center',
   },
   MainContentContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingVertical: 8,
-    gap: 16,
-    flexBasis: 280,
+    justifyContent: 'space-evenly',
+    paddingVertical: Math.max(verticalScale(8), 4),
+    gap: Math.max(verticalScale(8), 4),
     flex: 1,
   },
-
   Wrappericon: {
-    fontSize: 48,
+    fontSize: Math.max(verticalScale(24), 16),
+  },
+  classIcon: {
+    fontSize: Math.max(verticalScale(36), 24),
   },
   deviceCategory: {
-    fontSize: 16,
+    fontSize: Math.max(verticalScale(8), 12),
     fontWeight: 'bold',
   },
   deviceTitle: {
-    fontSize: 24,
+    fontSize: Math.max(verticalScale(12), 12),
   },
   unit: {
-    fontSize: 16,
+    fontSize: Math.max(verticalScale(6), 6),
     textAlign: 'center',
     alignSelf: 'flex-end',
   },
-  
   layout: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -280,15 +271,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   status: {
-    paddingTop: 8,
+    paddingTop: Math.max(verticalScale(8), 4),
     alignItems: 'center',
   },
   statustext: {
-    fontSize: 20,
+    fontSize: Math.max(verticalScale(12), 10),
     fontWeight: 'bold',
   },
   text: {
-    fontSize: 24,
+    fontSize: Math.max(verticalScale(12), 12),
     fontWeight: 'bold',
   },
   buttonContainer: {
@@ -298,14 +289,14 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 5,
+    marginHorizontal: Math.max(verticalScale(5), 4),
+    paddingVertical: Math.max(verticalScale(5), 4),
+    borderRadius: Math.max(verticalScale(5), 4),
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: Math.max(verticalScale(12), 8),
     fontWeight: 'bold',
   },
   modalWrapper: {
@@ -316,14 +307,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
-    borderBottomStartRadius: 8,
-    borderBottomEndRadius: 8,
+    padding: Math.max(verticalScale(16), 12),
+    borderBottomStartRadius: Math.max(verticalScale(8), 4),
+    borderBottomEndRadius: Math.max(verticalScale(8), 4),
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: Math.max(verticalScale(12), 16),
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: Math.max(verticalScale(20), 12),
   },
   transparentCard: {
     backgroundColor: 'transparent',
@@ -336,4 +327,3 @@ const styles = StyleSheet.create({
     color: 'transparent',
   },
 });
-
