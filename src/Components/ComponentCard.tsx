@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, useWindowDimensions } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import WpIcons from '../icons/WhisperPowerIconLib';
@@ -28,7 +28,8 @@ interface GroupItem {
   [key: string]: SectionItem[];
 }
 
-export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: DynamicCardProps) {
+
+const DynamicCard = memo(function DynamicCard({ ID, hidden, numColumns, Iscollapsible }: DynamicCardProps) {
   // Hook Calls
   const theme = useTheme(); // Fetch theme
   const { loading, config, error } = useFetchConfig(); // Fetch configuration
@@ -220,7 +221,8 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
         {collapsible ? <Collapsible collapsed={collapsed}>{renderMainContent()}</Collapsible> : renderMainContent()}
     </View>
   );
-};
+});
+export default DynamicCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
