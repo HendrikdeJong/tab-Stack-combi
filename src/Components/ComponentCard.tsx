@@ -222,6 +222,7 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
   );
 };
 
+
 const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: Math.max(verticalScale(8), 4),
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingVertical: Math.max(verticalScale(8), 4),
     gap: Math.max(verticalScale(8), 4),
-    flex: 1,
+    aspectRatio: 1,
   },
   Wrappericon: {
     fontSize: Math.max(verticalScale(24), 16),
