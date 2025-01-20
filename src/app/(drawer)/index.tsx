@@ -73,64 +73,59 @@ export default function LandingPage() {
     }
 
     return (
-        <ImageBackground
-            source={require('assets/WP_BG_01.jpg')}
-            style={{ flex: 1, width: null, height: null,}}
-            resizeMode="cover"
-            blurRadius={10}
-        >
+        <View>
             {Platform.OS === "web" ? 
-                <FlatList
-                    data={dataWithGhosts}
-                    key={numColumns}
-                    numColumns={numColumns}
-                    keyExtractor={(item, index) => item.ID + index}
-                    renderItem={({ item }) => (
-                        <ComponentCard
-                            ID={item.ID}
-                            hidden={item.ID.startsWith("ghost-placeholder")}
-                            Iscollapsible={false}
-                            numColumns={numColumns}
-                        />
-                    )}
-                    contentContainerStyle={[width > 320? {padding: 16}: {paddingVertical: 16}, height > verticalScale(500) ? {justifyContent: "center",} : {justifyContent: "flex-start"}, {gap: 16 }]}
-                    columnWrapperStyle={numColumns > 1 ? { gap: 16, justifyContent: 'center',} : null}
-                    ListFooterComponent={
-                        <View style={styles.paginationContainer}>
-                            <TouchableOpacity
-                            onPress={() => setCurrentPage(prev => Math.max(prev - 1, 0))}
-                            disabled={currentPage === 0}>
-                                <Ionicons name="chevron-back" size={verticalScale(24)} color={theme.whisperGreen} />
-                            </TouchableOpacity>
-                                {Array.from({ length: totalPages }).map((_, index) => (
-                                    <TouchableOpacity key={index}style={[styles.paginationDot,{width: scale(12), borderRadius: scale(2), marginHorizontal: scale(2)}, index === currentPage ? {backgroundColor: theme.whiteText} : {backgroundColor: theme.whisperGreen}]} onPress={() => setCurrentPage(index)}/>
-                                ))}
-                            <TouchableOpacity
-                            onPress={() => setCurrentPage(prev => Math.min(prev + 1, totalPages - 1))}
-                            disabled={currentPage === totalPages - 1}>
-                                <Ionicons name="chevron-forward" size={verticalScale(24)} color={theme.whisperGreen} />
-                            </TouchableOpacity>
-                        </View>
-                    }
-                /> :
-                <FlatList
-                   data={devices}
-                   key={numColumns}
-                   numColumns={numColumns}
-                   keyExtractor={(item, index) => item.ID + index}
-                   renderItem={({ item }) => (
-                       <ComponentCard
-                           ID={item.ID}
-                           hidden={item.ID.startsWith("ghost-placeholder")}
-                           Iscollapsible={true}
-                           numColumns={numColumns}
-                       />
-                   )}
-                   contentContainerStyle={[width > 320? {padding: 16}: {paddingVertical: 16}, height > verticalScale(500) ? {justifyContent: "center",} : {justifyContent: "flex-start"}, {gap: 16 }]}
-                   columnWrapperStyle={numColumns > 1 ? { gap: 16, justifyContent: 'center',} : null}
-               />
+            <FlatList
+                data={dataWithGhosts}
+                key={numColumns}
+                numColumns={numColumns}
+                keyExtractor={(item, index) => item.ID + index}
+                renderItem={({ item }) => (
+                    <ComponentCard
+                        ID={item.ID}
+                        hidden={item.ID.startsWith("ghost-placeholder")}
+                        Iscollapsible={false}
+                        numColumns={numColumns}
+                    />
+                )}
+                contentContainerStyle={[width > 320? {padding: 16}: {paddingVertical: 16}, height > verticalScale(500) ? {justifyContent: "center",} : {justifyContent: "flex-start"}, {gap: 16 }]}
+                columnWrapperStyle={numColumns > 1 ? { gap: 16, justifyContent: 'center',} : null}
+                ListFooterComponent={
+                    <View style={styles.paginationContainer}>
+                        <TouchableOpacity
+                        onPress={() => setCurrentPage(prev => Math.max(prev - 1, 0))}
+                        disabled={currentPage === 0}>
+                            <Ionicons name="chevron-back" size={verticalScale(24)} color={theme.whisperGreen} />
+                        </TouchableOpacity>
+                            {Array.from({ length: totalPages }).map((_, index) => (
+                                <TouchableOpacity key={index}style={[styles.paginationDot,{width: scale(12), borderRadius: scale(2), marginHorizontal: scale(2)}, index === currentPage ? {backgroundColor: theme.whiteText} : {backgroundColor: theme.whisperGreen}]} onPress={() => setCurrentPage(index)}/>
+                            ))}
+                        <TouchableOpacity
+                        onPress={() => setCurrentPage(prev => Math.min(prev + 1, totalPages - 1))}
+                        disabled={currentPage === totalPages - 1}>
+                            <Ionicons name="chevron-forward" size={verticalScale(24)} color={theme.whisperGreen} />
+                        </TouchableOpacity>
+                    </View>
+                }
+            /> :
+            <FlatList
+                data={devices}
+                key={numColumns}
+                numColumns={numColumns}
+                keyExtractor={(item, index) => item.ID + index}
+                renderItem={({ item }) => (
+                    <ComponentCard
+                        ID={item.ID}
+                        hidden={item.ID.startsWith("ghost-placeholder")}
+                        Iscollapsible={true}
+                        numColumns={numColumns}
+                    />
+                )}
+                contentContainerStyle={[width > 320? {padding: 16}: {paddingVertical: 16}, height > verticalScale(500) ? {justifyContent: "center",} : {justifyContent: "flex-start"}, {gap: 16 }]}
+                columnWrapperStyle={numColumns > 1 ? { gap: 16, justifyContent: 'center',} : null}
+            />
         }
-        </ImageBackground>
+    </View>
     );
 }
 

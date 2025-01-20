@@ -88,9 +88,8 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
           return renderSection(sectionName, items, sectionIdx);
         })}
       </View>
-      {collapsible &&
-      renderButtons()}
-      {renderModal()}
+      {renderButtons()}
+      {/* {renderModal()} */}
     </View>
   );
 
@@ -138,39 +137,48 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
 
   const renderButtons = () => (
     <View style={styles.buttonContainer}>
-      {hasSettings && (
+      {/* {hasSettings && (
         <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(true)}>
           <Text style={[styles.buttonText, { color: theme.whiteText}]}>Settings</Text>
         </TouchableOpacity>
-      )}
+      )} */}
+      {firstOption?.buttons?.map((value, idx) => (
+        <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => handleButtonPress(value.name)}>
+          {loadingButton === value.name ? (
+            <ActivityIndicator size={styles.buttonText.fontSize} color={theme.whiteText} />
+          ) : (
+            <Text style={[styles.buttonText, { color: theme.whiteText }]}>{value.name}</Text>
+          )}
+        </TouchableOpacity>
+      ))}
       <TouchableOpacity style={[styles.button, {backgroundColor: theme.whisperGreen }]} onPress={goToDevice}>
         <Text style={[styles.buttonText, { color: theme.whiteText}]}>More <Ionicons style={styles.buttonText} name='open' /></Text>
       </TouchableOpacity>
     </View>
   );
 
-  const renderModal = () => (
-    modalVisible && hasSettings && (
-      <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
-        <Text style={[styles.modalTitle, { color: theme.text }]}>{firstOption?.label}</Text>
-        <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
-        <View style={styles.buttonContainer}>
-          {firstOption?.buttons?.map((value, idx) => (
-            <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => handleButtonPress(value.name)}>
-              {loadingButton === value.name ? (
-                <ActivityIndicator size={styles.buttonText.fontSize} color={theme.whiteText} />
-              ) : (
-                <Text style={[styles.buttonText, { color: theme.whiteText }]}>{value.name}</Text>
-              )}
-            </TouchableOpacity>
-          ))}
-          <TouchableOpacity style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(false)}>
-            <Text style={[styles.buttonText, { color: theme.whiteText }]}>Close</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
-  );
+  // const renderModal = () => (
+  //   modalVisible && hasSettings && (
+  //     <View style={[styles.modalWrapper, { backgroundColor: theme.border }]}>
+  //       <Text style={[styles.modalTitle, { color: theme.text }]}>{firstOption?.label}</Text>
+  //       <Text style={[styles.text, { color: theme.text, backgroundColor: theme.background, padding: 15, borderRadius: 8 }]}>{firstOption?.value}<Text style={styles.unit}>{firstOption?.unit || ''}</Text></Text>
+  //       <View style={styles.buttonContainer}>
+  //         {firstOption?.buttons?.map((value, idx) => (
+  //           <TouchableOpacity key={idx} style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => handleButtonPress(value.name)}>
+  //             {loadingButton === value.name ? (
+  //               <ActivityIndicator size={styles.buttonText.fontSize} color={theme.whiteText} />
+  //             ) : (
+  //               <Text style={[styles.buttonText, { color: theme.whiteText }]}>{value.name}</Text>
+  //             )}
+  //           </TouchableOpacity>
+  //         ))}
+  //         <TouchableOpacity style={[styles.button, { backgroundColor: theme.whisperGreen }]} onPress={() => setModalVisible(false)}>
+  //           <Text style={[styles.buttonText, { color: theme.whiteText }]}>Close</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </View>
+  //   )
+  // );
 
   const renderHeader = () => (
     cardData &&
@@ -185,7 +193,7 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
         <Text style={[styles.deviceTitle, { color: theme.selected,}]} lineBreakMode='tail' numberOfLines={1}>{cardData.title}</Text>
       </View>
       <View style={{ flexDirection: 'row' }}>
-        {!collapsible && hasSettings && (
+        {/* {!collapsible && hasSettings && (
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <Ionicons name="settings-outline" style={styles.Wrappericon} color={theme.whiteText} />
           </TouchableOpacity>
@@ -194,7 +202,7 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
           <TouchableOpacity onPress={goToDevice}>
             <Ionicons name="ellipsis-horizontal-circle-outline" style={styles.Wrappericon} color={theme.whiteText} />
           </TouchableOpacity>
-        )}
+        )} */}
         {collapsible && (
           <TouchableOpacity onPress={() => setCollapsed((prev: any) => !prev)}>
             {collapsed ? (
@@ -225,22 +233,21 @@ export default function DynamicCard ({ ID, hidden, numColumns, Iscollapsible }: 
 
 const styles = StyleSheet.create({
   cardContainer: {
-    borderRadius: Math.max(verticalScale(8), 4),
+    borderRadius: Math.max(verticalScale(12), 8),
     minWidth: 320,
     maxWidth: verticalScale(400),
     flex: 1, 
     overflow: 'hidden',
   },
   headerWrapper: {
-    padding: Math.max(verticalScale(6), 8),
-    gap: Math.max(verticalScale(6), 8),
+    padding: 16,
+    gap: 8,
     flexDirection: 'row',
     alignItems: 'center',
   },
   MainContentContainer: {
-    justifyContent: 'space-evenly',
-    paddingVertical: Math.max(verticalScale(8), 4),
-    gap: Math.max(verticalScale(8), 4),
+    justifyContent: 'space-between',
+    paddingVertical: 12,
     aspectRatio: 16/9,
   },
   Wrappericon: {
@@ -264,7 +271,6 @@ const styles = StyleSheet.create({
   layout: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    flex: 1,
   },
   layoutItem: {
     flex: 1,
@@ -272,7 +278,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   status: {
-    paddingTop: Math.max(verticalScale(8), 4),
     alignItems: 'center',
   },
   statustext: {
@@ -281,23 +286,24 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: Math.max(verticalScale(12), 12),
+    lineHeight: Math.max(verticalScale(8), 12),
     fontWeight: 'bold',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%',
+    paddingHorizontal: 12,
+    gap: 12,
   },
   button: {
     flex: 1,
-    marginHorizontal: Math.max(verticalScale(5), 4),
-    paddingVertical: Math.max(verticalScale(5), 4),
-    borderRadius: Math.max(verticalScale(5), 4),
+    paddingVertical: 8,
+    borderRadius: Math.max(verticalScale(24), 2),
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: Math.max(verticalScale(12), 8),
+    fontSize: Math.max(verticalScale(8), 8),
     fontWeight: 'bold',
   },
   modalWrapper: {

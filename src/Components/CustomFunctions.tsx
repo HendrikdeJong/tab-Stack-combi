@@ -73,16 +73,9 @@ export function useFetchConfig() {
   useEffect(() => {
     const fetchConfig = async () => {
         try {
-          let systemidvalue= getValueFor('systemID');
           await new Promise((resolve) => setTimeout(resolve, Math.random() * 500));
-          if (await systemidvalue === "1") {
-            const systemconfig: SystemConfig = require('../../DummyData/GatewayConfig.json');
+            const systemconfig: SystemConfig = require('../DummyData/GatewayConfig.json');
             setConfig(systemconfig);
-          } else {
-            const systemconfig: SystemConfig = require('../../DummyData/DemoLib.json');
-            setConfig(systemconfig);
-          }
-  
           // console.log('Fetched configuration:', systemconfig);
         } catch (error) {
           console.error('Failed to fetch configuration:', error);
