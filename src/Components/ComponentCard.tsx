@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingVertical: Math.max(verticalScale(8), 4),
     gap: Math.max(verticalScale(8), 4),
-    aspectRatio: 1,
+    aspectRatio: 16/9,
   },
   Wrappericon: {
     fontSize: Math.max(verticalScale(24), 16),
